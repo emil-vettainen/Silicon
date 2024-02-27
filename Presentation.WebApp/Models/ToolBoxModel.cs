@@ -2,8 +2,8 @@
 
 public class ToolBoxModel
 {
-    public string ImageUrl { get; set; } = null!;
-    public string ImageAlt { get; set; } = null!;
-    public string Title { get; set; } = null!;
-    public string Description { get; set; } = null!;
+    public string? ImageUrl { get; set; }
+    public string? ImageAlt { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
 }
