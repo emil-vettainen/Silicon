@@ -24,4 +24,12 @@ public class HomeViewModel
         new() {Icon = "fa-circle-check", Description = "Easiest way to track time spent on tasks"}
 
     ];
+
+    public List<DownloadAppModel> AppList { get; set; } = [
+
+        new() {Title = "App Store", SubTitle = "Editor´s Choice", Description = "rating 4.7, 187K+ reviews", StarRating = 4.7M , ImageUrl = "/images/download-app/appstore.svg", DownloadUrl = "#" },
+        new() {Title = "Google Play", SubTitle = "App of the Day", Description = "rating 4.8, 30K+ reviews", StarRating = 4.8M , ImageUrl = "/images/download-app/googleplay.svg",  DownloadUrl = "#" }
+
+    ];
+
 }

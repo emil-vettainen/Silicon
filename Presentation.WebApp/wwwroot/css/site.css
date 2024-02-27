@@ -488,6 +488,34 @@ a:hover {
   text-decoration: none;
 }
 
+.app {
+  display: grid;
+  grid-template-columns: 2fr;
+  align-items: end;
+  padding: 1rem 0;
+}
+.app .star-rating .fa-solid {
+  color: var(--clr-warning);
+}
+@media (min-width: 576px) {
+  .app {
+    grid-template-columns: 2fr;
+  }
+}
+@media (min-width: 768px) {
+  .app {
+    grid-template-columns: 2fr;
+  }
+}
+@media (min-width: 992px) {
+  .app {
+    grid-template-columns: 2fr auto;
+  }
+}
+.app .app-img {
+  padding-top: 1rem;
+}
+
 .our-tool {
   background-color: var(--clr-gray-100);
   padding: 3rem 0px;
@@ -742,5 +770,75 @@ a:hover {
   }
   .manage-work .container .work-list {
     grid-column: 9/13;
+  }
+}
+
+.our-app {
+  padding: 5rem 0;
+  background-color: var(--clr-gray-100);
+}
+.our-app .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+@media (min-width: 992px) {
+  .our-app .container {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0px;
+  }
+}
+.our-app .container .phones {
+  max-width: 60%;
+  align-self: center;
+}
+.our-app .container .content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+}
+@media (min-width: 576px) {
+  .our-app .container .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+@media (min-width: 992px) {
+  .our-app .container .content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+.our-app .container .content h1 {
+  line-height: 130%;
+  font-weight: 800;
+  color: var(--clr-gray-900);
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  text-align: center;
+  text-wrap: pretty;
+}
+@media (min-width: 992px) {
+  .our-app .container .content h1 {
+    line-height: 130%;
+    font-weight: 800;
+    color: var(--clr-gray-900);
+    font-family: "Manrope", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 2.5rem;
+    text-align: start;
   }
 }
