@@ -26,3 +26,12 @@
         </div>
     </div>
 </section>
+<section class="our-app">
+    <div class="container">
+        <img class="phones col-sm-12 col-md-5 col-lg-5 col-xl-5" src="~/images/download-app/phones.svg" alt="Phone">
+        <div class="col-sm-12 col-md-7 col-lg-5 col-xl-5 col-xxl-4 content">
+            <h1>Download Our App for Any Devices:</h1>
+            @await Html.PartialAsync("~/Views/Shared/_DownloadApp.cshtml", Model.AppList)
+        </div>
+    </div>
+</section>
