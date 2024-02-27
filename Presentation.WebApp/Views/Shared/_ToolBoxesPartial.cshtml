@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ToolBoxModel>
+<div class="toolboxes-grid">
+    @if (Model != null)
+    {
+        @foreach (var box in Model)
+        {
+            <div class="box">
+                <img src="@box.ImageUrl" alt="@box.ImageAlt">
+                <h5>@box.Title</h5>
+                <p>@box.Description</p>
+            </div>
+        }
+    }
+</div>
