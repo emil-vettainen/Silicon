@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\images\switch-between\mockup.svg" />
+    <None Include="wwwroot\images\switch-between\Slider.svg" />
     <None Include="wwwroot\images\tools\add-group.svg" />
     <None Include="wwwroot\images\tools\bell.svg" />
     <None Include="wwwroot\images\tools\chat.svg" />
