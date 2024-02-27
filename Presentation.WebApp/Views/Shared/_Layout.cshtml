@@ -12,7 +12,7 @@
     <div class="wrapper">
         <header></header>
         <main>@RenderBody()</main>
-        <footer></footer>
+        @await Html.PartialAsync("~/Views/Shared/Sections/_FooterPartial.cshtml")
     </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/41c8b474e2.js" crossorigin="anonymous"></script>
