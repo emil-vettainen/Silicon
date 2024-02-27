@@ -32,4 +32,18 @@ public class HomeViewModel
 
     ];
 
+    public List<ToolBoxModel> CompanyBoxes { get; set; } = [
+    
+        new() {ImageUrl = "/images/work-tools/google.svg", ImageAlt = "Google", Description = "Lorem magnis pretium sed curabitur nunc facilisi nunc cursus sagittis." },
+        new() {ImageUrl = "/images/work-tools/zoom.svg", ImageAlt = "Zoom", Description = "In eget a mauris quis. Tortor dui tempus quis integer est sit natoque placerat dolor." },
+        new() {ImageUrl = "/images/work-tools/zlack.svg", ImageAlt = "Zlack", Description = "Id mollis consectetur congue egestas egestas suspendisse blandit justo." },
+        new() {ImageUrl = "/images/work-tools/gmail.svg", ImageAlt = "Gmail", Description = "Rutrum interdum tortor, sed at nulla. A cursus bibendum elit purus cras praesent." },
+        new() {ImageUrl = "/images/work-tools/trello.svg", ImageAlt = "Trello", Description = "Congue pellentesque amet, viverra curabitur quam diam scelerisque fermentum urna." },
+        new() {ImageUrl = "/images/work-tools/mailchimp.svg", ImageAlt = "Mailchimp", Description = "A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris." },
+        new() {ImageUrl = "/images/work-tools/dropbox.svg", ImageAlt = "Dropbox", Description = "Ut in turpis consequat odio diam lectus elementum. Est faucibus blandit platea." },
+        new() {ImageUrl = "/images/work-tools/evernote.svg", ImageAlt = "Evernote", Description = "Faucibus cursus maecenas lorem cursus nibh. Sociis sit risus id. Sit facilisis dolor arcu." },
+
+
+    ];
+
 }

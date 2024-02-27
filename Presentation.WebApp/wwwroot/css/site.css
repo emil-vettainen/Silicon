@@ -842,3 +842,78 @@ a:hover {
     text-align: start;
   }
 }
+
+.work-tools {
+  padding: 5rem 0;
+}
+.work-tools .container h1 {
+  line-height: 130%;
+  font-weight: 800;
+  color: var(--clr-gray-900);
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+}
+@media (min-width: 768px) {
+  .work-tools .container h1 {
+    line-height: 130%;
+    font-weight: 800;
+    color: var(--clr-gray-900);
+    font-family: "Manrope", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 2.5rem;
+  }
+}
+.work-tools .container .text-l {
+  text-wrap: pretty;
+}
+@media (min-width: 768px) {
+  .work-tools .container .text-l {
+    text-wrap: balance;
+  }
+}
+.work-tools .container .tools {
+  padding: 2rem 0;
+}
+.work-tools .container .tools .box {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+.work-tools .container .tools .box .text-m {
+  padding-top: 20px;
+  text-align: center;
+}
+@media (min-width: 1200px) {
+  .work-tools .container .tools .box .text-m {
+    text-align: start;
+  }
+}
+.work-tools .container .tools .box:hover {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  background-color: var(--background-color);
+  box-shadow: 0px 2px 6.4px -1px rgba(19, 16, 34, 0.03), 0px 4.4px 12px -1px rgba(19, 16, 34, 0.06);
+}
+@media (min-width: 576px) {
+  .work-tools .container .tools .box {
+    grid-column: span 6;
+  }
+}
+@media (min-width: 992px) {
+  .work-tools .container .tools .box {
+    grid-column: span 4;
+  }
+}
+@media (min-width: 1200px) {
+  .work-tools .container .tools .box {
+    align-items: flex-start;
+    justify-content: flex-start;
+    grid-column: span 3;
+  }
+}

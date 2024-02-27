@@ -35,3 +35,23 @@
         </div>
     </div>
 </section>
+<section class="work-tools">
+    <div class="container">
+        <h1 class="text-center">Integrate Top Work Tools</h1>
+        <p class="text-l text-center pt-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+            volutpat mollis
+            egestas. Nam luctus facilisis ultrices. Pellentesque volutpat ligula est. Mattis fermentum, at nec
+            lacus.
+        </p>
+        <div class="tools grid-12">
+            @foreach(var boxes in Model.CompanyBoxes)
+            {
+                <div class="box">
+                    <img src="@boxes.ImageUrl" alt="@boxes.ImageAlt">
+                    <p class="text-m">@boxes.Description</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
