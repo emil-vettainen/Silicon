@@ -93,3 +93,26 @@ h6, .h6 {
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
+
+.icon-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0;
+
+
+    li {
+        padding: 6px 0;
+        //text-indent: -11px;
+        position: relative;
+        padding-left: 30px;
+    }
+
+    i {
+        color: var(--clr-theme);
+        //margin-right: 7px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

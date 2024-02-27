@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\images\manage-your-work\manage_work.svg" />
     <None Include="wwwroot\images\switch-between\mockup.svg" />
     <None Include="wwwroot\images\switch-between\Slider.svg" />
     <None Include="wwwroot\images\tools\add-group.svg" />

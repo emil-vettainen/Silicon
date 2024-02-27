@@ -14,4 +14,14 @@ public class HomeViewModel
         new() { ImageUrl = "/images/tools/shield.svg", ImageAlt = "Data Security", Title = "Data Security", Description = "Aliquam malesuada neque eget elit nulla vestibulum nunc cras.",},
 
     ];
+
+    public List<UnsortedListModel> UnsortedList { get; set; } = [
+
+        new() {Icon = "fa-circle-check", Description = "Powerful project management"},
+        new() {Icon = "fa-circle-check", Description = "Transparent work management"},
+        new() {Icon = "fa-circle-check", Description = "Manage work & focus on the most important tasks"},
+        new() {Icon = "fa-circle-check", Description = "Track your progress with interactive charts"},
+        new() {Icon = "fa-circle-check", Description = "Easiest way to track time spent on tasks"}
+
+    ];
 }
