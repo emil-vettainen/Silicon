@@ -1,0 +1,136 @@
+.newsletter {
+    background-color: var(--clr-gray-100);
+    padding: 5rem 0;
+    .container {
+
+        .content {
+            grid-column: 1/13;
+            position: relative;
+
+            @include lg {
+                grid-column: 2/12;
+            }
+
+
+            @include xl {
+                grid-column: 3/11;
+            }
+
+            h1 {
+                @include h2;
+                text-align: center;
+                padding: 1rem 0;
+
+
+                @include md {
+                    @include h1;
+                    padding: 2rem 0;
+                    text-align: start;
+                }
+            }
+
+            img {
+                display: none;
+
+                @include lg {
+                    position: absolute;
+                    display: block;
+                    top: 2rem;
+                    right: 5rem;
+                }
+
+
+                @include xxl {
+                    position: absolute;
+                    display: block;
+                    top: 2rem;
+                    right: 12rem;
+                }
+            }
+
+            .options {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                @include lg {
+                    flex-direction: row;
+                    align-items: center;
+                }
+
+                h5 {
+                    text-align: center;
+                    text-wrap: pretty;
+
+                    @include md {
+                        text-align: start;
+                    }
+
+
+                    @include lg {
+                        width: 20%;
+                    }
+                }
+
+                .checkboxes {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    flex-grow: 1;
+                    gap: .5rem;
+
+
+                    @include sm {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+            }
+
+            form {
+                padding: 3rem 0;
+
+                @include md {
+                    padding: 4rem 0;
+                }
+
+                .input-group {
+                    display: flex;
+                    flex-direction: column;
+                    column-gap: 2rem;
+                    row-gap: .5rem;
+                    position: relative;
+
+                    input {
+                        width: 100%;
+                    }
+
+                    i {
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        
+                        font-size: 1.5rem;
+                        z-index: 999;
+                    }
+
+                    label {
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    @include md {
+                        flex-direction: row;
+
+
+                        input {
+                            width: 50%;
+                        }
+
+                        label {
+                            text-align: start;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
