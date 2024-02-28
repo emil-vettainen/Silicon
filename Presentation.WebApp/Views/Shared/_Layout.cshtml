@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <header></header>
+        @await Html.PartialAsync("~/Views/Shared/Sections/_HeaderPartial.cshtml")
         <main>@RenderBody()</main>
         @await Html.PartialAsync("~/Views/Shared/Sections/_FooterPartial.cshtml")
     </div>
