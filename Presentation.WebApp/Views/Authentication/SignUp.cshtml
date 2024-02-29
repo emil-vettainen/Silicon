@@ -8,7 +8,7 @@
     <div class="container">
         <form method="post" asp-controller="Authentication" asp-action="SignUp" novalidate>
             <h1>Create Account</h1>
-            <p>Already have an account?<a>Sign in here</a></p>
+            <p>Already have an account? <a asp-action="SignIn">Sign in here.</a></p>
 
             <div class="content">
 
@@ -44,7 +44,7 @@
 
                 <div id="form-terms" class="checkbox-group">
                     <input asp-for="SignUp.TermsAndConditions" class="form-check-input" type="checkbox"/>
-                    <label asp-for="SignUp.TermsAndConditions">I agree to the <a>Terms</a> & <a>Conditions</a> </label>
+                    <label asp-for="SignUp.TermsAndConditions">I agree to the <a asp-action="Terms">Terms</a> & <a asp-action="Conditions">Conditions</a> </label>
                     <span asp-validation-for="SignUp.TermsAndConditions" class="invalid-feedback"></span>
                 </div>
 

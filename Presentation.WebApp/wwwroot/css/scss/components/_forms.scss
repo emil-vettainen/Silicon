@@ -2,22 +2,22 @@ form {
     display: grid;
 
     .content {
-
         display: flex;
         flex-direction: column;
         gap: 1rem;
 
+
+
         .input-group {
-            display: grid;
+            display: flex;
+            justify-content: flex-start;
+            align-content: flex-start;
 
 
             input {
                 padding: 1rem;
-              
                 border-radius: 6px !important;
-
-
-                
+                display: flex;
                 /*   &.input-validation-error {
                 border: 1px solid var(--clr-danger);
                 color: var(--clr-danger);
@@ -42,11 +42,16 @@ form {
             .form-control {
                 padding: 1rem;
                 width: 100%;
-
                 box-shadow: none;
-                 &.is-invalid {
+
+                &.is-invalid {
                     border-color: var(--clr-danger);
                 }
+            }
+
+
+            .span {
+                padding-bottom: 1rem;
             }
             /* .invalid-feedback {
            margin: 0;
@@ -99,7 +104,6 @@ form {
 
             .form-check-input {
                 border: 1px solid var(--clr-gray-500);
-
                 box-shadow: none;
 
                 &.is-invalid {
@@ -110,7 +114,6 @@ form {
             span {
                 width: 100%;
                 margin: 0;
-                
             }
             /*input[type="checkbox"] {
                 height: 1.2rem;
@@ -162,6 +165,12 @@ form {
 
 
         .invalid-feedback {
+        }
+
+
+
+        .btn-theme-large {
+            @include theme-shadow;
         }
     }
 }
