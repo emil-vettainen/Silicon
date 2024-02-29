@@ -289,11 +289,11 @@ h6, .h6 {
   align-items: center;
   gap: 12px;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
   font-size: 0.875rem;
   padding: 9px 20px;
 }
 .btn-theme-small:hover {
-  text-decoration: none;
   background: var(--clr-gray-700);
   color: var(--clr-white);
 }
@@ -311,11 +311,11 @@ h6, .h6 {
   align-items: center;
   gap: 12px;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
   font-size: 0.875rem;
   padding: 11px 28px;
 }
 .btn-theme-medium:hover {
-  text-decoration: none;
   background: var(--clr-gray-700);
   color: var(--clr-white);
 }
@@ -333,11 +333,11 @@ h6, .h6 {
   align-items: center;
   gap: 12px;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
   font-size: 1rem;
   padding: 13px 32px;
 }
 .btn-theme-large:hover {
-  text-decoration: none;
   background: var(--clr-gray-700);
   color: var(--clr-white);
 }
@@ -355,13 +355,13 @@ h6, .h6 {
   align-items: center;
   gap: 12px;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
   background-color: var(--clr-gray-200);
   color: var(--clr-gray-900);
   font-size: 0.875rem;
   padding: 9px 20px;
 }
 .btn-gray-small:hover {
-  text-decoration: none;
   background: var(--clr-gray-700);
   color: var(--clr-white);
 }
@@ -464,9 +464,10 @@ a {
   color: var(--clr-theme);
   text-decoration: none;
   transition: all 0.2s ease-in-out;
+  text-decoration: underline;
 }
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .menu-link {
@@ -533,7 +534,9 @@ form .content {
   }*/
 }
 form .content .input-group {
-  display: grid;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
   /* .invalid-feedback {
              margin: 0;
              width: fit-content;
@@ -570,6 +573,7 @@ form .content .input-group {
 form .content .input-group input {
   padding: 1rem;
   border-radius: 6px !important;
+  display: flex;
   /*   &.input-validation-error {
       border: 1px solid var(--clr-danger);
       color: var(--clr-danger);
@@ -597,6 +601,9 @@ form .content .input-group .form-control {
 }
 form .content .input-group .form-control.is-invalid {
   border-color: var(--clr-danger);
+}
+form .content .input-group .span {
+  padding-bottom: 1rem;
 }
 form .content .input-group label {
   margin-bottom: 3px;
@@ -641,6 +648,10 @@ form .content textarea.input-validation-error {
 form .content textarea.input-validation-error::placeholder {
   color: var(--clr-danger);
 }
+form .content .btn-theme-large {
+  box-shadow: 0px 8px 18px -8px rgba(99, 102, 241, 0.9);
+}
+
 header .navbar {
   padding: 0;
 }
@@ -1305,6 +1316,9 @@ footer .container .social-media {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
+}
+#signup .container h1 {
+  padding-bottom: 0.5rem;
 }
 #signup .container form {
   grid-column: 1/13;
