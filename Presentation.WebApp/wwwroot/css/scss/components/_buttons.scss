@@ -11,9 +11,10 @@
     align-items: center;
     gap: 12px;
     transition: all .2s ease-in-out;
+    text-decoration: none;
+  
 
     &:hover {
-        text-decoration: none;
         background: var(--clr-gray-700);
         color: var(--clr-white);
     }
@@ -43,6 +44,16 @@
     color: var(--clr-gray-900);
     font-size: .875rem;
     padding: 9px 20px;
+}
+
+.btn-gray-medium {
+    @include button;
+    background-color: var(--clr-gray-200);
+    color: var(--clr-gray-900);
+    font-size: .875rem;
+    padding: 11px 28px;
+   
+  
 }
 
 .btn-switch {
