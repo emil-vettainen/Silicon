@@ -1,3 +1,5 @@
+using Presentation.WebApp.ViewModels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -6,7 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
 
-
+builder.Services.AddTransient<AuthenticationViewModel>();
 
 
 var app = builder.Build();

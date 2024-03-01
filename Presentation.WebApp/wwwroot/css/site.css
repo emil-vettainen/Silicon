@@ -276,6 +276,24 @@ h6, .h6 {
   transform: translateY(-50%);
 }
 
+.error-message {
+  line-height: 160%;
+  font-weight: 400;
+  color: var(--clr-gray-700);
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid red;
+  background-color: var(--clr-danger);
+  color: var(--clr-white);
+  padding: 11px 28px;
+  border-radius: 6px;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+
 .btn-theme-small {
   background-color: var(--clr-theme);
   border-radius: 6px;
@@ -362,6 +380,30 @@ h6, .h6 {
   padding: 9px 20px;
 }
 .btn-gray-small:hover {
+  background: var(--clr-gray-700);
+  color: var(--clr-white);
+}
+
+.btn-gray-medium {
+  background-color: var(--clr-theme);
+  border-radius: 6px;
+  border: none;
+  line-height: 160%;
+  color: var(--clr-white);
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  background-color: var(--clr-gray-200);
+  color: var(--clr-gray-900);
+  font-size: 0.875rem;
+  padding: 11px 28px;
+}
+.btn-gray-medium:hover {
   background: var(--clr-gray-700);
   color: var(--clr-white);
 }
@@ -1371,4 +1413,87 @@ footer .container .social-media {
 }
 #signup .container form .content #form-submit {
   grid-area: button;
+}
+
+#signin {
+  padding: 2rem 0;
+}
+#signin .container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+#signin .container h1 {
+  padding-bottom: 0.5rem;
+}
+#signin .container form {
+  grid-column: 1/13;
+}
+@media (min-width: 992px) {
+  #signin .container form {
+    grid-column: 3/11;
+  }
+}
+@media (min-width: 1200px) {
+  #signin .container form {
+    grid-column: 4/10;
+  }
+}
+@media (min-width: 1400px) {
+  #signin .container form {
+    padding: 0 3rem;
+  }
+}
+#signin .container form .content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "email" "password" "remember" "button" "forgot" "hr" "external";
+}
+#signin .container form .content .checkbox-group .form-check-input:checked {
+  background-color: var(--clr-success);
+}
+#signin .container form .content #form-email {
+  grid-area: email;
+}
+#signin .container form .content #form-password {
+  grid-area: password;
+}
+#signin .container form .content #form-remember {
+  grid-area: remember;
+}
+#signin .container form .content #form-submit {
+  grid-area: button;
+}
+#signin .container form .content #form-forgot-password {
+  grid-area: forgot;
+  text-align: center;
+  text-decoration: none;
+  color: var(--clr-theme);
+  font-weight: 600;
+}
+#signin .container form .content #form-hr {
+  grid-area: hr;
+}
+#signin .container form .content #external-signin {
+  grid-area: external;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+#signin .container form .content #external-signin h6 {
+  width: 100%;
+  text-align: center;
+}
+#signin .container form .content #external-signin button {
+  flex: 1;
+}
+@media (min-width: 576px) {
+  #signin .container form .content #external-signin {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+  }
 }

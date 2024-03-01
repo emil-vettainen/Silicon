@@ -116,3 +116,15 @@ h6, .h6 {
         transform: translateY(-50%);
     }
 }
+
+.error-message {
+    @include text-m;
+    text-align: center;
+    border: 1px solid red;
+    background-color: var(--clr-danger);
+    color: var(--clr-white);
+    padding: 11px 28px;
+    border-radius: 6px;
+    margin-bottom: .6rem;
+    font-weight: 600;
+}
