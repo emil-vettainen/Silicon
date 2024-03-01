@@ -11,22 +11,26 @@ public class AuthenticationController : Controller
     [Route("/register")]
     public IActionResult SignUp()
     {
-        var viewModel = new SignUpModel();
+        var viewModel = new SignUpViewModel();
         return View(viewModel);
     }
 
     [Route("/register")]
     [HttpPost]
-    public IActionResult SignUp(SignUpModel viewModel)
+    public IActionResult SignUp(SignUpViewModel viewModel)
     {
-        if(ModelState.IsValid)
+        if(!ModelState.IsValid)
         {
-            // registrera 
+           return View(viewModel);  
 
-            return RedirectToAction("Index", "Home");
+           
         }
 
+        viewModel.ErrorMessage = "Email is already exists";
+
         return View(viewModel);
+
+        
     }
 
     [Route("/signin")]
