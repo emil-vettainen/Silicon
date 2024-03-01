@@ -9,9 +9,12 @@
             <h1>Welcome Back</h1>
             <p>Don´t have an account yet? <a asp-action="SignUp">Sign up here.</a></p>
 
-            <div class="error-message">
-                @Model.ErrorMessage
-            </div>
+            @if(Model.ErrorMessage != null)
+            {
+                <div class="error-message">
+                    @Model.ErrorMessage
+                </div>
+            }
 
             <div class="content">
                 <div id="form-email" class="input-group">
