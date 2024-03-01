@@ -1,0 +1,46 @@
+﻿@model SignInViewModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<section id="signin">
+    <div class="container">
+        <form method="post" asp-controller="Authentication" asp-action="SignIn" novalidate>
+            <h1>Welcome Back</h1>
+            <p>Don´t have an account yet? <a asp-action="SignUp">Sign up here.</a></p>
+
+            <div class="error-message">
+                @Model.ErrorMessage
+            </div>
+
+            <div class="content">
+                <div id="form-email" class="input-group">
+                    <label asp-for="SignIn.Email"></label>
+                    <input asp-for="SignIn.Email" class="form-control" />
+                    <span asp-validation-for="SignIn.Email" class="invalid-feedback"></span>
+                </div>
+                <div id="form-password" class="input-group">
+                    <label asp-for="SignIn.Password"></label>
+                    <input asp-for="SignIn.Password" class="form-control" />
+                    <span asp-validation-for="SignIn.Password" class="invalid-feedback"></span>
+                </div>
+                <div id="form-remember" class="checkbox-group">
+                    <input asp-for="SignIn.RememberMe" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SignIn.RememberMe)
+                </div>
+                <button id="form-submit" class="btn-theme-large" type="submit">Sign In</button>
+
+                <a id="form-forgot-password" class="text-m">Forgot your password?</a>
+                <hr id="form-hr" />
+                <div id="external-signin">
+                    <h6>Or sign in with your social network</h6>
+                    <button id="external-google" class="btn-gray-medium"><i class="fa-brands fa-google"></i>Google</button>
+                    <button id="external-facebook" class="btn-gray-medium"><i class="fa-brands fa-facebook-f"></i>Facebook</button>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Shared/_SignInScriptPartial.cshtml");
