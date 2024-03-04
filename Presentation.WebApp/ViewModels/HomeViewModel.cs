@@ -4,6 +4,9 @@ namespace Presentation.WebApp.ViewModels;
 
 public class HomeViewModel
 {
+
+    public BaseInfoModel BaseInfo { get; set; } = new();
+
     public List<ToolBoxModel> ToolBoxes { get; set; } = [
 
         new() { ImageUrl = "/images/tools/chat.svg", ImageAlt = "Comments on Tasks", Title = "Comments on Tasks", Description = "Id mollis consectetur congue egestas egestas suspendisse blandit justo.",},

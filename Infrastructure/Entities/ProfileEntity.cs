@@ -7,7 +7,7 @@ public class ProfileEntity
 {
     [Key]
     [ForeignKey(nameof(AccountEntity))]
-    public Guid AccountId { get; set; }
+    public string UserId { get; set; } = null!;
     public virtual AccountEntity Account { get; set; } = null!;
 
     [Required]

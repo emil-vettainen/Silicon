@@ -141,6 +141,9 @@ const checkboxValidator = (element) => {
 
 let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input')
+let submitButton = document.getElementById('form-submit')
+let spinner = document.getElementById('spinner')
+let buttonText = document.getElementById('button-text')
 
 inputs.forEach(input => {
 
@@ -179,7 +182,7 @@ inputs.forEach(input => {
 
         }
 
-
+        
 
 
 
@@ -187,3 +190,20 @@ inputs.forEach(input => {
 
 
 })
+
+
+forms.forEach(form => {
+
+    addEventListener("submit", function (event) {
+
+        submitButton.disabled = true;
+        buttonText.style.display = none;
+        spinner.style.display = "inline-block"
+        
+    })
+   
+})
+
+
+
+

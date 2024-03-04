@@ -3,6 +3,7 @@ using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Shared.Utilis;
+using System.Linq.Expressions;
 
 namespace Business.Services;
 
@@ -17,39 +18,60 @@ public class ProfileService
         _errorLogger = errorLogger;
     }
 
+    public async Task<ProfileEntity> GetOneProfileAsync(Expression<Func<ProfileEntity, bool>> predicate)
+    {
+        try
+        {
+            var profile = await _profileRepository.GetOneAsync(predicate);
+            if(profile != null)
+            {
+                return profile;
+            }
 
-    public async Task<ProfileEntity> CreateProfileEntityAsync(ProfileDto dto, Guid AccountId)
+        }
+        catch (Exception)
+        {
+
+            
+        }
+        return null!;
+    }
+
+
+ 
+
+    public async Task<bool> CreateProfileEntityAsync(ProfileDto dto)
     {
         try
         {
             var result = await _profileRepository.CreateAsync(new ProfileEntity
             {
-                AccountId = AccountId,
+                UserId = dto.UserId,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
             });
-            return result;
+            return result != null;
         }
         catch (Exception)
         {
 
            
         }
-        return null!;
+        return false;
     }
 
 
-    public async Task<bool> UploadProfileImageAsync(Guid AccountId, IFormFile profileImage)
+    public async Task<bool> UploadProfileImageAsync(string UserId, IFormFile profileImage)
     {
         try
         {
             var imagePath = await SaveImageToFileAsync(profileImage);
 
-            var profile = await _profileRepository.GetOneAsync(x => x.AccountId == AccountId);
+            var profile = await _profileRepository.GetOneAsync(x => x.UserId == UserId);
             if(profile != null)
             {
                 profile.ProfileImageUrl = imagePath;
-                var result = await _profileRepository.UpdateAsync(x => x.AccountId == AccountId, profile);
+                var result = await _profileRepository.UpdateAsync(x => x.UserId == UserId, profile);
                 if(result != null)
                 {
                     return true;
@@ -68,13 +90,13 @@ public class ProfileService
     }
 
 
-    public async Task<bool> UpdateProfileEntityAsync(Guid AccountId, string firstName, string lastName, string? biography)
+    public async Task<bool> UpdateProfileEntityAsync(string UserId, string firstName, string lastName, string? biography)
     {
         try
         {
-            var newProfileEntity = await _profileRepository.UpdateAsync(x => x.AccountId == AccountId, new ProfileEntity
+            var newProfileEntity = await _profileRepository.UpdateAsync(x => x.UserId == UserId, new ProfileEntity
             {
-                AccountId = AccountId,
+                UserId = UserId,
                 FirstName = firstName,
                 LastName = lastName,
                 Biography = biography

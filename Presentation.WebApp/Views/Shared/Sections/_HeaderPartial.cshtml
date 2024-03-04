@@ -1,4 +1,8 @@
-﻿<header>
+﻿@using Infrastructure.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AccountEntity> _signInManager
+
+<header>
     <nav class="navbar navbar-expand-xl container hamburger-menu">
         <div class="container">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="logo-img" src="~/images/logo/logo-light.svg" alt="SiliconDesign"></a>
@@ -34,10 +38,21 @@
                             </label>
                             <label>Dark</label>
                         </div>
-                        <div>
-                            <a class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
-                            <a class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
-                        </div>
+
+                        @if(_signInManager.IsSignedIn(User))
+                        {
+                            <div>
+                                <a asp-action="Logout" asp-controller="Authentication">Logga ut</a>
+                                <p>@ViewData["UserName"]</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <a class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
+                                <a class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
