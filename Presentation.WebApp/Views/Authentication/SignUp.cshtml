@@ -10,6 +10,8 @@
             <h1>Create Account</h1>
             <p>Already have an account? <a asp-action="SignIn">Sign in here.</a></p>
 
+            <div asp-validation-summary="ModelOnly" class="error-message"></div>
+
             @if (Model.ErrorMessage != null)
             {
                 <div class="error-message">
@@ -55,7 +57,11 @@
                     <span asp-validation-for="SignUp.TermsAndConditions" class="invalid-feedback"></span>
                 </div>
 
-                <button id="form-submit" class="btn-theme-large" type="submit">Sign Up</button>
+                <button id="form-submit" class="btn-theme-large" type="submit">
+                    <span id="button-text">Sign Up</span>
+                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                </button>
+                
             </div>
         </form>
     </div>

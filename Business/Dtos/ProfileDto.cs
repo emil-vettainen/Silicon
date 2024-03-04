@@ -4,7 +4,7 @@ namespace Business.Dtos;
 
 public class ProfileDto
 {
-    public Guid AccountId { get; set; }
+    public string UserId { get; set; } = null!;
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string? Biography { get; set; }
