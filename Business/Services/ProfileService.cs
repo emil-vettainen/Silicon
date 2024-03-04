@@ -3,6 +3,7 @@ using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Shared.Utilis;
+using System.Linq.Expressions;
 
 namespace Business.Services;
 
@@ -17,6 +18,27 @@ public class ProfileService
         _errorLogger = errorLogger;
     }
 
+    public async Task<ProfileEntity> GetOneProfileAsync(Expression<Func<ProfileEntity, bool>> predicate)
+    {
+        try
+        {
+            var profile = await _profileRepository.GetOneAsync(predicate);
+            if(profile != null)
+            {
+                return profile;
+            }
+
+        }
+        catch (Exception)
+        {
+
+            
+        }
+        return null!;
+    }
+
+
+ 
 
     public async Task<bool> CreateProfileEntityAsync(ProfileDto dto)
     {

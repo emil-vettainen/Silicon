@@ -720,7 +720,7 @@ header .navbar .container .navbar-toggler i {
 }
 header .navbar .container .offcanvas .offcanvas-header {
   background-color: var(--background-color);
-  justify-content: end;
+  justify-content: space-between;
   padding: 20px;
 }
 header .navbar .container .offcanvas .offcanvas-header .navbar-toggler i {

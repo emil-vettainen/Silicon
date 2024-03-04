@@ -100,4 +100,13 @@ public class AuthenticationController : Controller
     }
 
 
+    public async Task<IActionResult> LogOut()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
+    }
+
+
+
+   
 }
