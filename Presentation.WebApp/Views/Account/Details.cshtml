@@ -1,0 +1,98 @@
+﻿@model AccountDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="account-details">
+    <div class="container grid-12">
+
+        
+        @await Component.InvokeAsync("AccountPanel")
+
+      
+
+
+        <div class="account-form">
+
+          
+
+
+            <h2>Account Details</h2>
+
+
+            <div class="basic-info">
+                <h5>Basic Info</h5>
+               
+
+                <form method="post" asp-controller="Account" asp-action="Details" novalidate>
+                   
+
+                    <div asp-validation-summary="ModelOnly" class="error-message"></div>
+
+                
+
+                    <div class="content">
+                        <div id="form-firstname" class="input-group">
+                            <label asp-for="BaseInfo.FirstName"></label>
+                            <input asp-for="BaseInfo.FirstName" class="form-control" />
+                            <span asp-validation-for="BaseInfo.FirstName" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-lastname" class="input-group">
+                            <label asp-for="BaseInfo.LastName"></label>
+                            <input asp-for="BaseInfo.LastName" class="form-control" />
+                            <span asp-validation-for="BaseInfo.LastName" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-email" class="input-group">
+                            <label asp-for="BaseInfo.Email"></label>
+                            <input asp-for="BaseInfo.Email" class="form-control" />
+                            <span asp-validation-for="BaseInfo.Email" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-phone" class="input-group">
+                            <label asp-for="BaseInfo.Phone"></label>
+                            <input asp-for="BaseInfo.Phone" class="form-control" />
+                            <span asp-validation-for="BaseInfo.Phone" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-bio" class="input-group">
+                            <label asp-for="BaseInfo.Biography"></label>
+                            <input asp-for="BaseInfo.Biography" class="form-control" />
+                            <span asp-validation-for="BaseInfo.Biography" class="invalid-feedback"></span>
+                        </div>
+
+
+
+                        <div id="form-buttons">
+                            <button class="btn-gray-small" type="reset"> Cancel</button>
+                            <button id="submitButton" class="btn-theme-small" type="submit" name="FormType" value="BasicInfo">Save changes</button>
+                        </div>
+
+                       
+
+
+                    </div>
+                </form>
+
+
+
+            </div>
+
+            <hr />
+
+
+            <div class="address-info">
+                <h5>Address</h5>
+               
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+<script src="~/js/sign-up-validation.js" defer></script>

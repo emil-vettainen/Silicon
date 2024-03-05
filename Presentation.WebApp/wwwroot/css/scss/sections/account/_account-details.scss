@@ -1,0 +1,160 @@
+.account-details {
+
+
+    .container {
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+        position: relative;
+
+        
+
+        .account-form {
+            grid-column: 1 / 13;
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-top: 2rem;
+
+            @include xxl {
+                grid-column: 5/13;
+            }
+
+
+            .basic-info {
+
+
+
+                h5 {
+                    color: var(--clr-theme);
+                    padding-bottom: 20px;
+                }
+
+                form {
+
+                    .content {
+                        display: grid;
+                        gap: 1rem;
+                        grid-template-columns: 1fr;
+                        grid-template-areas: "firstname" "lastname" "email" "phone" "bio" "button";
+
+                        @include md {
+                            grid-template-columns: repeat(2, 1fr);
+                            grid-template-areas: "firstname lastname" "email phone" "bio bio" "button button";
+                        }
+
+
+
+                        #form-firstname {
+                            grid-area: firstname;
+                        }
+
+                        #form-lastname {
+                            grid-area: lastname;
+                        }
+
+                        #form-email {
+                            grid-area: email;
+                        }
+
+                        #form-phone {
+                            grid-area: phone;
+                        }
+
+                        #form-bio {
+                            grid-area: bio;
+
+                            label {
+
+                                span {
+                                    color: var(--clr-gray-500);
+                                    @include text-s;
+                                }
+                            }
+                        }
+
+                        #form-buttons {
+                            grid-area: button;
+                            padding-top: 1rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1rem;
+
+                            @include xxl {
+                                flex-direction: row;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+            .address-info {
+
+                h5 {
+                    color: var(--clr-theme);
+                    padding-bottom: 20px;
+                }
+
+                form {
+                    .content {
+                        display: grid;
+                        gap: 1rem;
+                        grid-template-columns: 1fr;
+                        grid-template-areas: "address_1" "address_2" "postalcode" "city" "button";
+
+                        @include md {
+                            grid-template-columns: repeat(2, 1fr);
+                            grid-template-areas: "address_1 address_1" "address_2 address_2" "postalcode city" "button button";
+                        }
+
+
+
+                        #form-address_1 {
+                            grid-area: address_1;
+                        }
+
+                        #form-address_2 {
+                            grid-area: address_2;
+
+                            label {
+
+                                span {
+                                    color: var(--clr-gray-500);
+                                    @include text-s;
+                                }
+                            }
+                        }
+
+                        #form-postalcode {
+                            grid-area: postalcode;
+                        }
+
+                        #form-city {
+                            grid-area: city;
+                        }
+
+
+
+                        #form-buttons {
+                            grid-area: button;
+                            padding-top: 1rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1rem;
+
+                            @include xxl {
+                                flex-direction: row;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

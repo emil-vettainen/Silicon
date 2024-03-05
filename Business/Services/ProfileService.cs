@@ -90,16 +90,16 @@ public class ProfileService
     }
 
 
-    public async Task<bool> UpdateProfileEntityAsync(string UserId, string firstName, string lastName, string? biography)
+    public async Task<bool> UpdateProfileEntityAsync(string UserId, ProfileDto dto)
     {
         try
         {
             var newProfileEntity = await _profileRepository.UpdateAsync(x => x.UserId == UserId, new ProfileEntity
             {
                 UserId = UserId,
-                FirstName = firstName,
-                LastName = lastName,
-                Biography = biography
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Biography = dto.Biography
             });
             return newProfileEntity != null;
             

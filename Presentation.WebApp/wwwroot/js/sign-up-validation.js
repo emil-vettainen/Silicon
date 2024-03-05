@@ -1,8 +1,11 @@
+
+
+
 const formErrorHandler = (element, validationResult, customMessage = "") => {
 
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
-
+   
 
 
     if (validationResult) {
@@ -139,70 +142,121 @@ const checkboxValidator = (element) => {
 //}
 
 
-let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
-let submitButton = document.getElementById('form-submit')
-let spinner = document.getElementById('spinner')
-let buttonText = document.getElementById('button-text')
-
-inputs.forEach(input => {
 
 
 
-    if (input.dataset.val === 'true') {
 
-        if (input.classList.contains('input-validation-error'))
-            input.classList.add('is-invalid')
+//let forms = document.querySelectorAll('form')
+//let inputs = forms[0].querySelectorAll('input')
 
-        if (input.type === 'checkbox') {
 
-            input.addEventListener('change', (e) => {
-                checkboxValidator(e.target)
-            })
-        }
-        else {
+//inputs.forEach(input => {
 
-            input.addEventListener('keyup', (e) => {
 
-                switch (e.target.type) {
 
-                    case 'text':
-                        textValidator(e.target)
-                        break;
+//    if (input.dataset.val === 'true') {
 
-                    case 'email':
-                        emailValidator(e.target)
-                        break;
+//        if (input.classList.contains('input-validation-error'))
+//            input.classList.add('is-invalid')
 
-                    case 'password':
-                        passwordValidator(e.target)
-                        break;
+//        if (input.type === 'checkbox') {
+
+//            input.addEventListener('change', (e) => {
+//                checkboxValidator(e.target)
+//            })
+//        }
+//        else {
+
+//            input.addEventListener('keyup', (e) => {
+
+//                switch (e.target.type) {
+
+//                    case 'text':
+//                        textValidator(e.target)
+//                        break;
+
+//                    case 'email':
+//                        emailValidator(e.target)
+//                        break;
+
+//                    case 'password':
+//                        passwordValidator(e.target)
+//                        break;
+//                }
+//            })
+
+//        }
+
+
+
+
+
+//    }
+
+
+//})
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    initValidation(); // Initiera valideringen när sidan laddas
+    setupMutationObserver(); // Starta MutationObserver
+});
+
+function initValidation() {
+    let forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        let inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.dataset.val === 'true') {
+                if (input.classList.contains('input-validation-error')) {
+                    input.classList.add('is-invalid');
                 }
-            })
 
-        }
+                // Binda event baserat på input-typ
+                bindInputEvent(input);
+            }
+        });
+    });
+}
 
-        
-
-
-
+function bindInputEvent(input) {
+    if (input.type === 'checkbox') {
+        input.addEventListener('change', (e) => checkboxValidator(e.target));
+    } else {
+        input.addEventListener('keyup', (e) => {
+            switch (e.target.type) {
+                case 'text':
+                    textValidator(e.target);
+                    break;
+                case 'email':
+                    emailValidator(e.target);
+                    break;
+                case 'password':
+                    passwordValidator(e.target);
+                    break;
+            }
+        });
     }
+}
+
+function setupMutationObserver() {
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                // Kontrollera om det tillagda noden är relevant för din valideringslogik
+                if (node.nodeType === 1) { // Element nod
+                    // Om noden innehåller formulär eller input-fält, återinitiera valideringslogiken
+                    initValidation();
+                }
+            });
+        });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
 
 
-})
-
-
-forms.forEach(form => {
-
-    addEventListener("submit", function (event) {
-
-        submitButton.disabled = true;
-        buttonText.style.display = none;
-        spinner.style.display = "inline-block"
-        
-    })
-   
-})
 
 
 

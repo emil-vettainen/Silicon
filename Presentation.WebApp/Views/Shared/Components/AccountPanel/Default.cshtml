@@ -1,0 +1,24 @@
+﻿@model AccountPanelViewModel
+
+
+<aside class="account-panel">
+    <div class="account-user">
+        <div class="account-user-img">
+            <img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "/images/pngegg.png")" alt="@($"{Model.FirstName}{Model.LastName}")">
+            <form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UpdateProfileImage">
+                <input type="file" asp-for="ProfileImage" id="fileInput" style="display: none" onchange="submitForm()" />
+                <label for="fileInput" class="fa-regular fa-arrows-rotate-reverse change-user-img"></label>
+                <span asp-validation-for="ProfileImage"></span>
+            </form>
+        </div>
+        <h5>@($"{Model.FirstName} {Model.LastName}")</h5>
+        <p class="text-m">@Model.Email</p>
+    </div>
+    <nav class="account-options">
+        <a class="active-link" href="#"><i class="fa-regular fa-gear"></i>Account Details</a>
+        <a href="#"><i class="fa-regular fa-lock"></i>Security</a>
+        <a href="#"><i class="fa-regular fa-bookmark"></i>Saved Courses</a>
+        <a href="#"><i class="fa-regular fa-arrow-up-from-square rotate"></i>Sign Out</a>
+    </nav>
+</aside>
+

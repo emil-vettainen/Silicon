@@ -698,6 +698,81 @@ form .content .btn-theme-large {
   box-shadow: 0px 8px 18px -8px rgba(99, 102, 241, 0.9);
 }
 
+.account-panel {
+  grid-column: 1/13;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (min-width: 1400px) {
+  .account-panel {
+    grid-column: 1/4;
+    border-right: 1px solid var(--clr-gray-300);
+    padding-right: 1rem;
+  }
+}
+.account-panel .account-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.account-panel .account-user .account-user-img {
+  position: relative;
+  padding-bottom: 1rem;
+  max-height: 122px;
+  max-width: 122px;
+  border-radius: 50%;
+}
+.account-panel .account-user .account-user-img img {
+  border-radius: 50%;
+  max-height: 120px;
+  max-width: 120px;
+  aspect-ratio: 1/1;
+  object-fit: fill;
+}
+.account-panel .account-user .account-user-img .change-user-img {
+  position: absolute;
+  background-color: var(--clr-white);
+  color: var(--clr-gray-800);
+  bottom: 5px;
+  right: 0;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--clr-gray-300);
+}
+.account-panel .account-user h5 {
+  padding: 1rem 0 0.5rem 0;
+}
+.account-panel .account-options {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.account-panel .account-options a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 160%;
+  border-radius: 6px;
+  padding: 11px 28px;
+  color: var(--clr-neutral);
+  text-decoration: none;
+}
+.account-panel .account-options a .rotate {
+  transform: rotate(-90deg);
+}
+.account-panel .account-options .active-link {
+  color: var(--clr-white);
+  background-color: var(--clr-theme);
+  box-shadow: 0px 8px 18px -8px rgba(99, 102, 241, 0.9);
+}
+
 header .navbar {
   padding: 0;
 }
@@ -1499,5 +1574,127 @@ footer .container .social-media {
     flex-direction: row;
     flex-wrap: wrap;
     row-gap: 2rem;
+  }
+}
+
+.account-details .container {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  position: relative;
+}
+.account-details .container .account-form {
+  grid-column: 1/13;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 2rem;
+}
+@media (min-width: 1400px) {
+  .account-details .container .account-form {
+    grid-column: 5/13;
+  }
+}
+.account-details .container .account-form .basic-info h5 {
+  color: var(--clr-theme);
+  padding-bottom: 20px;
+}
+.account-details .container .account-form .basic-info form .content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "firstname" "lastname" "email" "phone" "bio" "button";
+}
+@media (min-width: 768px) {
+  .account-details .container .account-form .basic-info form .content {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "firstname lastname" "email phone" "bio bio" "button button";
+  }
+}
+.account-details .container .account-form .basic-info form .content #form-firstname {
+  grid-area: firstname;
+}
+.account-details .container .account-form .basic-info form .content #form-lastname {
+  grid-area: lastname;
+}
+.account-details .container .account-form .basic-info form .content #form-email {
+  grid-area: email;
+}
+.account-details .container .account-form .basic-info form .content #form-phone {
+  grid-area: phone;
+}
+.account-details .container .account-form .basic-info form .content #form-bio {
+  grid-area: bio;
+}
+.account-details .container .account-form .basic-info form .content #form-bio label span {
+  color: var(--clr-gray-500);
+  line-height: 160%;
+  font-weight: 400;
+  color: var(--clr-gray-700);
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+.account-details .container .account-form .basic-info form .content #form-buttons {
+  grid-area: button;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 1400px) {
+  .account-details .container .account-form .basic-info form .content #form-buttons {
+    flex-direction: row;
+  }
+}
+.account-details .container .account-form .address-info h5 {
+  color: var(--clr-theme);
+  padding-bottom: 20px;
+}
+.account-details .container .account-form .address-info form .content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "address_1" "address_2" "postalcode" "city" "button";
+}
+@media (min-width: 768px) {
+  .account-details .container .account-form .address-info form .content {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "address_1 address_1" "address_2 address_2" "postalcode city" "button button";
+  }
+}
+.account-details .container .account-form .address-info form .content #form-address_1 {
+  grid-area: address_1;
+}
+.account-details .container .account-form .address-info form .content #form-address_2 {
+  grid-area: address_2;
+}
+.account-details .container .account-form .address-info form .content #form-address_2 label span {
+  color: var(--clr-gray-500);
+  line-height: 160%;
+  font-weight: 400;
+  color: var(--clr-gray-700);
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+.account-details .container .account-form .address-info form .content #form-postalcode {
+  grid-area: postalcode;
+}
+.account-details .container .account-form .address-info form .content #form-city {
+  grid-area: city;
+}
+.account-details .container .account-form .address-info form .content #form-buttons {
+  grid-area: button;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 1400px) {
+  .account-details .container .account-form .address-info form .content #form-buttons {
+    flex-direction: row;
   }
 }
