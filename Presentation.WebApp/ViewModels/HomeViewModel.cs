@@ -5,7 +5,7 @@ namespace Presentation.WebApp.ViewModels;
 public class HomeViewModel
 {
 
-    public BaseInfoModel BaseInfo { get; set; } = new();
+    public BasicInfoModel BaseInfo { get; set; } = new();
 
     public List<ToolBoxModel> ToolBoxes { get; set; } = [
 

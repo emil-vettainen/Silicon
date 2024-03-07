@@ -1,6 +1,6 @@
 ﻿@using Infrastructure.Entities
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<AccountEntity> _signInManager
+@inject SignInManager<UserEntity> _signInManager
 
 <header>
     <nav class="navbar navbar-expand-xl container hamburger-menu">
@@ -49,7 +49,7 @@
                         else
                         {
                             <div>
-                                <a class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
+                                <a asp-action="SignIn" asp-controller="Authentication" class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
                                 <a class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
                             </div>
                         }

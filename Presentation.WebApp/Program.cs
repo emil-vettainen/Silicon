@@ -17,14 +17,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
 builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddIdentity<AccountEntity, IdentityRole>(options =>
+builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
 })
     .AddEntityFrameworkStores<AccountDbContext>().AddDefaultTokenProviders();
 
 
-builder.Services.AddTransient<AuthenticationViewModel>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<ProfileRepository>();

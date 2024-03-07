@@ -9,7 +9,7 @@ namespace Presentation.WebApp.ViewModels;
 public class AccountDetailsViewModel
 {
 
-    public BaseInfoModel BaseInfo { get; set; } = new();
+    public BasicInfoModel BasicInfo { get; set; } = null!;
 
-    public AddressInfoModel? AddressInfo { get; set; } = new();
+    public AddressInfoModel AddressInfo { get; set; } = null!;
 }

@@ -2,7 +2,7 @@
 
 namespace Presentation.WebApp.Models;
 
-public class BaseInfoModel
+public class BasicInfoModel
 {
     [Display(Name = "First name", Prompt = "Enter your first name", Order = 0)]
     [Required(ErrorMessage = "First name is required")]

@@ -6,11 +6,8 @@ namespace Infrastructure.Entities;
 public class AddressEntity
 {
     [Key]
-    public int Id { get; set; }
-
     [ForeignKey(nameof(AccountEntity))]
     public string UserId { get; set; } = null!;
-
     public virtual AccountEntity Account { get; set; } = null!;
 
     [Column(TypeName = "nvarchar(50)")]

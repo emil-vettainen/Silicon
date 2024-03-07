@@ -8,35 +8,34 @@ namespace Presentation.WebApp.ViewComponents;
 
 public class AccountPanelViewComponent : ViewComponent
 {
-    private readonly ProfileService _profileService;
-    private readonly UserManager<AccountEntity> _userManager;
+ 
+    private readonly UserManager<UserEntity> _userManager;
 
-    public AccountPanelViewComponent(ProfileService profileService, UserManager<AccountEntity> userManager)
+
+    public AccountPanelViewComponent(UserManager<UserEntity> userManager)
     {
-        _profileService = profileService;
+
         _userManager = userManager;
+    
     }
 
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-
         var user = await _userManager.GetUserAsync(UserClaimsPrincipal);
-        
 
-        var profileEntity = await _profileService.GetOneProfileAsync(x => x.UserId == user!.Id);
+        if (user == null)
+        {
+            return View();
+        }
 
         var viewModel = new AccountPanelViewModel
         {
-           
-            FirstName = profileEntity.FirstName,
-            LastName = profileEntity.LastName,
-            ProfileImageUrl = profileEntity.ProfileImageUrl,
-            Email = user.Email
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            ProfileImageUrl = user.ProfileImageUrl,
+            Email = user.Email!,
         };
-
         return View(viewModel);
-
     }
-
 }
