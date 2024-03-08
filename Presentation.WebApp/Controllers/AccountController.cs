@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Presentation.WebApp.Models;
 using Presentation.WebApp.ViewModels;
+using Shared.Responses.Enums;
 using System.Security.Claims;
 
 namespace Presentation.WebApp.Controllers;
@@ -53,6 +54,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
         var userId = _userManager.GetUserId(User);
+        //var user = await _userManager.FindByIdAsync(userId!);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
 
         switch (action)
@@ -60,8 +62,17 @@ public class AccountController : Controller
             case "basicinfo":
                 if (viewModel.BasicInfo.FirstName != null && viewModel.BasicInfo.LastName != null && viewModel.BasicInfo.Email != null)
                 {
-                    // uppdatera
-                    // hantera response
+                    var response = await _userService.UpdateUserAsync(userId!, UserFactory.UpdateUserDto(viewModel.BasicInfo.FirstName, viewModel.BasicInfo.LastName, viewModel.BasicInfo.Email, viewModel.BasicInfo.Phone!, viewModel.BasicInfo.Biography!));
+                    switch (response.StatusCode)
+                    {
+                        case ResultStatus.OK:
+                            ViewBag.Success = "Your basic info has been updated!";
+                            break;
+
+                        default:
+                            ViewBag.Error = "Something went wrong, please try again!";
+                            break;
+                    }
                 }
                 break;
 

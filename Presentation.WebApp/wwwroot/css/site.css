@@ -298,6 +298,10 @@ h6, .h6 {
   margin: 0;
 }
 
+.alert-success {
+  margin: 0;
+}
+
 .btn-theme-small {
   background-color: var(--clr-theme);
   border-radius: 6px;

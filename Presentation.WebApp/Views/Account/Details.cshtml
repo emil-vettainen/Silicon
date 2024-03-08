@@ -10,15 +10,25 @@
         
         @await Component.InvokeAsync("AccountPanel")
 
-      
+        
 
 
         <div class="account-form">
 
-          
+            @if (ViewBag.Success != null)
+            {
+                <div class="alert alert-success">@ViewBag.Success</div>
+            }
+
+            @if(ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
 
 
             <h2>Account Details</h2>
+
+           
 
             <div asp-validation-summary="ModelOnly" class="error-message"></div>
 

@@ -1,7 +1,7 @@
 ﻿using Business.Dtos;
 using Business.Dtos.User;
 using Business.Factories;
-using Business.Models;
+
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -94,12 +94,10 @@ public class UserService
         try
         {
             var user = await _userManager.FindByIdAsync(userId);
-            var userExists = await _userManager.Users.AnyAsync(x => x.Email == user!.Email);
-            if (!userExists)
+            if(user == null)
             {
                 return ResponseFactory.NotFound();
             }
- 
 
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
@@ -108,14 +106,16 @@ public class UserService
             user.Biography = dto.Biography;
 
             var result = await _userManager.UpdateAsync(user);
-
-
-            return true;
+            if(!result.Succeeded)
+            {
+                return ResponseFactory.Error();
+            }
+            return ResponseFactory.Ok();
         }
         catch (Exception)
         {
 
-            throw;
+            return ResponseFactory.Error();
         }
     }
 
