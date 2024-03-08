@@ -33,6 +33,8 @@ builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<ProfileRepository>();
 builder.Services.AddSingleton<ErrorLogger>(new ErrorLogger(@"C:\CSharp\Silicon\log.txt"));
 
+builder.Services.AddSingleton<IModelStateService, ModelStateService>();
+
 
 var app = builder.Build();
 
