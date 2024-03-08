@@ -1,0 +1,21 @@
+.account-security {
+
+    .container {
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+        position: relative;
+
+        .account-form {
+            grid-column: 1 / 13;
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-top: 2rem;
+
+            @include xxl {
+                grid-column: 5/13;
+            }
+        }
+    }
+}

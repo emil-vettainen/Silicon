@@ -41,10 +41,8 @@
 
                         @if(_signInManager.IsSignedIn(User))
                         {
-                            <div>
-                                <a asp-action="Logout" asp-controller="Authentication">Logga ut</a>
-                                <p>@ViewData["UserName"]</p>
-                            </div>
+                            @await Component.InvokeAsync("NavProfileImage")
+                         
                         }
                         else
                         {

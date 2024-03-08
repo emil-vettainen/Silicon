@@ -34,6 +34,7 @@ public class AccountController : Controller
     [Route("/account/details")]
     public async Task<IActionResult> Details()
     {
+        ViewData["Title"] = "Details";
         var userId = _userManager.GetUserId(User);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
         //var addressInfo = await _addressService.GetAddresInfoAsync(userId!);
@@ -101,6 +102,7 @@ public class AccountController : Controller
 
     public IActionResult Security()
     {
+        ViewData["Title"] = "Security";
         return View();
     }
 
