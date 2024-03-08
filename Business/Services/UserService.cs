@@ -1,4 +1,7 @@
 ﻿using Business.Dtos;
+using Business.Dtos.User;
+using Business.Factories;
+using Business.Models;
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -63,21 +66,38 @@ public class UserService
 
 
 
-    public async Task<bool> UpdateUserAsync(string userId, UpdateUserDto dto)
+    public async Task<GetUserDto> GetBasicInfoAsync(string userId)
     {
         try
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user == null)
+            if (user == null)
             {
-                // not found
+                return null!;
             }
+            return UserFactory.GetUser(user.FirstName, user.LastName, user.Email, user.PhoneNumber, user.Biography, user.ProfileImageUrl);
+           
 
-            var userExists = await _userManager.Users.AnyAsync(x => x.Email == user.Email);
-            
-            if (userExists)
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+
+
+    public async Task<ResponseResult> UpdateUserAsync(string userId, UpdateUserDto dto)
+    {
+        try
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var userExists = await _userManager.Users.AnyAsync(x => x.Email == user!.Email);
+            if (!userExists)
             {
-                return false;
+                return ResponseFactory.NotFound();
             }
  
 

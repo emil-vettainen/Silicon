@@ -29,66 +29,39 @@ public class AccountController : Controller
         _modelStateService = modelStateService;
     }
 
+    #region [HttpGet] /account/details
     [Route("/account/details")]
     public async Task<IActionResult> Details()
     {
-        var basicinfoErrors = _modelStateService.LoadModelState("BasicInfoErrors");
-        if (basicinfoErrors.Count > 0 )
-        {
-            ModelState.Merge(basicinfoErrors);
-        }
-
-
-
+        var userId = _userManager.GetUserId(User);
+        var userInfo = await _userService.GetBasicInfoAsync(userId!);
+        //var addressInfo = await _addressService.GetAddresInfoAsync(userId!);
+       
         var viewModel = new AccountDetailsViewModel
         {
-            BasicInfo = await PopulateBaseInfoAsync(),
-            AddressInfo = new AddressInfoModel
-            {
-                Addressline_1 = "Skara",
-                PostalCode = "12345",
-                City = "Skara"
-            }
+            BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography},
+            AddressInfo = new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" }
         };
-
-   
 
         return View(viewModel);
     }
+    #endregion
 
-    [HttpPost]
-    public IActionResult UpdateBasicInfo(BasicInfoModel viewModel)
-    {
-        var key = "BasicInfoErrors";
-
-        if(!ModelState.IsValid)
-        {
-            
-
-            return RedirectToAction("Details");
-        }
-        else
-        {
-            
-            _modelStateService.ClearModelState(key);
-        }
-
-        return RedirectToAction("Details");
-
-    }
-
+    #region [HttpPost] /account/details
     [HttpPost]
     [Route("/account/details")]
-    public IActionResult Details(AccountDetailsViewModel viewModel, string action)
+    public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
+        var userId = _userManager.GetUserId(User);
+        var userInfo = await _userService.GetBasicInfoAsync(userId!);
+
         switch (action)
         {
             case "basicinfo":
                 if (viewModel.BasicInfo.FirstName != null && viewModel.BasicInfo.LastName != null && viewModel.BasicInfo.Email != null)
                 {
                     // uppdatera
-                    //
-                    //
+                    // hantera response
                 }
                 break;
 
@@ -96,67 +69,21 @@ public class AccountController : Controller
                 if(viewModel.AddressInfo.Addressline_1 != null && viewModel.AddressInfo.PostalCode != null && viewModel.AddressInfo.City != null)
                 {
                     // uppdatera
-                    //
-                    //
+                    // hantera response
+              
                 }
-
                 break;
-
         }
 
-        if (viewModel.AddressInfo == null)
-        {
-            viewModel.AddressInfo = new AddressInfoModel
-            {
-                Addressline_1 = "Skara",
-                PostalCode = "12345",
-                City = "Skara"
-
-            };
-        }
-
-        if(viewModel.BasicInfo == null)
-        {
-            viewModel.BasicInfo = new BasicInfoModel
-            {
-                FirstName = "Emil",
-                LastName = "12345",
-                Email = "12345",
-            };
-        }
-
-
+        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" };
+        viewModel.BasicInfo ??= new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography };
+        
         return View(viewModel);
-
-
-
     }
+    #endregion
 
 
-    private async Task<BasicInfoModel> PopulateBaseInfoAsync()
-    {
-        try
-        {
-            var userEntity = await _userManager.FindByIdAsync(_userManager.GetUserId(User)!);
-            if (userEntity != null)
-            {
-                var model = new BasicInfoModel
-                {
-                    FirstName = userEntity.FirstName,
-                    LastName = userEntity.LastName,
-                    Biography = userEntity.Biography,
-                    Email = userEntity.Email!,
-                    Phone = userEntity.PhoneNumber,
-                };
-                return model;
-            }
-        }
-        catch (Exception)
-        {
 
-        }
-        return null!;
-    }
 
 
 
