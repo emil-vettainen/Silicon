@@ -5,6 +5,7 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.WebApp.Helpers;
 using Presentation.WebApp.ViewModels;
 using Shared.Utilis;
 
@@ -33,6 +34,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/denied";
 
     options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     options.SlidingExpiration = true;
 });
@@ -61,11 +63,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-
-//
-
-
+app.UserSessionValidation();
 app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Default}/{action=Home}/{id?}");

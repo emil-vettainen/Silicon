@@ -23,14 +23,16 @@ public class AuthenticationController : Controller
         _userService = userService;
     }
 
+    #region Register
     [Route("/register")]
     public IActionResult SignUp()
     {
         var viewModel = new SignUpViewModel();
         return View(viewModel);
     }
+    #endregion
 
-
+    #region Register POST
     [Route("/register")]
     [HttpPost]
     public async Task <IActionResult> SignUp(SignUpViewModel viewModel)
@@ -43,32 +45,34 @@ public class AuthenticationController : Controller
         switch (result.StatusCode)
         {
             case ResultStatus.EXISTS:
-                ModelState.AddModelError("", "Email is already exists");
+                ViewBag.Error = "Email is already exists";
                 return View(viewModel);
 
             case ResultStatus.OK:
                 return RedirectToAction(nameof(SignIn));
 
             default:
-                ModelState.AddModelError("", result.Message!);
+                ViewBag.Error = result.Message;
                 return View(viewModel); 
         }
     }
+    #endregion
 
-
+    #region SignIn
     [Route("/signin")]
     [HttpGet]
-    public IActionResult SignIn()
+    public IActionResult SignIn(string returnUrl)
     {
+        ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
         var viewModel = new SignInViewModel();
         return View(viewModel);  
     }
+    #endregion
 
-
-
+    #region SignIn POST
     [Route("/signin")]
     [HttpPost]
-    public async Task<IActionResult> SignIn(SignInViewModel viewModel)
+    public async Task<IActionResult> SignIn(SignInViewModel viewModel, string returnUrl)
     {
         if(!ModelState.IsValid)
         {
@@ -77,18 +81,22 @@ public class AuthenticationController : Controller
         var result = await _signInManager.PasswordSignInAsync(viewModel.SignIn.Email, viewModel.SignIn.Password, viewModel.SignIn.RememberMe, false);
         if(!result.Succeeded)
         {
-            ModelState.AddModelError("", "Incorrect email or password");
+            ViewBag.Error = "Incorret email or password";
             return View(viewModel);
+        }
+        if(!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) 
+        {
+            return Redirect(returnUrl);
         }
         return RedirectToAction("Index", "Home");
     }
+    #endregion
 
-
+    #region SignOut
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
-
-
+    #endregion
 }
