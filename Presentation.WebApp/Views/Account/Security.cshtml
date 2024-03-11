@@ -1,0 +1,88 @@
+﻿@model SecurityViewModel
+
+@{
+    ViewData["Title"] = "Security";
+}
+
+<section class="account-security">
+    <div class="container grid-12">
+        @await Component.InvokeAsync("AccountPanel")
+        <div class="account-form">
+            @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
+            @if (Model.IsExternalAccount)
+            {
+                <div class="delete-account">
+                    <h5>Delete account</h5>
+                    <form method="post" asp-controller="Account" asp-action="Security" novalidate>
+                        <div class="content">
+                            <p class="text-m">When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
+                            <div id="form-delete" class="checkbox-group">
+                                <input asp-for="DeleteAccount.DeleteAccount" class="form-check-input" type="checkbox" />
+                                <label asp-for="DeleteAccount.DeleteAccount">Yes, I want to delete my account</label>
+                                <span asp-validation-for="DeleteAccount.DeleteAccount" class="invalid-feedback"></span>
+                            </div>
+                            <button id="form-button" class="btn-theme-small" type="submit" name="action" value="delete">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <h2>Security</h2>
+                <div class="change-password">
+                    <h5>Password</h5>
+
+
+
+
+                    <form method="post" asp-controller="Account" asp-action="Security" novalidate>
+                        <div class="content">
+                            <div id="form-current-password" class="input-group">
+                                <label asp-for="ChangePassword.CurrentPassword"></label>
+                                <input asp-for="ChangePassword.CurrentPassword" class="form-control" />
+                                <span asp-validation-for="ChangePassword.CurrentPassword" class="invalid-feedback"></span>
+                            </div>
+                            <div id="form-new-password" class="input-group">
+                                <label asp-for="ChangePassword.NewPassword"></label>
+                                <input asp-for="ChangePassword.NewPassword" class="form-control"/>
+                                <span asp-validation-for="ChangePassword.NewPassword" class="invalid-feedback"></span>
+                            </div>
+                            <div id="form-confirm-password" class="input-group">
+                                <label asp-for="ChangePassword.ConfirmPassword"></label>
+                                <input asp-for="ChangePassword.ConfirmPassword" class="form-control"/>
+                                <span asp-validation-for="ChangePassword.ConfirmPassword" class="invalid-feedback"></span>
+                            </div>
+                            <div id="form-buttons">
+                                <button class="btn-gray-small" type="reset">Cancel</button>
+                                <button class="btn-theme-small" type="submit" name="action" value="password">Change password</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr />
+                <div class="delete-account">
+                    <h5>Delete account</h5>
+                    <form method="post" asp-controller="Account" asp-action="Security" novalidate>
+                        <div class="content">
+                            <p class="text-m">When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
+                            <div id="form-delete" class="checkbox-group">
+                                <input asp-for="DeleteAccount.DeleteAccount" class="form-check-input" type="checkbox" />
+                                <label asp-for="DeleteAccount.DeleteAccount">Yes, I want to delete my account</label>
+                                <span asp-validation-for="DeleteAccount.DeleteAccount" class="invalid-feedback"></span>
+                            </div>
+                            <button id="form-button" class="btn-theme-small" type="submit" name="action" value="delete">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            }
+
+
+
+
+            
+        </div>
+    </div>
+</section>
+
+
+<script src="~/js/sign-up-validation.js" defer></script>

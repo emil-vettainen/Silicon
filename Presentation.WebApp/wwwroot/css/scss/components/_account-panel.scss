@@ -1,0 +1,105 @@
+.account-panel {
+    grid-column: 1 / 13;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+   
+   
+    position: relative;
+
+
+    @include xxl {
+        grid-column: 1/4;
+        border-right: 1px solid var(--clr-gray-300);
+        padding-right: 1rem;
+    }
+
+    .content {
+        position: sticky;
+        top: 1rem;
+       
+
+        .account-user {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+
+
+            .account-user-img {
+                position: relative;
+                padding-bottom: 1rem;
+                max-height: 122px;
+                max-width: 122px;
+                border-radius: 50%;
+
+
+
+                img {
+                    border-radius: 50%;
+                    max-height: 120px;
+                    max-width: 120px;
+                    aspect-ratio: 1/1;
+                    object-fit: fill;
+                }
+
+
+
+
+
+                .change-user-img {
+                    position: absolute;
+                    background-color: var(--clr-white);
+                    color: var(--clr-gray-800);
+                    bottom: 5px;
+                    right: 0;
+                    padding: 8px;
+                    border-radius: 50%;
+                    border: 1px solid var(--clr-gray-300);
+                }
+            }
+
+
+
+
+
+            h5 {
+                padding: 1rem 0 .5rem 0;
+            }
+        }
+
+        .account-options {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding-top: 1.5rem;
+
+
+            a {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 8px;
+                font-size: .875rem;
+                font-weight: 600;
+                line-height: 160%;
+                border-radius: 6px;
+                padding: 11px 28px;
+                color: var(--clr-neutral);
+                text-decoration: none;
+
+                .rotate {
+                    transform: rotate(-90deg);
+                }
+            }
+
+            .active-link {
+                color: var(--clr-white);
+                background-color: var(--clr-theme);
+
+                @include theme-shadow;
+            }
+        }
+    }
+}

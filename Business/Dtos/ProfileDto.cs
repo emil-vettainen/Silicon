@@ -10,4 +10,6 @@ public class ProfileDto
     public string? Biography { get; set; }
     public IFormFile? ProfileImage { get; set; }
     public string? ProfileImageUrl { get; set; }
+    public string Email { get; set; } = null!;
+    public string PhoneNumber { get; set; } = null!;
 }

@@ -1,11 +1,11 @@
 ﻿@using Infrastructure.Entities
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<AccountEntity> _signInManager
+@inject SignInManager<UserEntity> _signInManager
 
 <header>
     <nav class="navbar navbar-expand-xl container hamburger-menu">
         <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="logo-img" src="~/images/logo/logo-light.svg" alt="SiliconDesign"></a>
+            <a class="navbar-brand" asp-controller="Default" asp-action="Home"><img id="logo-img" src="~/images/logo/logo-light.svg" alt="SiliconDesign"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <i class="fa-sharp fa-regular fa-bars"></i>
@@ -41,16 +41,14 @@
 
                         @if(_signInManager.IsSignedIn(User))
                         {
-                            <div>
-                                <a asp-action="Logout" asp-controller="Authentication">Logga ut</a>
-                                <p>@ViewData["UserName"]</p>
-                            </div>
+                            @await Component.InvokeAsync("NavProfileImage")
+                         
                         }
                         else
                         {
                             <div>
-                                <a class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
-                                <a class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
+                                <a asp-action="SignIn" asp-controller="Authentication" class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
+                                <a asp-action="SignUp" asp-controller="Authentication" class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
                             </div>
                         }
                     </div>

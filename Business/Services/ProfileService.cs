@@ -2,6 +2,7 @@
 using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Shared.Utilis;
 using System.Linq.Expressions;
 
@@ -12,11 +13,58 @@ public class ProfileService
     private readonly ProfileRepository _profileRepository;
     private readonly ErrorLogger _errorLogger;
 
-    public ProfileService(ProfileRepository profileRepository, ErrorLogger errorLogger)
+    private readonly UserManager<UserEntity> _userManager;
+
+
+    public ProfileService(ProfileRepository profileRepository, ErrorLogger errorLogger, UserManager<UserEntity> userManager)
     {
         _profileRepository = profileRepository;
         _errorLogger = errorLogger;
+        _userManager = userManager;
     }
+
+
+
+    public async Task<ProfileDto> PopulateViewModel(string userId, string action)
+    {
+        try
+        {
+            var profile = await GetOneProfileAsync(x => x.UserId == userId);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            var dto = new ProfileDto();
+            switch(action)
+            {
+                case "BaseInfo":
+
+                    dto.UserId = userId;
+                    dto.FirstName = profile.FirstName;
+                    dto.LastName = profile.LastName;
+                    dto.Biography = profile.Biography;
+                    dto.ProfileImageUrl = profile.ProfileImageUrl;
+                    dto.Email = user.Email;
+                    dto.PhoneNumber = user.PhoneNumber;
+
+                        break;
+
+                case "AddressInfo":
+                    break;
+
+            }
+
+            return dto;
+
+
+        }
+        catch (Exception)
+        {
+
+        }
+        return null!;
+    }
+
+ 
+
 
     public async Task<ProfileEntity> GetOneProfileAsync(Expression<Func<ProfileEntity, bool>> predicate)
     {
@@ -90,16 +138,16 @@ public class ProfileService
     }
 
 
-    public async Task<bool> UpdateProfileEntityAsync(string UserId, string firstName, string lastName, string? biography)
+    public async Task<bool> UpdateProfileEntityAsync(string userId, ProfileDto dto)
     {
         try
         {
-            var newProfileEntity = await _profileRepository.UpdateAsync(x => x.UserId == UserId, new ProfileEntity
+            var newProfileEntity = await _profileRepository.UpdateAsync(x => x.UserId == userId, new ProfileEntity
             {
-                UserId = UserId,
-                FirstName = firstName,
-                LastName = lastName,
-                Biography = biography
+                UserId = userId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Biography = dto.Biography
             });
             return newProfileEntity != null;
             
