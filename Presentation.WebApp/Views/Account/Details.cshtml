@@ -59,8 +59,8 @@
                             <span asp-validation-for="BasicInfo.Phone" class="invalid-feedback"></span>
                         </div>
                         <div id="form-bio" class="input-group">
-                            <label asp-for="BasicInfo.Biography"></label>
-                            <input asp-for="BasicInfo.Biography" class="form-control" />
+                            <label asp-for="BasicInfo.Biography">Bio <span>(optional)</span></label>
+                            <textarea asp-for="BasicInfo.Biography" class="form-control" rows="3"></textarea>
                             <span asp-validation-for="BasicInfo.Biography" class="invalid-feedback"></span>
                         </div>
                         <div id="form-buttons">
@@ -81,7 +81,7 @@
                             <span asp-validation-for="AddressInfo.Addressline_1" class="invalid-feedback"></span>
                         </div>
                         <div id="form-address-2" class="input-group">
-                            <label asp-for="AddressInfo.Addressline_2"></label>
+                            <label asp-for="AddressInfo.Addressline_2">Address line 2 <span>(optional)</span></label>
                             <input asp-for="AddressInfo.Addressline_2" class="form-control" />
                             <span asp-validation-for="AddressInfo.Addressline_2" class="invalid-feedback"></span>
                         </div>

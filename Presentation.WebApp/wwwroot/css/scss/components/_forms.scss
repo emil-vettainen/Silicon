@@ -14,6 +14,8 @@ form {
             align-content: flex-start;
 
 
+
+
             input {
                 padding: 1rem;
                 border-radius: 6px !important;
@@ -52,6 +54,8 @@ form {
 
             .span {
                 padding-bottom: 1rem;
+                color: var(--clr-danger);
+               
             }
             /* .invalid-feedback {
            margin: 0;
@@ -114,6 +118,7 @@ form {
             span {
                 width: 100%;
                 margin: 0;
+               
             }
             /*input[type="checkbox"] {
                 height: 1.2rem;
@@ -146,26 +151,16 @@ form {
 
 
         textarea {
-            padding: 1rem;
+            padding: 2rem;
             border-radius: .5rem !important;
             border: 0.063rem solid var(--clr-gray-400);
             resize: none;
 
-            &::placeholder {
-            }
-
-            &.input-validation-error {
-                border: 0.063rem solid var(--clr-danger);
-
-                &::placeholder {
-                    color: var(--clr-danger);
-                }
-            }
+          
         }
 
 
-        .invalid-feedback {
-        }
+       
 
 
 

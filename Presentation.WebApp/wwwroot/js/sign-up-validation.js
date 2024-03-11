@@ -134,7 +134,7 @@ const checkboxValidator = (element) => {
         formErrorHandler(element, true)
     }
     else {
-        formErrorHandler(element, false, 'You must accept the terms and conditions')
+        formErrorHandler(element, false)
     }
 }
 

@@ -134,7 +134,7 @@ public class AccountController : Controller
         {
             case "password":
                 var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-                if (viewModel.ChangePassword.CurrentPassword != null && viewModel.ChangePassword.NewPassword == viewModel.ChangePassword.ConfirmPassword && Regex.IsMatch(viewModel.ChangePassword.NewPassword, pattern))
+                if (viewModel.ChangePassword.CurrentPassword != null &&  Regex.IsMatch(viewModel.ChangePassword.NewPassword, pattern) && viewModel.ChangePassword.NewPassword == viewModel.ChangePassword.ConfirmPassword)
                 {
                     var result = await _userManager.ChangePasswordAsync(user!, viewModel.ChangePassword.CurrentPassword, viewModel.ChangePassword.NewPassword);
                     if (!result.Succeeded)
@@ -147,9 +147,20 @@ public class AccountController : Controller
                 break;
 
             case "delete":
+                if (viewModel.DeleteAccount.DeleteAccount)
+                {
+                    var result = await _userManager.DeleteAsync(user!);
+                    if (!result.Succeeded)
+                    {
+                        ViewBag.Error = "An unexpected error occurred.";
+                        return View(viewModel);
+                    }
+                    return RedirectToAction("SignIn", "Authentication");
+                }
                 break;
 
             default:
+                ViewBag.Error = "An unexpected error occurred.";
                 break;
 
         }

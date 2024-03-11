@@ -1,0 +1,100 @@
+#showcase {
+    position: relative;
+    margin-bottom: 80px;
+
+    @include lg {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 100px;
+    }
+
+    img {
+        position: relative;
+        width: 100%;
+
+
+
+        @include lg {
+            width: 60%;
+        }
+
+        @include xxl {
+            width: 50%;
+        }
+    }
+
+    .container {
+        height: 100%;
+
+        @include lg {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .content {
+            margin-top: 0px;
+            width: 100%;
+            text-align: center;
+
+            @include lg {
+                margin-top: 100px;
+                width: 40%;
+                text-align: left;
+            }
+
+            h1 {
+                @include xxl {
+                    @include d4;
+                }
+            }
+
+            p {
+
+                @include text-m;
+                margin: 20px 0 40px 0;
+
+                @include xl {
+
+                    @include text-lg;
+                    margin: 40px 0 50px 0;
+                }
+            }
+
+            .btn-theme-medium {
+                @include theme-shadow;
+                display: inline-block;
+
+            }
+
+            h6 {
+                padding: 2rem 0;
+
+                @include xl {
+                    padding: 6rem 0 2rem 0;
+                }
+            }
+
+            .brands {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                justify-items: center;
+                gap: 1rem;
+
+                @include lg {
+                    justify-items: flex-start;
+                }
+
+                @include xl {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+
+
+                img {
+                    width: 120px;
+                }
+               
+            }
+        }
+    }
+}

@@ -68,8 +68,9 @@
                             label {
 
                                 span {
-                                    color: var(--clr-gray-500);
+                                   
                                     @include text-s;
+                                    font-weight: 600;
                                 }
                             }
                         }
@@ -126,8 +127,9 @@
                             label {
 
                                 span {
-                                    color: var(--clr-gray-500);
+                                    
                                     @include text-s;
+                                    font-weight: 600;
                                 }
                             }
                         }

@@ -2,23 +2,27 @@
 
 
 <aside class="account-panel">
-    <div class="account-user">
-        <div class="account-user-img">
-            <img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "/images/pngegg.png")" alt="@($"{Model.FirstName}{Model.LastName}")">
-            <form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UpdateProfileImage">
-                <input type="file" asp-for="ProfileImage" id="fileInput" style="display: none" onchange="submitForm()" />
-                <label for="fileInput" class="fa-regular fa-arrows-rotate-reverse change-user-img"></label>
-                <span asp-validation-for="ProfileImage"></span>
-            </form>
+    <div class="content">
+        <div class="account-user">
+            <div class="account-user-img">
+                <img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "/images/pngegg.png")" alt="@($"{Model.FirstName}{Model.LastName}")">
+                <form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UpdateProfileImage">
+                    <input type="file" asp-for="ProfileImage" id="fileInput" style="display: none" onchange="submitForm()" />
+                    <label for="fileInput" class="fa-regular fa-arrows-rotate-reverse change-user-img"></label>
+                    <span asp-validation-for="ProfileImage"></span>
+                </form>
+            </div>
+            <h5>@($"{Model.FirstName} {Model.LastName}")</h5>
+            <p class="text-m">@Model.Email</p>
         </div>
-        <h5>@($"{Model.FirstName} {Model.LastName}")</h5>
-        <p class="text-m">@Model.Email</p>
+        <nav class="account-options">
+            <a class="@(ViewData["Title"]!.ToString() == "Details" ? "active-link" : "")" asp-action="Details" asp-controller="Account"><i class="fa-regular fa-gear"></i>Account Details</a>
+            <a class="@(ViewData["Title"]!.ToString() == "Security" ? "active-link" : "")" asp-action="Security" asp-controller="Account"><i class="fa-regular fa-lock"></i>Security</a>
+            <a class="@(ViewData["Title"]!.ToString() == "SavedCourses" ? "active-link" : "")" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i>Saved Courses</a>
+            <a asp-action="SignOut" asp-controller="Authentication"><i class="fa-regular fa-arrow-up-from-square rotate"></i>Sign Out</a>
+        </nav>
+
     </div>
-    <nav class="account-options">
-        <a class="@(ViewData["Title"]!.ToString() == "Details" ? "active-link" : "")" asp-action="Details" asp-controller="Account"><i class="fa-regular fa-gear"></i>Account Details</a>
-        <a class="@(ViewData["Title"]!.ToString() == "Security" ? "active-link" : "")" asp-action="Security" asp-controller="Account"><i class="fa-regular fa-lock"></i>Security</a>
-        <a class="@(ViewData["Title"]!.ToString() == "SavedCourses" ? "active-link" : "")" asp-action="SavedCourses"><i class="fa-regular fa-bookmark"></i>Saved Courses</a>
-        <a asp-action="SignOut" asp-controller="Authentication"><i class="fa-regular fa-arrow-up-from-square rotate"></i>Sign Out</a>
-    </nav>
+   
 </aside>
 
