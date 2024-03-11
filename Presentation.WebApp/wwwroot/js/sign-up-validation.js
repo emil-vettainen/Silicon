@@ -80,7 +80,11 @@ const passwordValidator = (element) => {
 
     if (element.dataset.valEqualtoOther !== undefined) {
 
+      
+
         const password = document.getElementsByName(element.dataset.valEqualtoOther.replace('*', 'SignUp'))[0].value
+
+
 
         const isEmpty = !element.value
         const isMatch = element.value === password

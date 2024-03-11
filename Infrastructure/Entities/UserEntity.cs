@@ -26,4 +26,6 @@ public class UserEntity : IdentityUser
     [Required]
     [Column(TypeName = "datetime2")]
     public DateTime Modified { get; set; }
+
+    public bool IsExternalAccount { get; set; } = false;
 }

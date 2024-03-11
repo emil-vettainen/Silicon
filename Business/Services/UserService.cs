@@ -5,11 +5,14 @@ using Business.Factories;
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Shared.Factories;
 using Shared.Responses;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace Business.Services;
 
@@ -17,11 +20,79 @@ public class UserService
 {
 
     private readonly UserManager<UserEntity> _userManager;
+    private readonly SignInManager<UserEntity> _signInManager;
 
-    public UserService(UserManager<UserEntity> userManager)
+    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
     }
+
+
+    public async Task<ResponseResult> HandleExternalLoginAsync()
+    {
+        try
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return ResponseFactory.Error();
+            }
+
+            //userFromExternal = 
+            var userEntity = UserFactory.CreateUserEntity(info.Principal.FindFirstValue(ClaimTypes.GivenName)!, info.Principal.FindFirstValue(ClaimTypes.Surname)!, info.Principal.FindFirstValue(ClaimTypes.Email)!, true);
+            var user = await _userManager.FindByEmailAsync(userEntity.Email!);
+
+            if (user == null)
+            {
+                var result = await _userManager.CreateAsync(userEntity);
+                if (!result.Succeeded)
+                {
+
+                    return ResponseFactory.Error();
+
+                }
+                else
+                {
+                    user = await _userManager.FindByEmailAsync(userEntity.Email!);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return ResponseFactory.Ok();
+                }
+               
+            }
+
+      
+
+            else
+            {
+                if (user.FirstName != userEntity.FirstName || user.LastName != userEntity.LastName || user.Email != userEntity.Email)
+                {
+                    user.FirstName = userEntity.FirstName;
+                    user.LastName = userEntity.LastName;
+                    user.Email = userEntity.Email;
+                  
+                    await _userManager.UpdateAsync(user);
+                }
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+             
+
+                return ResponseFactory.Ok();
+
+            }
+             
+
+        }
+        catch (Exception)
+        {
+            return ResponseFactory.Error();
+
+        }
+       
+
+    }
+
 
 
     public async Task<ResponseResult> CreateAsync(CreateUserDto dto)
@@ -75,9 +146,9 @@ public class UserService
             {
                 return null!;
             }
-            return UserFactory.GetUser(user.FirstName, user.LastName, user.Email, user.PhoneNumber, user.Biography, user.ProfileImageUrl);
+            return UserFactory.GetUserDto(user.FirstName, user.LastName, user.Email!, user.PhoneNumber!, user.Biography!, user.IsExternalAccount);
            
-
+            
 
         }
         catch (Exception)
@@ -104,6 +175,7 @@ public class UserService
             user.Email = dto.Email;
             user.PhoneNumber = dto.PhoneNumber;
             user.Biography = dto.Biography;
+            user.IsExternalAccount = dto.IsExternalAccount;
 
             var result = await _userManager.UpdateAsync(user);
             if(!result.Succeeded)
@@ -222,4 +294,30 @@ public class UserService
 
     }
 
+
+
+    public async Task<ResponseResult> ChangePasswordAsync(string userId, string currentPassword, string newPassword)
+    {
+        var pattern = @"^(([^<>()\]\\.,;:\s@\""]+(\.[^<>()\]\\.,;:\s@\""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
+
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) 
+        {
+            return ResponseFactory.NotFound();
+        }
+
+        if(!Regex.IsMatch(newPassword, pattern))
+        {
+            return ResponseFactory.Error("Invalid password");
+        }
+
+        var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+        if (!result.Succeeded)
+        {
+            return ResponseFactory.Error("An unexpected error occurred.");
+        }
+
+        return ResponseFactory.Ok();
+
+    }
 }

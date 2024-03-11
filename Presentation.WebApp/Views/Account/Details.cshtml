@@ -16,18 +16,42 @@
                     <div class="content">
                         <div id="form-firstname" class="input-group">
                             <label asp-for="BasicInfo.FirstName"></label>
-                            <input asp-for="BasicInfo.FirstName" class="form-control" />
-                            <span asp-validation-for="BasicInfo.FirstName" class="invalid-feedback"></span>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.FirstName" class="form-control" disabled />
+                                <input asp-for="BasicInfo.FirstName" class="form-control" hidden />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.FirstName" class="form-control" />
+                                <span asp-validation-for="BasicInfo.FirstName" class="invalid-feedback"></span>
+                            }
                         </div>
                         <div id="form-lastname" class="input-group">
                             <label asp-for="BasicInfo.LastName"></label>
-                            <input asp-for="BasicInfo.LastName" class="form-control" />
-                            <span asp-validation-for="BasicInfo.LastName" class="invalid-feedback"></span>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.LastName" class="form-control" disabled />
+                                <input asp-for="BasicInfo.LastName" class="form-control" hidden />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.LastName" class="form-control" />
+                                <span asp-validation-for="BasicInfo.LastName" class="invalid-feedback"></span>
+                            }
                         </div>
                         <div id="form-email" class="input-group">
                             <label asp-for="BasicInfo.Email"></label>
-                            <input asp-for="BasicInfo.Email" class="form-control" />
-                            <span asp-validation-for="BasicInfo.Email" class="invalid-feedback"></span>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.Email" class="form-control" disabled />
+                                <input asp-for="BasicInfo.Email" class="form-control" hidden />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.Email" class="form-control" />
+                                <span asp-validation-for="BasicInfo.Email" class="invalid-feedback"></span>
+                            }
                         </div>
                         <div id="form-phone" class="input-group">
                             <label asp-for="BasicInfo.Phone"></label>

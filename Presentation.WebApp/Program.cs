@@ -2,6 +2,7 @@ using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Entities;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,20 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+
+builder.Services.AddAuthentication()
+    .AddGoogle(GoogleOptions => 
+    {
+        GoogleOptions.ClientId = "893316874513-a6a0bnpavt6tj1262db69jp4rpkasq4l";
+        GoogleOptions.ClientSecret = "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";
+        GoogleOptions.CallbackPath = "/signin-google";
+    })
+    .AddFacebook( options =>
+    {
+    options.AppId = "276230208847426";
+    options.AppSecret = "fa8c8957ec6c242f81323a3453e31455";
+
+    });
 
 
 builder.Services.AddHttpContextAccessor();

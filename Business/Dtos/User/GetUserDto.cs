@@ -8,4 +8,5 @@ public class GetUserDto
     public string? PhoneNumber { get; set; }
     public string? Biography { get; set; }
     public string? ProfileImageUrl { get; set; }
+    public bool IsExternalAccount { get; set; }
 }

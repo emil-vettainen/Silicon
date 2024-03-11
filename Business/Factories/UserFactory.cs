@@ -26,8 +26,28 @@ public class UserFactory
 		}
     }
 
+    public static UserEntity CreateUserEntity (string firstName, string lastName, string email, bool isExternal) 
+    {
+        try
+        {
+            return new UserEntity
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                UserName = email,
+                IsExternalAccount = isExternal
+            };
+        }
+        catch (Exception)
+        {
 
-    public static GetUserDto GetUser(string firstName, string lastName, string email, string phone, string bio, string imgUrl)
+            throw;
+        }
+    }
+
+
+    public static GetUserDto GetUserDto(string firstName, string lastName, string email, string phoneNumber, string biography, bool isExternalAccount)
     {
         try
         {
@@ -36,8 +56,9 @@ public class UserFactory
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                PhoneNumber = phone,
-                Biography = bio,
+                PhoneNumber = phoneNumber,
+                Biography = biography,
+                IsExternalAccount = isExternalAccount,
                 
             };
         }
@@ -73,7 +94,7 @@ public class UserFactory
     }
 
 
-    public static UpdateUserDto UpdateUserDto(string firstName, string lastName, string email, string phoneNumber, string biography)
+    public static UpdateUserDto UpdateUserDto(string firstName, string lastName, string email, string phoneNumber, string biography, bool isExternalAccount)
     {
         return new UpdateUserDto
         {
@@ -82,7 +103,9 @@ public class UserFactory
             LastName = lastName,
             Email = email,
             PhoneNumber = phoneNumber,
-            Biography = biography
+            Biography = biography,
+            IsExternalAccount = isExternalAccount,
+            
 
         };
     }

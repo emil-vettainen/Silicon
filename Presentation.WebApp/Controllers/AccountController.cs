@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Presentation.WebApp.Models;
 using Presentation.WebApp.ViewModels;
+using Presentation.WebApp.ViewModels.Account;
 using Shared.Responses.Enums;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -41,8 +43,11 @@ public class AccountController : Controller
        
         var viewModel = new AccountDetailsViewModel
         {
+            IsExternalAccount = userInfo.IsExternalAccount, 
             BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography},
             AddressInfo = new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" }
+            
+           
         };
 
         return View(viewModel);
@@ -63,7 +68,7 @@ public class AccountController : Controller
             case "basicinfo":
                 if (viewModel.BasicInfo.FirstName != null && viewModel.BasicInfo.LastName != null && viewModel.BasicInfo.Email != null)
                 {
-                    var response = await _userService.UpdateUserAsync(userId!, UserFactory.UpdateUserDto(viewModel.BasicInfo.FirstName, viewModel.BasicInfo.LastName, viewModel.BasicInfo.Email, viewModel.BasicInfo.Phone!, viewModel.BasicInfo.Biography!));
+                    var response = await _userService.UpdateUserAsync(userId!, UserFactory.UpdateUserDto(viewModel.BasicInfo.FirstName, viewModel.BasicInfo.LastName, viewModel.BasicInfo.Email, viewModel.BasicInfo.Phone!, viewModel.BasicInfo.Biography!, userInfo.IsExternalAccount));
                     switch (response.StatusCode)
                     {
                         case ResultStatus.OK:
@@ -89,6 +94,7 @@ public class AccountController : Controller
 
         viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" };
         viewModel.BasicInfo ??= new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography };
+        viewModel.IsExternalAccount = userInfo.IsExternalAccount;
         
         return View(viewModel);
     }
@@ -99,12 +105,59 @@ public class AccountController : Controller
 
 
 
-
-    public IActionResult Security()
+    [HttpGet]
+    public async Task<IActionResult> Security()
     {
-      
-        return View();
+        var viewModel = new SecurityViewModel();
+
+        var userId = _userManager.GetUserId(User);
+        var user = await _userManager.FindByIdAsync(userId!);
+
+        viewModel.IsExternalAccount = user!.IsExternalAccount;
+
+        return View(viewModel);
     }
+
+
+    [HttpPost]
+    public async Task<IActionResult> Security(SecurityViewModel viewModel, string action)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (userId == null) 
+        {
+            ViewBag.Error = "Somethinq went wrong, please try again";
+            return View(viewModel);
+        }
+        var user = await _userManager.FindByIdAsync(userId);
+
+        switch (action)
+        {
+            case "password":
+                var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+                if (viewModel.ChangePassword.CurrentPassword != null && viewModel.ChangePassword.NewPassword == viewModel.ChangePassword.ConfirmPassword && Regex.IsMatch(viewModel.ChangePassword.NewPassword, pattern))
+                {
+                    var result = await _userManager.ChangePasswordAsync(user!, viewModel.ChangePassword.CurrentPassword, viewModel.ChangePassword.NewPassword);
+                    if (!result.Succeeded)
+                    {
+                        ViewBag.Error = "An unexpected error occurred.";
+                        return View(viewModel);
+                    }
+                    ViewBag.Success = "Your password was changed successfully";
+                }
+                break;
+
+            case "delete":
+                break;
+
+            default:
+                break;
+
+        }
+
+        return View(viewModel); 
+
+    }
+
 
 
     [HttpPost]

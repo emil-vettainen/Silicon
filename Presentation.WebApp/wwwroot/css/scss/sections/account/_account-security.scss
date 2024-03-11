@@ -7,14 +7,87 @@
 
         .account-form {
             grid-column: 1 / 13;
-            align-self: center;
+            align-self: flex-start;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 30px;
             padding-top: 2rem;
 
             @include xxl {
                 grid-column: 5/13;
+            }
+
+            .change-password {
+
+                h5 {
+                    color: var(--clr-theme);
+                    padding-bottom: 20px;
+                }
+
+                form {
+
+                    .content {
+                        display: grid;
+                        gap: 1rem;
+                        grid-template-columns: 1fr;
+                        grid-template-areas: "currentpassword" "newpassword" "confirmpassword" "button";
+
+                        @include md {
+                            grid-template-columns: repeat(2, 1fr);
+                            column-gap: 1.5rem;
+                            grid-template-areas: "currentpassword null" "newpassword confirmpassword" "button button";
+                        }
+
+
+
+                        #form-current-password {
+                            grid-area: currentpassword;
+                        }
+
+                        #form-new-password {
+                            grid-area: newpassword;
+                        }
+
+                        #form-confirm-password {
+                            grid-area: confirmpassword;
+                        }
+
+                        #form-buttons {
+                            grid-area: button;
+                            padding-top: 1rem;
+                            display: flex;
+                            flex-direction: row;
+                            
+                            gap: 1rem;
+
+
+                            
+                        }
+                    }
+                }
+            }
+
+            .delete-account {
+
+                h5 {
+                    color: var(--clr-theme);
+                    padding-bottom: 20px;
+                }
+
+                form {
+
+                    .content {
+
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.5rem;
+
+                        button {
+                            align-self: flex-start;
+                            background-color: var(--clr-danger);
+                        }
+                    }
+                }
             }
         }
     }

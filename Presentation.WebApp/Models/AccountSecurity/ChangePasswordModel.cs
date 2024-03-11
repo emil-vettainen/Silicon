@@ -1,11 +1,9 @@
-﻿using Shared.Helpers;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presentation.WebApp.ViewModels.Account;
+namespace Presentation.WebApp.Models.AccountSecurity;
 
-public class DeleteAccountViewModel
+public class ChangePasswordModel
 {
-
     [Display(Name = "Current password", Prompt = "Enter your current password", Order = 0)]
     [DataType(DataType.Password)]
     [Required(ErrorMessage = "Current password is required")]
@@ -22,11 +20,6 @@ public class DeleteAccountViewModel
     [Display(Name = "Confirm new password", Prompt = "Confirm your new password", Order = 2)]
     [DataType(DataType.Password)]
     [Required(ErrorMessage = "Please Confirm your password")]
-    [Compare(nameof(NewPassword), ErrorMessage = "Passwords do not match")]
+    [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; } = null!;
-
-
-    [Display(Name = "Yes, I want to delete my account", Order = 3)]
-    [CheckBoxRequired(ErrorMessage = "You must confirm")]
-    public bool DeletePassword { get; set; } = false;
 }

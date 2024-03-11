@@ -299,7 +299,17 @@ h6, .h6 {
 }
 
 .alert-success {
-  margin: 0;
+  margin-top: -2rem;
+  margin-bottom: -1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.alert-danger {
+  margin-top: -2rem;
+  margin-bottom: -1rem;
+  text-align: center;
+  font-weight: 500;
 }
 
 .btn-theme-small {
@@ -1518,8 +1528,10 @@ footer .container .social-media {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
+  padding-top: 2rem;
 }
 #signin .container h1 {
+  padding-top: 2rem;
   padding-bottom: 0.5rem;
 }
 #signin .container form {
@@ -1583,7 +1595,7 @@ footer .container .social-media {
   width: 100%;
   text-align: center;
 }
-#signin .container form .content #external-signin button {
+#signin .container form .content #external-signin a {
   flex: 1;
 }
 @media (min-width: 576px) {
@@ -1625,6 +1637,7 @@ footer .container .social-media {
 @media (min-width: 768px) {
   .account-details .container .account-form .basic-info form .content {
     grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
     grid-template-areas: "firstname lastname" "email phone" "bio bio" "button button";
   }
 }
@@ -1723,14 +1736,60 @@ footer .container .social-media {
 }
 .account-security .container .account-form {
   grid-column: 1/13;
-  align-self: center;
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   padding-top: 2rem;
 }
 @media (min-width: 1400px) {
   .account-security .container .account-form {
     grid-column: 5/13;
   }
+}
+.account-security .container .account-form .change-password h5 {
+  color: var(--clr-theme);
+  padding-bottom: 20px;
+}
+.account-security .container .account-form .change-password form .content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "currentpassword" "newpassword" "confirmpassword" "button";
+}
+@media (min-width: 768px) {
+  .account-security .container .account-form .change-password form .content {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    grid-template-areas: "currentpassword null" "newpassword confirmpassword" "button button";
+  }
+}
+.account-security .container .account-form .change-password form .content #form-current-password {
+  grid-area: currentpassword;
+}
+.account-security .container .account-form .change-password form .content #form-new-password {
+  grid-area: newpassword;
+}
+.account-security .container .account-form .change-password form .content #form-confirm-password {
+  grid-area: confirmpassword;
+}
+.account-security .container .account-form .change-password form .content #form-buttons {
+  grid-area: button;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.account-security .container .account-form .delete-account h5 {
+  color: var(--clr-theme);
+  padding-bottom: 20px;
+}
+.account-security .container .account-form .delete-account form .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.account-security .container .account-form .delete-account form .content button {
+  align-self: flex-start;
+  background-color: var(--clr-danger);
 }

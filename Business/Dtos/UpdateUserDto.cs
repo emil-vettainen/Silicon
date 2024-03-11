@@ -15,4 +15,5 @@ public class UpdateUserDto
     public string Email { get; set; } = null!;
     public string? PhoneNumber { get; set; }
     public string? Biography { get; set; }
+    public bool IsExternalAccount { get; set; }
 }

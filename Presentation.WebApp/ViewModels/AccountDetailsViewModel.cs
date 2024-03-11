@@ -8,6 +8,7 @@ namespace Presentation.WebApp.ViewModels;
 
 public class AccountDetailsViewModel
 {
+    public bool IsExternalAccount { get; set; }
 
     public BasicInfoModel BasicInfo { get; set; } = null!;
 
