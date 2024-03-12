@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
-builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
@@ -59,6 +59,11 @@ builder.Services.AddAuthentication()
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AddressService>();
+
+builder.Services.AddScoped<UserAddressRepository>();
+
+builder.Services.AddScoped<AddressRepository>();
 
 builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<ProfileRepository>();

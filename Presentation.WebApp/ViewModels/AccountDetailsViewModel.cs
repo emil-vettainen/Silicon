@@ -12,5 +12,6 @@ public class AccountDetailsViewModel
 
     public BasicInfoModel BasicInfo { get; set; } = null!;
 
-    public AddressInfoModel AddressInfo { get; set; } = null!;
+    public AddressInfoModel? AddressInfo { get; set; }
+
 }

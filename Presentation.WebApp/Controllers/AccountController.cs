@@ -21,35 +21,43 @@ public class AccountController : Controller
 {
     private readonly ProfileService _profileService;
     private readonly UserService _userService;
+    private readonly AddressService _addressService;
     private readonly UserManager<UserEntity> _userManager;
     private readonly IModelStateService _modelStateService;
 
-    public AccountController(ProfileService profileService, UserManager<UserEntity> userManager, UserService userService, IModelStateService modelStateService)
+    public AccountController(ProfileService profileService, UserManager<UserEntity> userManager, UserService userService, IModelStateService modelStateService, AddressService addressService)
     {
         _profileService = profileService;
         _userManager = userManager;
         _userService = userService;
         _modelStateService = modelStateService;
+        _addressService = addressService;
     }
 
     #region [HttpGet] /account/details
     [Route("/account/details")]
     public async Task<IActionResult> Details()
     {
-        
         var userId = _userManager.GetUserId(User);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
-        //var addressInfo = await _addressService.GetAddresInfoAsync(userId!);
-       
+        var addressInfo = await _addressService.GetAddressInfoAsync(userId!);
+
         var viewModel = new AccountDetailsViewModel
         {
-            IsExternalAccount = userInfo.IsExternalAccount, 
-            BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography},
-            AddressInfo = new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" }
-            
-           
-        };
+            IsExternalAccount = userInfo.IsExternalAccount,
+            BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography },
 
+            AddressInfo = addressInfo != null ? new AddressInfoModel
+            {
+                Addressline_1 = addressInfo.Address.StreetName,
+                Addressline_2 = addressInfo.OptionalAddress,
+                PostalCode = addressInfo.Address.PostalCode,
+                City = addressInfo.Address.City
+            } : null
+
+
+            //AddressInfo = new AddressInfoModel { Addressline_1 = addressInfo.Address.StreetName, Addressline_2 = addressInfo.AddressLine2, PostalCode = addressInfo.Address.PostalCode, City = addressInfo.Address.City }
+        };
         return View(viewModel);
     }
     #endregion
@@ -60,8 +68,8 @@ public class AccountController : Controller
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
         var userId = _userManager.GetUserId(User);
-        //var user = await _userManager.FindByIdAsync(userId!);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
+        var addressInfo = await _addressService.GetAddressInfoAsync(userId!);
 
         switch (action)
         {
@@ -85,14 +93,22 @@ public class AccountController : Controller
             case "addressinfo":
                 if(viewModel.AddressInfo.Addressline_1 != null && viewModel.AddressInfo.PostalCode != null && viewModel.AddressInfo.City != null)
                 {
-                    // uppdatera
-                    // hantera response
+
+                    var address = new AddressDto
+                    {
+                        Address_1 = viewModel.AddressInfo.Addressline_1,
+                        City = viewModel.AddressInfo.City,
+                        PostalCode = viewModel.AddressInfo.PostalCode,
+                        Address_2 = viewModel.AddressInfo.Addressline_2,
+                    };
+
+                    await _addressService.CreateOrUpdateAsync(address, userId);
               
                 }
                 break;
         }
 
-        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = "Skara", PostalCode = "12345", City = "Skara" };
+        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = addressInfo.Address.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.Address.PostalCode, City = addressInfo.Address.City };
         viewModel.BasicInfo ??= new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography };
         viewModel.IsExternalAccount = userInfo.IsExternalAccount;
         

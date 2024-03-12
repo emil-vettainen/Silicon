@@ -9,78 +9,78 @@ namespace Business.Services;
 public class AddressService
 {
 
+	private readonly AddressRepository _addressRepository;
+    private readonly UserAddressRepository _userAddressRepository;
 
-	//private readonly AddressRepository _addressRepository;
 
- //   public AddressService(AddressRepository addressRepository)
- //   {
- //       _addressRepository = addressRepository;
- //   }
-
- //   public async Task<bool> CreateOneAddressAsync(string userId, AddressDto dto)
- //   {
-
-	//	try
-	//	{
-	//		var createdAddress = await _addressRepository.CreateAsync(new AddressEntity
-	//		{
-	//			UserId = userId,
-	//			StreetName = dto.Address_1,
-	//			SecondStreetName = dto.Address_2,
-	//			PostalCode = dto.PostalCode,
-	//			City = dto.City,
-	//		});
-
-	//		return createdAddress != null;
-
-	//	}
-	//	catch (Exception)
-	//	{
-
-			
-	//	}
-
-	//	return false;
-
- //   }
+    public AddressService(AddressRepository addressRepository, UserAddressRepository userAddressRepository)
+    {
+        _addressRepository = addressRepository;
+        _userAddressRepository = userAddressRepository;
+    }
 
 
 
- //   public async Task<bool> UpdateAddressEntityAsync(string userId, AddressDto dto)
- //   {
- //       try
- //       {
- //           var newAddressEntity = await _addressRepository.UpdateAsync(x => x.UserId == userId, new AddressEntity
- //           {
- //               UserId = userId,
- //               StreetName = dto.Address_1,
- //               SecondStreetName = dto.Address_2,
- //               PostalCode = dto.PostalCode,
- //               City = dto.City,
- //           });
- //           return newAddressEntity != null;
+    public async Task<UserAddressEntity> GetAddressInfoAsync(string userId)
+    {
 
- //       }
- //       catch (Exception)
- //       {
+        var result = await _userAddressRepository.GetAllAddressesAsync(userId);
+        if (result != null)
+        {
+            return result;
+        }
+        return null!;
+       
+
+    }
 
 
- //       }
- //       return false;
- //   }
 
 
-    //public async Task<bool> GetOneAddress(string userId)
-    //{
-    //    try
-    //    {
-    //        var address
-    //    }
-    //    catch (Exception)
-    //    {
+    public async Task CreateOrUpdateAsync(AddressDto dto, string userId)
+    {
 
-    //        throw;
-    //    }
-    //}
+      
+
+
+        var address = await _addressRepository.GetOneAsync(x => x.StreetName == dto.Address_1 && x.PostalCode == dto.PostalCode && x.City == dto.City);
+
+        if (address == null)
+        {
+            address = new AddressEntity
+            {
+                StreetName = dto.Address_1,
+                PostalCode = dto.PostalCode,
+                City = dto.City,
+            };
+
+           var result = await _addressRepository.CreateAsync(address);
+        }
+
+
+        var existingRelation = await _addressRepository.GetUserAddressAsync(userId, address.Id);
+
+        if (existingRelation == null)
+        {
+            var newUserAddress = new UserAddressEntity
+            {
+                UserId = userId,
+                AddressId = address.Id,
+                OptionalAddress = dto.Address_2,
+            };
+
+            await _addressRepository.AddUserAddressAsync(newUserAddress);
+        }
+        else
+        {
+            existingRelation.OptionalAddress = dto.Address_2;
+            await _addressRepository.UpdateUserAddressAsync(existingRelation);
+            
+        }
+
+
+    }
+
+
 
 }
