@@ -2,6 +2,7 @@
 using Business.Dtos.User;
 using Business.Factories;
 using Infrastructure.Entities;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,26 @@ public class UserService
     private readonly UserManager<UserEntity> _userManager;
     private readonly SignInManager<UserEntity> _signInManager;
 
-    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager)
+
+    private readonly UserAddressRepository _userAddressRepository;
+
+    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _userAddressRepository = userAddressRepository;
     }
+
+
+    public async Task<UserAddressEntity> GetAddressInfoAsync(string userId)
+    {
+
+        var result = await _userAddressRepository.GetAllAddressesAsync(userId);
+        return result;
+
+    }
+
+
 
 
     public async Task<ResponseResult> HandleExternalLoginAsync()
@@ -121,7 +137,7 @@ public class UserService
 
             return ResponseFactory.Ok();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
             return ResponseFactory.Error();
@@ -140,13 +156,16 @@ public class UserService
     {
         try
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return null!;
-            }
-            return UserFactory.GetUserDto(user.FirstName, user.LastName, user.Email!, user.PhoneNumber!, user.Biography!, user.IsExternalAccount);
-           
+          
+            
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return null!;
+                }
+                return UserFactory.GetUserDto(user.FirstName, user.LastName, user.Email!, user.PhoneNumber!, user.Biography!, user.IsExternalAccount);
+            
+
             
 
         }

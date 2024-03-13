@@ -28,4 +28,6 @@ public class UserEntity : IdentityUser
     public DateTime Modified { get; set; }
 
     public bool IsExternalAccount { get; set; } = false;
+
+    public ICollection<UserAddressEntity> UserAddresses { get; set; } = new List<UserAddressEntity>();
 }

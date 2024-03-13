@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
-builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
@@ -46,12 +46,11 @@ builder.Services.AddAuthentication()
     {
         GoogleOptions.ClientId = "893316874513-a6a0bnpavt6tj1262db69jp4rpkasq4l";
         GoogleOptions.ClientSecret = "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";
-        GoogleOptions.CallbackPath = "/signin-google";
     })
-    .AddFacebook( options =>
+    .AddFacebook( FacebookOptions =>
     {
-    options.AppId = "276230208847426";
-    options.AppSecret = "fa8c8957ec6c242f81323a3453e31455";
+        FacebookOptions.AppId = "276230208847426";
+        FacebookOptions.AppSecret = "fa8c8957ec6c242f81323a3453e31455";
 
     });
 
@@ -59,6 +58,11 @@ builder.Services.AddAuthentication()
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AddressService>();
+
+builder.Services.AddScoped<UserAddressRepository>();
+builder.Services.AddScoped<OptionalAddressRepository>();
+builder.Services.AddScoped<AddressRepository>();
 
 builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<ProfileRepository>();

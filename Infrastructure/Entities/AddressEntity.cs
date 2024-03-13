@@ -5,10 +5,7 @@ namespace Infrastructure.Entities;
 
 public class AddressEntity
 {
-    [Key]
-    [ForeignKey(nameof(AccountEntity))]
-    public string UserId { get; set; } = null!;
-    public virtual AccountEntity Account { get; set; } = null!;
+    public int Id { get; set; } 
 
     [Column(TypeName = "nvarchar(50)")]
     public string StreetName { get; set; } = null!;
@@ -23,5 +20,6 @@ public class AddressEntity
     public string City { get; set; } = null!;
 
    
+    public ICollection<UserAddressEntity> UserAddresses { get; set; } = new List<UserAddressEntity>();
 
 }

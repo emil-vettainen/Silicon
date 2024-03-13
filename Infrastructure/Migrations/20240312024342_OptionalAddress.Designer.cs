@@ -4,6 +4,7 @@ using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AccountDbContext))]
-    partial class AccountDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240312024342_OptionalAddress")]
+    partial class OptionalAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,24 +50,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses", (string)null);
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.OptionalAddressEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("OptionalAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OptionalAddresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.UserAddressEntity", b =>
@@ -75,16 +61,14 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OptionalAddressId")
-                        .HasColumnType("int");
+                    b.Property<string>("OptionalAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "AddressId");
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("OptionalAddressId");
-
-                    b.ToTable("UserAddresses", (string)null);
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
@@ -316,10 +300,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Entities.OptionalAddressEntity", "OptionalAddress")
-                        .WithMany("UserAddresses")
-                        .HasForeignKey("OptionalAddressId");
-
                     b.HasOne("Infrastructure.Entities.UserEntity", "User")
                         .WithMany("UserAddresses")
                         .HasForeignKey("UserId")
@@ -327,8 +307,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
-
-                    b.Navigation("OptionalAddress");
 
                     b.Navigation("User");
                 });
@@ -385,11 +363,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.AddressEntity", b =>
-                {
-                    b.Navigation("UserAddresses");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.OptionalAddressEntity", b =>
                 {
                     b.Navigation("UserAddresses");
                 });
