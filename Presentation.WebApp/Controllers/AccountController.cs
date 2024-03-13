@@ -11,6 +11,7 @@ using Presentation.WebApp.Models;
 using Presentation.WebApp.ViewModels;
 using Presentation.WebApp.ViewModels.Account;
 using Shared.Responses.Enums;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -32,39 +33,31 @@ public class AccountController : Controller
         _userService = userService;
         _modelStateService = modelStateService;
         _addressService = addressService;
+
+        
     }
 
-    #region [HttpGet] /account/details
-    [Route("/account/details")]
+    #region [HttpGet] Details
     public async Task<IActionResult> Details()
     {
         var userId = _userManager.GetUserId(User);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
         var addressInfo = await _addressService.GetAddressInfoAsync(userId!);
-
+  
         var viewModel = new AccountDetailsViewModel
         {
             IsExternalAccount = userInfo.IsExternalAccount,
             BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography },
-
-            AddressInfo = addressInfo != null ? new AddressInfoModel
-            {
-                Addressline_1 = addressInfo.Address.StreetName,
-                Addressline_2 = addressInfo.OptionalAddress,
-                PostalCode = addressInfo.Address.PostalCode,
-                City = addressInfo.Address.City
-            } : null
-
-
-            //AddressInfo = new AddressInfoModel { Addressline_1 = addressInfo.Address.StreetName, Addressline_2 = addressInfo.AddressLine2, PostalCode = addressInfo.Address.PostalCode, City = addressInfo.Address.City }
+            AddressInfo = addressInfo != null ? new AddressInfoModel { Addressline_1 = addressInfo.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.PostalCode, City = addressInfo.City} : null
         };
         return View(viewModel);
     }
     #endregion
 
-    #region [HttpPost] /account/details
+
+
+    #region [HttpPost] Details
     [HttpPost]
-    [Route("/account/details")]
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
         var userId = _userManager.GetUserId(User);
@@ -91,25 +84,24 @@ public class AccountController : Controller
                 break;
 
             case "addressinfo":
-                if(viewModel.AddressInfo.Addressline_1 != null && viewModel.AddressInfo.PostalCode != null && viewModel.AddressInfo.City != null)
+                if(viewModel.AddressInfo!.Addressline_1 != null && viewModel.AddressInfo.PostalCode != null && viewModel.AddressInfo.City != null)
                 {
-
-                    var address = new AddressDto
+                    var respone = await _addressService.CreateOrUpdateAddressInfoAsync(AddressFactory.CreateAddressDto(viewModel.AddressInfo.Addressline_1, viewModel.AddressInfo.Addressline_2, viewModel.AddressInfo.PostalCode, viewModel.AddressInfo.City), userId!);
+                    switch (respone.StatusCode)
                     {
-                        Address_1 = viewModel.AddressInfo.Addressline_1,
-                        City = viewModel.AddressInfo.City,
-                        PostalCode = viewModel.AddressInfo.PostalCode,
-                        Address_2 = viewModel.AddressInfo.Addressline_2,
-                    };
-
-                    await _addressService.CreateOrUpdateAsync(address, userId);
+                        case ResultStatus.OK:
+                            ViewBag.Success = "Your address info has been updated";
+                                break;
+                        default:
+                            ViewBag.Error = "Something went wrong, please try again";
+                            break;
+                    }
               
                 }
                 break;
         }
-
-        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = addressInfo.Address.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.Address.PostalCode, City = addressInfo.Address.City };
         viewModel.BasicInfo ??= new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography };
+        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = addressInfo.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.PostalCode, City = addressInfo.City };
         viewModel.IsExternalAccount = userInfo.IsExternalAccount;
         
         return View(viewModel);
@@ -150,7 +142,7 @@ public class AccountController : Controller
         {
             case "password":
                 var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-                if (viewModel.ChangePassword.CurrentPassword != null &&  Regex.IsMatch(viewModel.ChangePassword.NewPassword, pattern) && viewModel.ChangePassword.NewPassword == viewModel.ChangePassword.ConfirmPassword)
+                if (viewModel.ChangePassword.CurrentPassword != null &&  viewModel.ChangePassword.NewPassword != null && viewModel.ChangePassword.ConfirmPassword == viewModel.ChangePassword.ConfirmPassword)
                 {
                     var result = await _userManager.ChangePasswordAsync(user!, viewModel.ChangePassword.CurrentPassword, viewModel.ChangePassword.NewPassword);
                     if (!result.Succeeded)

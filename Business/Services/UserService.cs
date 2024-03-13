@@ -137,7 +137,7 @@ public class UserService
 
             return ResponseFactory.Ok();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
             return ResponseFactory.Error();
@@ -156,13 +156,16 @@ public class UserService
     {
         try
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return null!;
-            }
-            return UserFactory.GetUserDto(user.FirstName, user.LastName, user.Email!, user.PhoneNumber!, user.Biography!, user.IsExternalAccount);
-           
+          
+            
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return null!;
+                }
+                return UserFactory.GetUserDto(user.FirstName, user.LastName, user.Email!, user.PhoneNumber!, user.Biography!, user.IsExternalAccount);
+            
+
             
 
         }

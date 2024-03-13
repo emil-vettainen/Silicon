@@ -1,7 +1,13 @@
 ﻿using Business.Dtos;
+using Business.Factories;
 using Infrastructure.Entities;
+using Infrastructure.Migrations;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.AspNetCore.Routing.Tree;
+using Shared.Factories;
+using Shared.Responses;
+using System.Net;
 using System.Runtime.CompilerServices;
 
 namespace Business.Services;
@@ -11,76 +17,145 @@ public class AddressService
 
 	private readonly AddressRepository _addressRepository;
     private readonly UserAddressRepository _userAddressRepository;
+    private readonly OptionalAddressRepository _optionalAddressRepository;
 
 
-    public AddressService(AddressRepository addressRepository, UserAddressRepository userAddressRepository)
+    public AddressService(AddressRepository addressRepository, UserAddressRepository userAddressRepository, OptionalAddressRepository optionalAddressRepository)
     {
         _addressRepository = addressRepository;
         _userAddressRepository = userAddressRepository;
+        _optionalAddressRepository = optionalAddressRepository;
     }
 
 
 
-    public async Task<UserAddressEntity> GetAddressInfoAsync(string userId)
+    public async Task<AddressDto> GetAddressInfoAsync(string userId)
     {
-
-        var result = await _userAddressRepository.GetAllAddressesAsync(userId);
-        if (result != null)
+        try
         {
-            return result;
-        }
-        return null!;
-       
-
-    }
-
-
-
-
-    public async Task CreateOrUpdateAsync(AddressDto dto, string userId)
-    {
-
-      
-
-
-        var address = await _addressRepository.GetOneAsync(x => x.StreetName == dto.Address_1 && x.PostalCode == dto.PostalCode && x.City == dto.City);
-
-        if (address == null)
-        {
-            address = new AddressEntity
+            var result = await _userAddressRepository.GetAllAddressesAsync(userId);
+            if (result != null)
             {
-                StreetName = dto.Address_1,
-                PostalCode = dto.PostalCode,
-                City = dto.City,
-            };
-
-           var result = await _addressRepository.CreateAsync(address);
+                var dto = AddressFactory.GetAddressDto(result.Address.StreetName, result.OptionalAddress?.OptionalAddress, result.Address.PostalCode, result.Address.City);
+                return dto;
+            }
         }
-
-
-        var existingRelation = await _addressRepository.GetUserAddressAsync(userId, address.Id);
-
-        if (existingRelation == null)
+        catch (Exception)
         {
-            var newUserAddress = new UserAddressEntity
-            {
-                UserId = userId,
-                AddressId = address.Id,
-                OptionalAddress = dto.Address_2,
-            };
-
-            await _addressRepository.AddUserAddressAsync(newUserAddress);
-        }
-        else
-        {
-            existingRelation.OptionalAddress = dto.Address_2;
-            await _addressRepository.UpdateUserAddressAsync(existingRelation);
             
         }
-
-
+        return null!;
     }
 
 
+
+
+    public async Task<ResponseResult> CreateOrUpdateAddressInfoAsync(AddressDto dto, string userId)
+    {
+        try
+        {
+            var addressId = await GetOrCreateAddressAsync(dto.StreetName, dto.PostalCode, dto.City);
+            if (addressId == 0)
+            {
+                return ResponseFactory.Error();
+            }
+
+            var existingRelation = await _userAddressRepository.GetUserAddressAsync(userId, addressId);
+            int? optionalAddressId = await HandleOptionalAddressAsync(dto.OptionalAddress);
+
+            if (existingRelation == null)
+            {
+                var result = await _userAddressRepository.CreateAsync(AddressFactory.CreateUserAddressEntity(userId, addressId, optionalAddressId));
+                return result != null ? ResponseFactory.Ok() : ResponseFactory.Error();
+            }
+            else
+            {
+                existingRelation.OptionalAddressId = optionalAddressId;
+                var result = await _userAddressRepository.UpdateAsync(x => x.UserId == userId && x.AddressId == addressId, existingRelation);
+                return result != null ? ResponseFactory.Ok() : ResponseFactory.Error();
+            }
+        }
+        catch (Exception)
+        {
+
+
+            return ResponseFactory.Error("Something went wrong, please try again!");
+        }
+
+      
+    }
+
+
+    public async Task<int> GetOrCreateAddressAsync(string streetName, string postalCode, string city)
+    {
+        try
+        {
+            var address = await _addressRepository.GetOneAsync(x => x.StreetName == streetName && x.PostalCode == postalCode && x.City == city);
+            if (address != null)
+            {
+                return address.Id; 
+            }
+            else
+            {
+                var createdAddress = await _addressRepository.CreateAsync(AddressFactory.CreateAddressEntity(streetName, postalCode, city));
+                if (createdAddress != null)
+                {
+                    return createdAddress.Id;
+                }
+            }
+        }
+        catch (Exception)
+        {
+
+           
+        }
+        return 0;
+    }
+
+
+
+
+    public async Task<int?> HandleOptionalAddressAsync(string? optionalAddress)
+    {
+        try
+        {
+            return optionalAddress != null ? await GetOrCreateOptionalAddressAsync(optionalAddress) : null;
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+    }
+
+
+    public async Task<int?> GetOrCreateOptionalAddressAsync(string optionalAddress)
+    {
+        try
+        {
+            var optionalAddressentity = await _optionalAddressRepository.GetOneAsync(x => x.OptionalAddress == optionalAddress);
+            if (optionalAddressentity != null)
+            {
+                return optionalAddressentity.Id;
+            }
+
+            else
+            {
+                var createdOptional = await _optionalAddressRepository.CreateAsync(AddressFactory.CreateOptionalEntity(optionalAddress));
+                return createdOptional.Id;
+            }
+
+       
+
+           
+
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+
+    }
 
 }

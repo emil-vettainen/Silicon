@@ -17,6 +17,27 @@ public class UserAddressRepository : BaseRepository<UserAddressEntity, AccountDb
     }
 
 
+    public async Task<UserAddressEntity> GetUserAddressAsync(string userId, int addressId)
+    {
+        try
+        {
+            var entity = await _context.UserAddresses.FirstOrDefaultAsync(ua => ua.UserId == userId && ua.AddressId == addressId);
+            if (entity != null)
+            {
+                return entity;
+            }
+            
+
+        }
+        catch (Exception)
+        {
+
+
+        }
+        return null!;
+    }
+
+
 
     public async Task<UserAddressEntity> GetAllAddressesAsync(string userId)
     {
@@ -25,6 +46,7 @@ public class UserAddressRepository : BaseRepository<UserAddressEntity, AccountDb
             var entities = await _context.UserAddresses
                 .Where(ua => ua.UserId == userId)
                 .Include(a => a.Address)
+                .Include(o => o.OptionalAddress)
                 .FirstOrDefaultAsync();
             if (entities != null) 
             {
@@ -32,7 +54,7 @@ public class UserAddressRepository : BaseRepository<UserAddressEntity, AccountDb
             }
             return null!;
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - GetAllAsync"); }
-        return null!;
+        catch (Exception ) { return null!; }
+        
     }
 }

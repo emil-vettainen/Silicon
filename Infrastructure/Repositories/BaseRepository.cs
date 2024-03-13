@@ -23,18 +23,18 @@ public class BaseRepository<TEntity, TContext>(TContext context, ErrorLogger err
         return false;
     }
 
-    public virtual async Task<ResponseResult> CreateAsync(TEntity entity)
+    public virtual async Task<TEntity> CreateAsync(TEntity entity)
     {
         try
         {
             await _context.Set<TEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
-            return ResponseFactory.Ok(entity);
+            return entity;
         }
         catch (Exception ex) 
         {
             _errorLogger.ErrorLog(ex.Message, "BaseRepo - CreateAsync");
-            return ResponseFactory.Error("Something went wrong, please try again.");
+            return null!;
         } 
     }
 

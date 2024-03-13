@@ -9,7 +9,13 @@
         @await Component.InvokeAsync("AccountPanel")
         <div class="account-form">
             @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
+
+
+
             <h2>Account Details</h2>
+
+        
+
             <div class="basic-info">
                 <h5>Basic Info</h5>
                 <form method="post" asp-controller="Account" asp-action="Details" novalidate>
@@ -71,6 +77,8 @@
                 </form>
             </div>
             <hr />
+
+           
             <div class="address-info">
                 <h5>Address</h5>
                 <form method="post" asp-controller="Account" asp-action="Details" novalidate>

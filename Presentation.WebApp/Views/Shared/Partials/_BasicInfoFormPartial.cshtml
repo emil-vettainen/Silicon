@@ -1,10 +1,10 @@
-﻿@model BasicInfoModel
+﻿@model AccountDetailsViewModel
 
 <div class="basic-info">
     <h5>Basic Info</h5>
 
 
-    <form method="post" asp-controller="Account" asp-action="Details" novalidate>
+    <form method="post" asp-controller="Account" asp-action="BasicInfo" novalidate>
 
 
 
@@ -13,29 +13,29 @@
 
         <div class="content">
             <div id="form-firstname" class="input-group">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+                <label asp-for="BasicInfo.FirstName"></label>
+                <input asp-for="BasicInfo.FirstName" class="form-control" />
+                <span asp-validation-for="BasicInfo.FirstName" class="invalid-feedback"></span>
             </div>
             <div id="form-lastname" class="input-group">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="invalid-feedback"></span>
+                <label asp-for="BasicInfo.LastName"></label>
+                <input asp-for="BasicInfo.LastName" class="form-control" />
+                <span asp-validation-for="BasicInfo.LastName" class="invalid-feedback"></span>
             </div>
             <div id="form-email" class="input-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="invalid-feedback"></span>
+                <label asp-for="BasicInfo.Email"></label>
+                <input asp-for="BasicInfo.Email" class="form-control" />
+                <span asp-validation-for="BasicInfo.Email" class="invalid-feedback"></span>
             </div>
             <div id="form-phone" class="input-group">
-                <label asp-for="Phone"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="invalid-feedback"></span>
+                <label asp-for="BasicInfo.Phone"></label>
+                <input asp-for="BasicInfo.Phone" class="form-control" />
+                <span asp-validation-for="BasicInfo.Phone" class="invalid-feedback"></span>
             </div>
             <div id="form-bio" class="input-group">
-                <label asp-for="Biography"></label>
-                <input asp-for="Biography" class="form-control" />
-                <span asp-validation-for="Biography" class="invalid-feedback"></span>
+                <label asp-for="BasicInfo.Biography"></label>
+                <input asp-for="BasicInfo.Biography" class="form-control" />
+                <span asp-validation-for="BasicInfo.Biography" class="invalid-feedback"></span>
             </div>
 
 

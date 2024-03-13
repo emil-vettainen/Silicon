@@ -8,6 +8,6 @@ public class UserAddressEntity
     public int AddressId { get; set; }
     public AddressEntity Address { get; set; } = null!;
 
-
-    public string? OptionalAddress { get; set; }
+    public int? OptionalAddressId { get; set; }
+    public OptionalAddressEntity? OptionalAddress { get; set; }
 }

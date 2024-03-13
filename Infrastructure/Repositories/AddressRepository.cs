@@ -22,40 +22,6 @@ namespace Infrastructure.Repositories
        
 
 
-        public async Task<UserAddressEntity> GetUserAddressAsync(string userId, int addressId)
-        {
-            try
-            {
-                var entity = await _context.UserAddresses.FirstOrDefaultAsync(ua => ua.UserId == userId && ua.AddressId == addressId);
-                if (entity != null)
-                {
-                    return entity;
-                }
-
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            return null!;
-        }
-
-
-        public async Task AddUserAddressAsync(UserAddressEntity userAddress)
-        {
-            _context.UserAddresses.Add(userAddress);
-            await _context.SaveChangesAsync();
-        }
-
-
-
-        public async Task UpdateUserAddressAsync(UserAddressEntity userAddress)
-        {
-           _context.UserAddresses.Update(userAddress);
-            await _context.SaveChangesAsync();
-        }
-
    
     }
 }

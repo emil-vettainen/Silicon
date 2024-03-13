@@ -22,4 +22,5 @@ public class AddressInfoModel
     [Display(Name = "City", Prompt = "Enter your city", Order = 3)]
     [Required(ErrorMessage = "City is required")]
     public string? City { get; set; }
+
 }
