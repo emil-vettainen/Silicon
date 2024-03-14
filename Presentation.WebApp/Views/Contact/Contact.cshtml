@@ -1,0 +1,84 @@
+﻿@using Presentation.WebApp.ViewModels.Contact
+@model ContactUsViewModel
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+
+<section class="contact">
+    <div class="container grid-12">
+
+        <div class="contact-details">
+            <h1>Contact Us</h1>
+
+            <div class="contact-content">
+                <i class="fa-regular fa-envelope"></i>
+                <div>
+                    <h4>Email us</h4>
+                    <p class="text-m">Please feel free to drop us a line. We will respond as soon as possible.</p>
+                    <a href="#">Leave a message</a>
+                </div>
+            </div>
+
+
+            <div class="contact-content">
+                <i class="fa-regular fa-user-plus careers"></i>
+                <div>
+                    <h4>Careers</h4>
+                    <p class="text-m">Sit ac ipsum leo lorem magna nunc mattis maecenas non vestibulum.</p>
+                    <a href="#">Send an application</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="contact-form">
+            <h2>Get In Contact With Us</h2>
+            
+
+            <form method="post" novalidate>
+
+                <div id="form-phone" class="input-group">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="invalid-feedback"></span>
+                </div>
+
+                <div id="form-phone" class="input-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="invalid-feedback"></span>
+                </div>
+
+                <div id="form-phone" class="input-group">
+                    <label asp-for="Service"></label>
+                    <input asp-for="Service" class="form-control" />
+                    <span asp-validation-for="Service" class="invalid-feedback"></span>
+                </div>
+
+
+                <div id="form-bio" class="input-group">
+                    <label asp-for="Message">Bio <span>(optional)</span></label>
+                    <textarea asp-for="Message" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Message" class="invalid-feedback"></span>
+                </div>
+
+                <div id="form-buttons">
+                    <button class="btn-theme-small" type="submit" name="action" value="basicinfo">Save changes</button>
+                </div>
+            </form>
+
+
+
+            <button class="btn-theme-m">Send Contact Request</button>
+
+        </div>
+    </div>
+</section>
+
+<section class="map">
+    <img src="/img/contact/map.svg" alt="">
+</section>
+
+

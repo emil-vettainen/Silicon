@@ -56,6 +56,21 @@
   
 }
 
+
+.btn-danger-medium {
+    @include button;
+    padding: 9px 20px;
+    border: 1px solid #FABEBE;
+    background-color: var(--clr-white);
+    color: var(--clr-danger);
+
+    &:hover {
+        background-color: var(--clr-danger);
+        border-color: var(--clr-danger);
+    }
+}
+
+
 .btn-switch {
     display: flex;
     align-items: center;

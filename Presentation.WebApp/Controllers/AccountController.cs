@@ -32,7 +32,7 @@ public class AccountController : Controller
         _addressService = addressService;
     }
 
-    #region [HttpGet] Details
+    #region Details
     public async Task<IActionResult> Details()
     {
         var userId = _userManager.GetUserId(User);
@@ -90,7 +90,6 @@ public class AccountController : Controller
                             ViewBag.Error = "Something went wrong, please try again";
                             break;
                     }
-              
                 }
                 break;
         }
@@ -106,31 +105,29 @@ public class AccountController : Controller
 
 
 
-
+    #region Security
     [HttpGet]
     public async Task<IActionResult> Security()
     {
-        var viewModel = new SecurityViewModel();
-
         var userId = _userManager.GetUserId(User);
         var user = await _userManager.FindByIdAsync(userId!);
 
-        viewModel.IsExternalAccount = user!.IsExternalAccount;
+        var viewModel = new SecurityViewModel
+        {
+            IsExternalAccount = user!.IsExternalAccount
+        };
 
         return View(viewModel);
     }
+    #endregion
 
 
+    #region [HttpPost] Security
     [HttpPost]
     public async Task<IActionResult> Security(SecurityViewModel viewModel, string action)
     {
         var userId = _userManager.GetUserId(User);
-        if (userId == null) 
-        {
-            ViewBag.Error = "Somethinq went wrong, please try again";
-            return View(viewModel);
-        }
-        var user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userId!);
 
         switch (action)
         {
@@ -160,40 +157,40 @@ public class AccountController : Controller
                     return RedirectToAction("SignIn", "Authentication");
                 }
                 break;
-
-            default:
-                ViewBag.Error = "An unexpected error occurred.";
-                break;
-
         }
-
         return View(viewModel); 
+    }
+    #endregion
 
+
+    public async Task<IActionResult> SavedCourses()
+    {
+        return View();
+        
+     
     }
 
 
 
+
+    #region [HttpPost] ProfileImage
     [HttpPost]
     public async Task <IActionResult> UpdateProfileImage(AccountPanelViewModel viewModel)
     {
+        var userId = _userManager.GetUserId(User);
+
         if (viewModel.ProfileImage != null)
         {
 
+            var result = await _userService.UploadProfileImageAsync(userId!, viewModel.ProfileImage);
+
+            return RedirectToAction("Details");
          
-
-            var userId = _userManager.GetUserId(User);
-            if(userId != null)
-            {
-                await _userService.UploadProfileImageAsync(userId, viewModel.ProfileImage);
-            }
-
-            
-
-
-            //var result = await _profileService.UploadProfileImageAsync(userId!,viewModel.ProfileImage);
            
         }
-       
+
+        ViewBag.Error = "Valideringsfel";
         return RedirectToAction("Details");
     }
+    #endregion
 }

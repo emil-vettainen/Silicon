@@ -87,15 +87,15 @@
                 padding: 11px 28px;
                 color: var(--clr-neutral);
                 text-decoration: none;
+                transition: all .2s ease-in-out;
 
                 .rotate {
                     transform: rotate(-90deg);
                 }
 
                 &:hover {
-                    @include theme-shadow;
-                    color: var(--clr-white);
-                    background-color: var(--clr-theme);
+                    color: var(--clr-theme);
+                    background-color: var(--clr-gray-300);
                 }
             }
 
@@ -104,6 +104,11 @@
                 background-color: var(--clr-theme);
 
                 @include theme-shadow;
+
+                &:hover {
+                    color: var(--clr-white);
+                    background-color: var(--clr-theme);
+                }
             }
         }
     }

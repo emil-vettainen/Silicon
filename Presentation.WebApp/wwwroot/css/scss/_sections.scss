@@ -1,22 +1,15 @@
 @import './sections/_header.scss';
+@import './sections/_footer.scss';
 
 // Default - Home
 
 @import './sections/default/home/_showcase.scss';
-
 @import './sections/_our-tools.scss';
 @import './sections/_switch-between.scss';
 @import './sections/_manage-your-work.scss';
-
 @import './sections/_our-app.scss';
-
 @import './sections/_work-tools.scss';
-
 @import './sections/_newsletter.scss';
-
-@import './sections/_footer.scss';
-
-
 
 
 // Default - 404
@@ -34,3 +27,16 @@
 
 @import './sections/account/_account-details.scss';
 @import './sections/account/_account-security.scss';
+
+
+//Courses
+
+@import './sections/account/_account-saved-courses.scss';
+
+
+
+
+
+//Contact
+
+@import './sections/contact/_contact.scss';

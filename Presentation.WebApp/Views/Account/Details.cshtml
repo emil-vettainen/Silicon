@@ -84,24 +84,24 @@
                 <form method="post" asp-controller="Account" asp-action="Details" novalidate>
                     <div class="content">
                         <div id="form-address-1" class="input-group">
-                            <label asp-for="AddressInfo.Addressline_1"></label>
-                            <input asp-for="AddressInfo.Addressline_1" class="form-control" />
-                            <span asp-validation-for="AddressInfo.Addressline_1" class="invalid-feedback"></span>
+                            <label asp-for="AddressInfo!.Addressline_1"></label>
+                            <input asp-for="AddressInfo!.Addressline_1" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.Addressline_1" class="invalid-feedback"></span>
                         </div>
                         <div id="form-address-2" class="input-group">
-                            <label asp-for="AddressInfo.Addressline_2">Address line 2 <span>(optional)</span></label>
-                            <input asp-for="AddressInfo.Addressline_2" class="form-control" />
-                            <span asp-validation-for="AddressInfo.Addressline_2" class="invalid-feedback"></span>
+                            <label asp-for="AddressInfo!.Addressline_2">Address line 2 <span>(optional)</span></label>
+                            <input asp-for="AddressInfo!.Addressline_2" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.Addressline_2" class="invalid-feedback"></span>
                         </div>
                         <div id="form-postalcode" class="input-group">
-                            <label asp-for="AddressInfo.PostalCode"></label>
-                            <input asp-for="AddressInfo.PostalCode" class="form-control" />
-                            <span asp-validation-for="AddressInfo.PostalCode" class="invalid-feedback"></span>
+                            <label asp-for="AddressInfo!.PostalCode"></label>
+                            <input asp-for="AddressInfo!.PostalCode" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.PostalCode" class="invalid-feedback"></span>
                         </div>
                         <div id="form-city" class="input-group">
-                            <label asp-for="AddressInfo.City"></label>
-                            <input asp-for="AddressInfo.City" class="form-control" />
-                            <span asp-validation-for="AddressInfo.City" class="invalid-feedback"></span>
+                            <label asp-for="AddressInfo!.City"></label>
+                            <input asp-for="AddressInfo!.City" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.City" class="invalid-feedback"></span>
                         </div>
                         <div id="form-buttons">
                             <button class="btn-gray-small" type="reset"> Cancel</button>
