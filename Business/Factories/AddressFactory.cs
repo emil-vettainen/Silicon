@@ -1,4 +1,4 @@
-﻿using Business.Dtos;
+﻿using Business.Dtos.Address;
 using Infrastructure.Entities;
 
 namespace Business.Factories;

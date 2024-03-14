@@ -9,12 +9,11 @@ namespace Presentation.WebApp.Controllers;
 public class HomeController : Controller
 {
     private readonly UserManager<UserEntity> _userManager;
-    private readonly ProfileService _profileService;
-
-    public HomeController(UserManager<UserEntity> userManager, ProfileService profileService)
+  
+    public HomeController(UserManager<UserEntity> userManager)
     {
         _userManager = userManager;
-        _profileService = profileService;
+    
     }
 
     public async Task<IActionResult> Index()

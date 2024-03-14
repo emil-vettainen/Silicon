@@ -20,18 +20,17 @@ namespace Presentation.WebApp.Controllers;
 [Authorize]
 public class AccountController : Controller
 {
-    private readonly ProfileService _profileService;
     private readonly UserService _userService;
     private readonly AddressService _addressService;
     private readonly UserManager<UserEntity> _userManager;
-    private readonly IModelStateService _modelStateService;
+  
 
-    public AccountController(ProfileService profileService, UserManager<UserEntity> userManager, UserService userService, IModelStateService modelStateService, AddressService addressService)
+    public AccountController(ProfileService profileService, UserManager<UserEntity> userManager, UserService userService, AddressService addressService)
     {
-        _profileService = profileService;
+      
         _userManager = userManager;
         _userService = userService;
-        _modelStateService = modelStateService;
+     
         _addressService = addressService;
 
         

@@ -2,8 +2,6 @@
     grid-column: 1 / 13;
     padding-top: 1rem;
     padding-bottom: 2rem;
-   
-   
     position: relative;
 
 
@@ -16,7 +14,7 @@
     .content {
         position: sticky;
         top: 1rem;
-       
+
 
         .account-user {
             display: flex;
@@ -91,6 +89,12 @@
 
                 .rotate {
                     transform: rotate(-90deg);
+                }
+
+                &:hover {
+                    @include theme-shadow;
+                    color: var(--clr-white);
+                    background-color: var(--clr-theme);
                 }
             }
 

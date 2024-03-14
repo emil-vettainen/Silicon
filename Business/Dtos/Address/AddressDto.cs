@@ -1,4 +1,4 @@
-﻿namespace Business.Dtos;
+﻿namespace Business.Dtos.Address;
 
 public class AddressDto
 {
