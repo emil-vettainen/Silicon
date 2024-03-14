@@ -754,6 +754,7 @@ form .content .btn-theme-large {
   padding: 8px;
   border-radius: 50%;
   border: 1px solid var(--clr-gray-300);
+  cursor: pointer;
 }
 .account-panel .content .account-user h5 {
   padding: 1rem 0 0.5rem 0;

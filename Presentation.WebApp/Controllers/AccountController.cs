@@ -25,15 +25,11 @@ public class AccountController : Controller
     private readonly UserManager<UserEntity> _userManager;
   
 
-    public AccountController(ProfileService profileService, UserManager<UserEntity> userManager, UserService userService, AddressService addressService)
+    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService)
     {
-      
         _userManager = userManager;
         _userService = userService;
-     
         _addressService = addressService;
-
-        
     }
 
     #region [HttpGet] Details
@@ -42,17 +38,16 @@ public class AccountController : Controller
         var userId = _userManager.GetUserId(User);
         var userInfo = await _userService.GetBasicInfoAsync(userId!);
         var addressInfo = await _addressService.GetAddressInfoAsync(userId!);
-  
+
         var viewModel = new AccountDetailsViewModel
         {
             IsExternalAccount = userInfo.IsExternalAccount,
             BasicInfo = new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography },
-            AddressInfo = addressInfo != null ? new AddressInfoModel { Addressline_1 = addressInfo.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.PostalCode, City = addressInfo.City} : null
+            AddressInfo = addressInfo != null ? new AddressInfoModel { Addressline_1 = addressInfo.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.PostalCode, City = addressInfo.City } : null
         };
         return View(viewModel);
     }
     #endregion
-
 
 
     #region [HttpPost] Details
@@ -141,7 +136,7 @@ public class AccountController : Controller
         {
             case "password":
                 var pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-                if (viewModel.ChangePassword.CurrentPassword != null &&  viewModel.ChangePassword.NewPassword != null && viewModel.ChangePassword.ConfirmPassword == viewModel.ChangePassword.ConfirmPassword)
+                if (viewModel.ChangePassword.CurrentPassword != null && Regex.IsMatch(viewModel.ChangePassword.NewPassword, pattern) && viewModel.ChangePassword.NewPassword == viewModel.ChangePassword.ConfirmPassword)
                 {
                     var result = await _userManager.ChangePasswordAsync(user!, viewModel.ChangePassword.CurrentPassword, viewModel.ChangePassword.NewPassword);
                     if (!result.Succeeded)
