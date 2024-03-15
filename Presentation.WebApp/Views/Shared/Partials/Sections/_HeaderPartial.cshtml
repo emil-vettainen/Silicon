@@ -25,10 +25,10 @@
                         @if (_signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="menu-link" asp-controller="Default" asp-action="Home">Courses</a>
+                                <a class="menu-link" asp-controller="Courses" asp-action="Courses">Courses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="menu-link" asp-controller="Default" asp-action="Home">Contact</a>
+                                <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
                             </li>
                         }
                         else
@@ -37,7 +37,7 @@
                                 <a class="menu-link" asp-controller="Default" asp-action="Home">Features</a>
                             </li>
                             <li class="nav-item">
-                                <a class="menu-link" asp-controller="Default" asp-action="Home">Contact</a>
+                                <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
                             </li>
                         }
                        

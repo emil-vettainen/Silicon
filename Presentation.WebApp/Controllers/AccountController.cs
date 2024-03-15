@@ -1,18 +1,14 @@
-﻿using Business.Dtos;
-using Business.Factories;
+﻿using Business.Factories;
 using Business.Services;
 using Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Presentation.WebApp.Models;
 using Presentation.WebApp.ViewModels;
 using Presentation.WebApp.ViewModels.Account;
 using Shared.Responses.Enums;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Claims;
+
 using System.Text.RegularExpressions;
 
 namespace Presentation.WebApp.Controllers;
@@ -50,7 +46,7 @@ public class AccountController : Controller
     #endregion
 
 
-    #region [HttpPost] Details
+    #region Details [HttpPost] 
     [HttpPost]
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
@@ -102,9 +98,6 @@ public class AccountController : Controller
     #endregion
 
 
-
-
-
     #region Security
     [HttpGet]
     public async Task<IActionResult> Security()
@@ -122,7 +115,7 @@ public class AccountController : Controller
     #endregion
 
 
-    #region [HttpPost] Security
+    #region Security [HttpPost] 
     [HttpPost]
     public async Task<IActionResult> Security(SecurityViewModel viewModel, string action)
     {
@@ -163,7 +156,7 @@ public class AccountController : Controller
     #endregion
 
 
-    public async Task<IActionResult> SavedCourses()
+    public IActionResult SavedCourses()
     {
         return View();
         
@@ -173,7 +166,7 @@ public class AccountController : Controller
 
 
 
-    #region [HttpPost] ProfileImage
+    #region ProfileImage [HttpPost]
     [HttpPost]
     public async Task <IActionResult> UpdateProfileImage(AccountPanelViewModel viewModel)
     {

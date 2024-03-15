@@ -1,0 +1,49 @@
+.courses {
+    padding: 1rem 0;
+
+
+    .container {
+
+        .courses-options {
+            display: flex;
+            padding-top: 2rem;
+
+            align-items: center;
+
+            h1 {
+                flex-grow: 1;
+            }
+
+
+            .form-options {
+                display: flex;
+               
+
+
+
+
+
+               
+
+                select {
+                    box-shadow: none;
+                }
+
+                input {
+                    border-right: 0;
+                    border-color: var(--clr-gray-400);
+                    box-shadow: none;
+                    margin-left: 1rem;
+
+                  
+                    
+                }
+
+                button {
+                    border-left: 0;
+                    border-color: var(--clr-gray-400);
+                }
+            }
+        }
+    }
+}

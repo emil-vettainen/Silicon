@@ -41,14 +41,44 @@
         .contact-form {
             background-color: var(--background-color);
             grid-column: 7 / 13;
-            padding: 2rem 0;
-            height: 800px;
+            padding: 4rem 5rem 2rem 5rem;
             z-index: 99;
+
+
+            h2 {
+                padding-bottom: 3rem;
+            }
+
+
+            .btn-theme-small {
+                @include theme-shadow;
+                margin-top: 1rem;
+            }
+
+            #form-service {
+
+                display: flex;
+                flex-direction: column;
+
+
+                label {
+
+                    span {
+
+                        @include text-s;
+                        font-weight: 600;
+                    }
+                
+                }
+
+                select {
+                    width: 100%;
+                    padding: 1rem;
+                    border-radius: 6px;
+                    box-shadow: none;
+                }
+
+            }
         }
     }
-}
-
-
-.map {
-    margin-top: -300px;
 }
