@@ -64,14 +64,14 @@
 
                         #form-bio {
                             grid-area: bio;
+                        }
 
-                            label {
+                        label {
 
-                                span {
-                                   
-                                    @include text-s;
-                                    font-weight: 600;
-                                }
+                            span {
+
+                                @include text-s;
+                                font-weight: 600;
                             }
                         }
 
@@ -127,7 +127,7 @@
                             label {
 
                                 span {
-                                    
+
                                     @include text-s;
                                     font-weight: 600;
                                 }

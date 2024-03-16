@@ -315,7 +315,7 @@ h6, .h6 {
 
 .custom-tooltip {
   --bs-tooltip-font-size: 1rem;
-  --bs-tooltip-padding-y: .5rem;
+  --bs-tooltip-padding-y: .4rem;
   --bs-tooltip-padding-x: 1rem;
   --bs-tooltip-opacity: 1;
 }
@@ -1929,7 +1929,7 @@ footer .container .social-media a {
 .account-details .container .account-form .basic-info form .content #form-bio {
   grid-area: bio;
 }
-.account-details .container .account-form .basic-info form .content #form-bio label span {
+.account-details .container .account-form .basic-info form .content label span {
   line-height: 160%;
   font-weight: 400;
   color: var(--clr-gray-700);
@@ -2298,4 +2298,8 @@ footer .container .social-media a {
   padding: 1rem;
   border-radius: 6px;
   box-shadow: none;
+}
+
+.map {
+  margin-top: -20rem;
 }

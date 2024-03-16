@@ -151,6 +151,7 @@ public class AccountController : Controller
                 }
                 break;
         }
+        viewModel.IsExternalAccount = user!.IsExternalAccount;
         return View(viewModel); 
     }
     #endregion
