@@ -1,0 +1,61 @@
+.single-course-author {
+    padding: 5rem 0;
+
+    .container {
+        display: grid;
+
+        .author-img {
+            grid-column: 1 / 6;
+        }
+
+        .author-info {
+            background-color: #0B0F19;
+            background-image: url(/images/courses/single-course/pattern.svg);
+            background-repeat: no-repeat;
+            background-position: 100% 50%;
+            grid-column: 6 / 13;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            align-items: center;
+
+            div {
+                grid-column: 2 / 7;
+                padding: 0 .5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .author-information {
+
+                    h1 {
+                        color: var(--clr-white);
+                        margin: 0;
+                    }
+
+                    p {
+                        text-wrap: pretty;
+                        margin: 0;
+                        color: var(--clr-white);
+                    }
+                }
+
+                .author-followers {
+                    display: flex;
+                    flex-direction: row;
+                    padding-top: 20px;
+                    gap: 20px;
+
+                    .youtube {
+                        background-color: var(--clr-danger);
+                        color: var(--clr-white);
+                    }
+
+                    .facebook {
+                        background-color: var(--clr-info);
+                        color: var(--clr-white);
+                    }
+                }
+            }
+        }
+    }
+}

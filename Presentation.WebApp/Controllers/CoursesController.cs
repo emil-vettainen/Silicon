@@ -8,4 +8,14 @@ public class CoursesController : Controller
     {
         return View();
     }
+
+
+
+
+    public IActionResult SingleCourse()
+    {
+        return View();
+    }
+
+
 }
