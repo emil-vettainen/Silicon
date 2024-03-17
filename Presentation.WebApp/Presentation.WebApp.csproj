@@ -37,4 +37,10 @@
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\scss\sections\account\details\" />
+    <Folder Include="wwwroot\css\scss\sections\account\saved-courses\" />
+    <Folder Include="wwwroot\css\scss\sections\account\security\" />
+  </ItemGroup>
+
 </Project>

@@ -5,9 +5,9 @@
 }
 
 <section class="account-details">
-    <div class="container grid-12">
+    <div class="container account grid-12">
         @await Component.InvokeAsync("AccountPanel")
-        <div class="account-form">
+        <div class="account-content d-flex flex-column">
             @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
 
 

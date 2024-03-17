@@ -25,6 +25,8 @@
 
 //Account
 
+@import './sections/account/_account.scss';
+
 @import './sections/account/_account-details.scss';
 @import './sections/account/_account-security.scss';
 
@@ -36,6 +38,11 @@
 @import './sections/courses/_all-courses.scss';
 
 @import './sections/courses/_work-with-us.scss';
+
+
+@import './sections/courses/single-course/_single-course-header.scss';
+@import './sections/courses/single-course/_single-course-description.scss';
+@import './sections/courses/single-course/_single-course-author.scss';
 
 
 

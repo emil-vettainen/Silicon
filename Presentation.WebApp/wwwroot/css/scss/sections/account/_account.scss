@@ -1,0 +1,17 @@
+.account {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    position: relative;
+    min-height: 100vh;
+
+
+    .account-content {
+        grid-column: 1 / 13;
+        gap: 2rem;
+
+        @include lg {
+            padding-top: 2rem;
+            grid-column: 5 / 13;
+        }
+    }
+}
