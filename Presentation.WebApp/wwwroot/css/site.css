@@ -749,7 +749,7 @@ form .content .btn-theme-large {
   padding-bottom: 2rem;
   position: relative;
 }
-@media (min-width: 1400px) {
+@media (min-width: 992px) {
   .account-panel {
     grid-column: 1/4;
     border-right: 1px solid var(--clr-gray-300);
@@ -796,9 +796,22 @@ form .content .btn-theme-large {
 }
 .account-panel .content .account-options {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 5px;
   padding-top: 1.5rem;
+}
+.account-panel .content .account-options .link-text {
+  display: none;
+}
+@media (min-width: 992px) {
+  .account-panel .content .account-options {
+    flex-direction: column;
+  }
+  .account-panel .content .account-options .link-text {
+    display: block;
+  }
 }
 .account-panel .content .account-options a {
   display: flex;
@@ -1879,57 +1892,56 @@ footer .container .social-media a {
   }
 }
 
-.account-details .container {
+.account {
   padding-top: 2rem;
   padding-bottom: 5rem;
   position: relative;
+  min-height: 100vh;
 }
-.account-details .container .account-form {
+.account .account-content {
   grid-column: 1/13;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding-top: 2rem;
+  gap: 2rem;
 }
-@media (min-width: 1400px) {
-  .account-details .container .account-form {
+@media (min-width: 992px) {
+  .account .account-content {
+    padding-top: 2rem;
     grid-column: 5/13;
   }
 }
-.account-details .container .account-form .basic-info h5 {
+
+.account-details .basic-info h5 {
   color: var(--clr-theme);
   padding-bottom: 20px;
 }
-.account-details .container .account-form .basic-info form .content {
+.account-details .basic-info form .content {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
   grid-template-areas: "firstname" "lastname" "email" "phone" "bio" "button";
 }
 @media (min-width: 768px) {
-  .account-details .container .account-form .basic-info form .content {
+  .account-details .basic-info form .content {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.5rem;
     grid-template-areas: "firstname lastname" "email phone" "bio bio" "button button";
   }
 }
-.account-details .container .account-form .basic-info form .content #form-firstname {
+.account-details .basic-info form .content #form-firstname {
   grid-area: firstname;
 }
-.account-details .container .account-form .basic-info form .content #form-lastname {
+.account-details .basic-info form .content #form-lastname {
   grid-area: lastname;
 }
-.account-details .container .account-form .basic-info form .content #form-email {
+.account-details .basic-info form .content #form-email {
   grid-area: email;
 }
-.account-details .container .account-form .basic-info form .content #form-phone {
+.account-details .basic-info form .content #form-phone {
   grid-area: phone;
 }
-.account-details .container .account-form .basic-info form .content #form-bio {
+.account-details .basic-info form .content #form-bio {
   grid-area: bio;
 }
-.account-details .container .account-form .basic-info form .content label span {
+.account-details .basic-info form .content label span {
   line-height: 160%;
   font-weight: 400;
   color: var(--clr-gray-700);
@@ -1939,41 +1951,41 @@ footer .container .social-media a {
   font-size: 0.875rem;
   font-weight: 600;
 }
-.account-details .container .account-form .basic-info form .content #form-buttons {
+.account-details .basic-info form .content #form-buttons {
   grid-area: button;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-@media (min-width: 1400px) {
-  .account-details .container .account-form .basic-info form .content #form-buttons {
+@media (min-width: 768px) {
+  .account-details .basic-info form .content #form-buttons {
     flex-direction: row;
   }
 }
-.account-details .container .account-form .address-info h5 {
+.account-details .address-info h5 {
   color: var(--clr-theme);
   padding-bottom: 20px;
 }
-.account-details .container .account-form .address-info form .content {
+.account-details .address-info form .content {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
   grid-template-areas: "address_1" "address_2" "postalcode" "city" "button";
 }
 @media (min-width: 768px) {
-  .account-details .container .account-form .address-info form .content {
+  .account-details .address-info form .content {
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: "address_1 address_1" "address_2 address_2" "postalcode city" "button button";
   }
 }
-.account-details .container .account-form .address-info form .content #form-address-1 {
+.account-details .address-info form .content #form-address-1 {
   grid-area: address_1;
 }
-.account-details .container .account-form .address-info form .content #form-address-2 {
+.account-details .address-info form .content #form-address-2 {
   grid-area: address_2;
 }
-.account-details .container .account-form .address-info form .content #form-address-2 label span {
+.account-details .address-info form .content #form-address-2 label span {
   line-height: 160%;
   font-weight: 400;
   color: var(--clr-gray-700);
@@ -1983,110 +1995,80 @@ footer .container .social-media a {
   font-size: 0.875rem;
   font-weight: 600;
 }
-.account-details .container .account-form .address-info form .content #form-postalcode {
+.account-details .address-info form .content #form-postalcode {
   grid-area: postalcode;
 }
-.account-details .container .account-form .address-info form .content #form-city {
+.account-details .address-info form .content #form-city {
   grid-area: city;
 }
-.account-details .container .account-form .address-info form .content #form-buttons {
+.account-details .address-info form .content #form-buttons {
   grid-area: button;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-@media (min-width: 1400px) {
-  .account-details .container .account-form .address-info form .content #form-buttons {
+@media (min-width: 768px) {
+  .account-details .address-info form .content #form-buttons {
     flex-direction: row;
   }
 }
 
-.account-security .container {
-  padding-top: 2rem;
-  padding-bottom: 5rem;
-  position: relative;
-  height: 100vh;
-}
-.account-security .container .account-form {
-  grid-column: 1/13;
-  padding-top: 2rem;
-}
-@media (min-width: 1400px) {
-  .account-security .container .account-form {
-    grid-column: 5/13;
-  }
-}
-.account-security .container .account-form .change-password h5 {
+.account-security .change-password h5 {
   color: var(--clr-theme);
   padding-bottom: 20px;
 }
-.account-security .container .account-form .change-password form .content {
+.account-security .change-password form .content {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
   grid-template-areas: "currentpassword" "newpassword" "confirmpassword" "button";
 }
 @media (min-width: 768px) {
-  .account-security .container .account-form .change-password form .content {
+  .account-security .change-password form .content {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.5rem;
     grid-template-areas: "currentpassword null" "newpassword confirmpassword" "button button";
   }
 }
-.account-security .container .account-form .change-password form .content #form-current-password {
+.account-security .change-password form .content #form-current-password {
   grid-area: currentpassword;
 }
-.account-security .container .account-form .change-password form .content #form-new-password {
+.account-security .change-password form .content #form-new-password {
   grid-area: newpassword;
 }
-.account-security .container .account-form .change-password form .content #form-confirm-password {
+.account-security .change-password form .content #form-confirm-password {
   grid-area: confirmpassword;
 }
-.account-security .container .account-form .change-password form .content #form-buttons {
+.account-security .change-password form .content #form-buttons {
   grid-area: button;
   padding-top: 1rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
 }
-.account-security .container .account-form .delete-account h5 {
+.account-security .delete-account h5 {
   color: var(--clr-theme);
   padding-bottom: 20px;
 }
-.account-security .container .account-form .delete-account form .content {
+.account-security .delete-account form .content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-.account-security .container .account-form .delete-account form .content button {
+.account-security .delete-account form .content button {
   align-self: flex-start;
   background-color: var(--clr-danger);
 }
 
-.account-saved-courses .container {
-  position: relative;
-  padding-top: 2rem;
-  padding-bottom: 5rem;
-}
-.account-saved-courses .container .saved-courses {
-  grid-column: 1/13;
-  padding-top: 2rem;
-  gap: 2rem;
-}
-@media (min-width: 1400px) {
-  .account-saved-courses .container .saved-courses {
-    grid-column: 5/13;
-  }
-}
-.account-saved-courses .container .saved-courses .saved-items {
+.account-saved-courses .saved-items {
   grid-column: 1/13;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 0.5rem;
 }
-.account-saved-courses .container .saved-courses .course-card {
+.account-saved-courses .course-card {
   grid-column: span 12;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -2094,54 +2076,54 @@ footer .container .social-media a {
   position: relative;
   box-shadow: 0px 2px 6.4px -1px rgba(19, 16, 34, 0.03), 0px 4.4px 12px -1px rgba(19, 16, 34, 0.06);
 }
-.account-saved-courses .container .saved-courses .course-card a {
+.account-saved-courses .course-card a {
   text-decoration: none;
 }
-.account-saved-courses .container .saved-courses .course-card a .course-img {
+.account-saved-courses .course-card a .course-img {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text {
+.account-saved-courses .course-card a .card-text {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 1.5rem 1rem;
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text h5 {
+.account-saved-courses .course-card a .card-text h5 {
   transition: all 0.2s ease-in-out;
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text .text-lg {
+.account-saved-courses .course-card a .card-text .text-lg {
   font-weight: 700;
   color: var(--clr-theme);
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text .border {
+.account-saved-courses .course-card a .card-text .border {
   border-color: var(--clr-gray-300);
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text .card-info {
+.account-saved-courses .course-card a .card-text .card-info {
   display: flex;
   gap: 20px;
 }
-.account-saved-courses .container .saved-courses .course-card a .card-text .card-info i {
+.account-saved-courses .course-card a .card-text .card-info i {
   display: flex;
   align-items: center;
   gap: 5px;
   color: var(--clr-gray-600);
   padding-top: 5px;
 }
-.account-saved-courses .container .saved-courses .course-card a:hover h5 {
+.account-saved-courses .course-card a:hover h5 {
   color: var(--clr-theme);
 }
 @media (min-width: 768px) {
-  .account-saved-courses .container .saved-courses .course-card {
+  .account-saved-courses .course-card {
     grid-column: span 6;
   }
 }
 @media (min-width: 1200px) {
-  .account-saved-courses .container .saved-courses .course-card {
+  .account-saved-courses .course-card {
     grid-column: span 6;
   }
 }
-.account-saved-courses .container .saved-courses .course-card .favorite {
+.account-saved-courses .course-card .favorite {
   position: absolute;
   top: 15px;
   right: 18px;
@@ -2157,7 +2139,7 @@ footer .container .social-media a {
   cursor: pointer;
   z-index: 20;
 }
-.account-saved-courses .container .saved-courses .course-card .favorite:hover {
+.account-saved-courses .course-card .favorite:hover {
   color: var(--clr-theme);
 }
 
