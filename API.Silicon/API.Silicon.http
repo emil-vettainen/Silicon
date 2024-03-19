@@ -1,0 +1,6 @@
+@API.Silicon_HostAddress = http://localhost:5023
+
+GET {{API.Silicon_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
