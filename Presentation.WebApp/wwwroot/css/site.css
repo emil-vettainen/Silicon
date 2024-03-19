@@ -874,14 +874,20 @@ form .content .btn-theme-large {
   gap: 10px;
   padding: 1.5rem 1rem;
 }
-.course-card a .card-text h5 {
-  transition: all 0.2s ease-in-out;
+.course-card a .card-text .testar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.course-card a .card-text .text-lg {
+.course-card a .card-text .testar h5 {
+  transition: all 0.2s ease-in-out;
+  flex-grow: 1;
+}
+.course-card a .card-text .testar .text-lg {
   font-weight: 700;
   color: var(--clr-theme);
 }
-.course-card a .card-text .border {
+.course-card a .card-text .testar .border {
   border-color: var(--clr-gray-300);
 }
 .course-card a .card-text .card-info {

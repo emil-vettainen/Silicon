@@ -1,4 +1,7 @@
-﻿<section class="single-course-header">
+﻿@using Infrastructure.Entities.MongoDb
+@model CourseEntity 
+
+<section class="single-course-header">
 
     <div class="container">
 
@@ -85,6 +88,24 @@
             <div class="course-details">
                 <h1>Program Details</h1>
 
+                @foreach (var content in Model.CourseContents)
+                {
+                    <div class="details">
+                        <div>
+                            <h4>@content.Module</h4>
+                        </div>
+
+                        <div>
+                            <h4>
+                                @content.Title
+                            </h4>
+                            <p class="text-m">
+                                @content.Description
+                            </p>
+                        </div>
+                    </div>
+                }
+
 
                 <div class="details">
                     <div>
@@ -144,7 +165,7 @@
         <aside class="course-include">
             <h4>This course includes:</h4>
             <ul>
-                <li><i class="fa-light fa-display"></i>148 hours on-demand video</li>
+                <li><i class="fa-light fa-display"></i>@Model.Included.HoursOfVideo hours on-demand video</li>
                 <li><i class="fa-light fa-file-lines"></i>18 articles</li>
                 <li><i class="fa-light fa-arrow-down-to-bracket"></i>25 downloadable resources</li>
                 <li><i class="fa-light fa-infinity"></i>Full lifetime access</li>

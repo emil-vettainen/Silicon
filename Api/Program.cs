@@ -1,11 +1,15 @@
 using Business.Services.Api;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories.Api;
+using Infrastructure.Repositories.MongoDb;
 using Microsoft.EntityFrameworkCore;
 using Shared.Utilis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.Configure<MongoDbContext>(builder.Configuration.GetSection("MongoDb"));
+builder.Services.AddSingleton<MongoRepository>();
 
 
 builder.Services.AddDbContext<ApiDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Api")));

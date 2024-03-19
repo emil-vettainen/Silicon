@@ -68,6 +68,32 @@ namespace Api.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(CreateCourseDto dto, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _courseService.UpdateCourseAsync(dto, id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+
+                return Conflict();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _courseService.DeleteAsync(id);
+            return result ? Ok() : NotFound();
+
+        }
+            
+
 
     }
 }

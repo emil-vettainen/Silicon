@@ -18,6 +18,21 @@ namespace Business.Services.Api
         }
 
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                var result = await _courseRepository.DeleteAsync(x => x.Id == id);
+                return result;
+            }
+            catch (Exception)
+            {
+
+           
+            }
+            return false;
+        }
+
 
         public async Task<bool> Exists(CreateCourseDto dto)
         {
@@ -54,14 +69,62 @@ namespace Business.Services.Api
                     return null!;
                 }
 
-                var newCourse = await _courseRepository.UpdateAsync(x => x.Id == id, )
+                var newCourse = await _courseRepository.UpdateAsync(x => x.Id == id, new CourseEntity
+                {
+                    Id = id,
+                    Title = dto.Title,
+                    Ingress = dto.Ingress,
+                    Description = dto.Description,
+                    Price = dto.Price,
+                    DiscountPrice = dto.DiscountPrice,
+                    Hours = dto.Hours,
+                    LikesInNumbers = dto.LikesInNumbers,
+                    LikesInProcent = dto.LikesInProcent,
+                    ImageUrl = dto.ImageUrl,
+                    IsBestSeller = dto.IsBestSeller,
+                    Articles = dto.Articles,
+                    Resources = dto.Resources,
+                    LifetimeAccess = dto.LifetimeAccess,
+                    Certificate = dto.Certificate,
+                    AuthorId = authorId,
+                });
+
+                if (newCourse != null)
+                {
+                    return new CourseDto
+                    {
+                        Id = newCourse.Id,
+                        Title = newCourse.Title,
+                        Ingress = newCourse.Ingress,
+                        Description = newCourse.Description,
+                        Price = newCourse.Price,
+                        DiscountPrice = newCourse.DiscountPrice,
+                        Hours = newCourse.Hours,
+                        LikesInNumbers = newCourse.LikesInNumbers,
+                        LikesInProcent = newCourse.LikesInProcent,
+                        ImageUrl = newCourse.ImageUrl,
+                        IsBestSeller = newCourse.IsBestSeller,
+                        Articles = newCourse.Articles,
+                        Resources = newCourse.Resources,
+                        LifetimeAccess = newCourse.LifetimeAccess,
+                        Certificate = newCourse.Certificate,
+                        FullName = newCourse.Author.FullName,
+                        AuthorBiography = newCourse.Author.AuthorBiography,
+                        AuthorImageUrl = newCourse.Author.AuthorImageUrl,
+                        YoutubeUrl = newCourse.Author.YoutubeUrl,
+                        FollowersYoutube = newCourse.Author.FollowersYoutube,
+                        FacebookUrl = newCourse.Author.FacebookUrl,
+                        FollowersFacebook = newCourse.Author.FollowersFacebook,
+
+                    };
+                }
 
             }
             catch (Exception)
             {
 
-                throw;
             }
+            return null!;
         }
 
 
