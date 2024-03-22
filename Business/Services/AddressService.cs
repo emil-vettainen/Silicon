@@ -1,6 +1,6 @@
 ﻿using Business.Dtos.Address;
 using Business.Factories;
-using Infrastructure.Repositories;
+using Infrastructure.Repositories.SqlRepositories;
 using Shared.Factories;
 using Shared.Responses;
 

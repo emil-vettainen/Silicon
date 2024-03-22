@@ -6,6 +6,7 @@ namespace Presentation.WebApp.Controllers;
 
 public class CoursesController : Controller
 {
+    [HttpGet]
     public async Task <IActionResult> Courses()
     {
         using var http = new HttpClient();
@@ -15,9 +16,7 @@ public class CoursesController : Controller
         return View(data);
     }
 
-
-
-
+    [HttpGet]
     public async Task<IActionResult> SingleCourse(string id)
     {
         using var http = new HttpClient();
@@ -27,6 +26,4 @@ public class CoursesController : Controller
 
         return View(data);
     }
-
-
 }

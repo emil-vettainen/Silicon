@@ -77,3 +77,17 @@ Cannot create a DbSet for 'ProfileEntity' because this type is not included in t
 Cannot create a DbSet for 'ProfileEntity' because this type is not included in the model for the context.
 Cannot create a DbSet for 'ProfileEntity' because this type is not included in the model for the context.
 The property 'CourseEntity.Id' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+Could not load type 'Microsoft.EntityFrameworkCore.Metadata.Conventions.EntityTypeAttributeConventionBase`1' from assembly 'Microsoft.EntityFrameworkCore, Version=8.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+Could not load type 'Microsoft.EntityFrameworkCore.Metadata.Conventions.EntityTypeAttributeConventionBase`1' from assembly 'Microsoft.EntityFrameworkCore, Version=8.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+Could not load type 'Microsoft.EntityFrameworkCore.Metadata.Conventions.EntityTypeAttributeConventionBase`1' from assembly 'Microsoft.EntityFrameworkCore, Version=8.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+Could not load type 'Microsoft.EntityFrameworkCore.Metadata.Conventions.EntityTypeAttributeConventionBase`1' from assembly 'Microsoft.EntityFrameworkCore, Version=8.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+Could not load type 'Microsoft.EntityFrameworkCore.Metadata.Conventions.EntityTypeAttributeConventionBase`1' from assembly 'Microsoft.EntityFrameworkCore, Version=8.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+The property 'SubscribeEntity.Id' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+The property 'SubscribeEntity.Id' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+Invalid column name 'AdvertisingUpdates'.
+Invalid column name 'DailyNewsletter'.
+Invalid column name 'EventUpdates'.
+Invalid column name 'Podcasts'.
+Invalid column name 'StartupsWeekly'.
+Invalid column name 'WeenInReview'.
+The property 'SubscribeEntity.Id' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.

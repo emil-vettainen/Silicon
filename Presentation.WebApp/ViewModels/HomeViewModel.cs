@@ -4,6 +4,8 @@ namespace Presentation.WebApp.ViewModels;
 
 public class HomeViewModel
 {
+    public string? Email { get; set; }
+
 
   
 

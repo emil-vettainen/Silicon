@@ -1,15 +1,27 @@
 using Business.Services.Api;
+using Business.Services.SubscriberServices;
 using Infrastructure.Contexts;
+using Infrastructure.Helper;
 using Infrastructure.Repositories.Api;
-using Infrastructure.Repositories.MongoDb;
+using Infrastructure.Repositories.MongoRepositories;
+using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.EntityFrameworkCore;
 using Shared.Utilis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
+builder.Services.AddScoped<SubscribeService>();
+builder.Services.AddScoped<SubscribeRepository>();
 
-builder.Services.Configure<MongoDbContext>(builder.Configuration.GetSection("MongoDb"));
+
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 builder.Services.AddSingleton<MongoRepository>();
+
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Business.Helper.AutoMapper).Assembly);
+
+
 
 
 builder.Services.AddDbContext<ApiDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Api")));

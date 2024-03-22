@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities.Api;
+using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.EntityFrameworkCore;
 using Shared.Utilis;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories.Api;
 
-public class CourseRepository : BaseRepository<CourseEntity, ApiDbContext>
+public class CourseRepository : SqlBaseRepository<CourseEntity, ApiDbContext>
 {
     private readonly ApiDbContext _context;
     private readonly ErrorLogger _errorLogger;

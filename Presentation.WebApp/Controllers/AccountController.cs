@@ -1,6 +1,6 @@
 ﻿using Business.Factories;
 using Business.Services;
-using Infrastructure.Entities;
+using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

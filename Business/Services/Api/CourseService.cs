@@ -53,7 +53,7 @@ namespace Business.Services.Api
         {
             try
             {
-                var authorId = await _authorService.GetOrCreateAuthorAsync(new AuthorDto
+                var authorId = await _authorService.GetOrCreateAuthorAsync(new Dtos.Author.AuthorDto
                 {
                     FullName = dto.FullName,
                     AuthorBiography = dto.AuthorBiography,
@@ -132,7 +132,7 @@ namespace Business.Services.Api
         {
             try
             {
-                var authorId = await _authorService.GetOrCreateAuthorAsync(new AuthorDto
+                var authorId = await _authorService.GetOrCreateAuthorAsync(new Dtos.Author.AuthorDto
                 {
                     FullName = dto.FullName,
                     AuthorBiography = dto.AuthorBiography,

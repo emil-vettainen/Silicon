@@ -1,7 +1,7 @@
 using Business.Services;
 using Infrastructure.Contexts;
-using Infrastructure.Entities;
-using Infrastructure.Repositories;
+using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

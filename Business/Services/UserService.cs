@@ -1,8 +1,8 @@
 ﻿using Business.Dtos;
 using Business.Dtos.User;
 using Business.Factories;
-using Infrastructure.Entities;
-using Infrastructure.Repositories;
+using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
