@@ -10,10 +10,9 @@
                 {
                     <i class="fa-solid fa-star"></i>
                 }
-                @if (app.StarRating % 1 != 0) // Kontrollerar om det finns en decimaldel
+                @if (app.StarRating % 1 != 0)
                 {
                     <i class="fa-solid fa-star-half-stroke"></i>
-                    // antar att 'fa-star-half-alt' är klassen för en halv stjärna
                 }
                 @for (var i = Math.Ceiling(app.StarRating); i < 5; i++)
                 {

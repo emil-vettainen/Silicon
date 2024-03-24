@@ -24,6 +24,8 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Business.Helper.
 
 
 
+
+
 builder.Services.AddDbContext<ApiDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Api")));
 
 builder.Services.AddScoped<CourseService>();

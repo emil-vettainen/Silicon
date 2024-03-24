@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\NewFolder\" />
+    <Folder Include="Views\Shared\Partials\Sections\Authentication\" />
     <Folder Include="wwwroot\css\scss\sections\account\details\" />
     <Folder Include="wwwroot\css\scss\sections\account\saved-courses\" />
     <Folder Include="wwwroot\css\scss\sections\account\security\" />

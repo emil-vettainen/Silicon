@@ -24,7 +24,7 @@
     <div class="container">
         <h1>What do you get with our tool?</h1>
         <p>Make sure all your tasks are organized so you can set the priorities and focus on important.</p>
-        @await Html.PartialAsync("~/Views/Shared/_ToolBoxesPartial.cshtml", Model.ToolBoxes)
+        @await Html.PartialAsync("~/Views/Shared/Partials/Sections/Home/_ToolBoxesPartial.cshtml", Model.ToolBoxes)
     </div>
 </section>
 <section class="switch-between">
@@ -41,7 +41,7 @@
         <img class="" src="~/images/manage-your-work/manage_work.svg" alt="Dashboard">
         <div class="work-list">
             <h2>Manage Your Work</h2>
-            @await Html.PartialAsync("~/Views/Shared/_UnsortedListPartial.cshtml", Model.UnsortedList)
+            @await Html.PartialAsync("~/Views/Shared/Partials/Sections/Home/_UnsortedListPartial.cshtml", Model.UnsortedList)
             <a class="btn-theme-medium" href="#">Learn more<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
         </div>
     </div>
@@ -51,7 +51,7 @@
         <img class="phones col-sm-12 col-md-5 col-lg-5 col-xl-5" src="~/images/download-app/phones.svg" alt="Phone">
         <div class="col-sm-12 col-md-7 col-lg-5 col-xl-5 col-xxl-4 content">
             <h1>Download Our App for Any Devices:</h1>
-            @await Html.PartialAsync("~/Views/Shared/_DownloadApp.cshtml", Model.AppList)
+            @await Html.PartialAsync("~/Views/Shared/Partials/Sections/Home/_DownloadApp.cshtml", Model.AppList)
         </div>
     </div>
 </section>
