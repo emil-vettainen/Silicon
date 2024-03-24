@@ -1,5 +1,5 @@
 ﻿using Business.Dtos.Address;
-using Infrastructure.Entities;
+using Infrastructure.Entities.AccountEntites;
 
 namespace Business.Factories;
 

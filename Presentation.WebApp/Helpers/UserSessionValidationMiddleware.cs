@@ -1,4 +1,4 @@
-﻿using Infrastructure.Entities;
+﻿using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

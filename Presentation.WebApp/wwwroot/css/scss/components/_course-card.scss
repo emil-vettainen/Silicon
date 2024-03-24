@@ -12,6 +12,7 @@
 
 
 
+
     a {
         text-decoration: none;
 
@@ -32,20 +33,33 @@
             padding: 1.5rem 1.0rem;
 
 
-            h5 {
-                transition: all .2s ease-in-out;
+            .testar {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                
+
+
+
+                h5 {
+                    transition: all .2s ease-in-out;
+                    flex-grow: 1;
+                }
+
+
+
+                .text-lg {
+                    font-weight: 700;
+                    color: var(--clr-theme);
+                }
+
+                .border {
+                    border-color: var(--clr-gray-300);
+                }
             }
 
 
 
-            .text-lg {
-                font-weight: 700;
-                color: var(--clr-theme);
-            }
-
-            .border {
-                border-color: var(--clr-gray-300);
-            }
 
             .card-info {
                 display: flex;

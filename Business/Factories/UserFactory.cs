@@ -1,6 +1,6 @@
 ﻿using Business.Dtos;
 using Business.Dtos.User;
-using Infrastructure.Entities;
+using Infrastructure.Entities.AccountEntites;
 
 namespace Business.Factories;
 

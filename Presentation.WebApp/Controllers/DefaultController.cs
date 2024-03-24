@@ -12,6 +12,16 @@ public class DefaultController : Controller
         return View(viewModel);
     }
 
+    [Route("/")]
+    [HttpPost]
+    public IActionResult Home(HomeViewModel viewModel)
+    {
+       
+        return View(viewModel);
+    }
+
+
+
     [Route("/error")]
     public IActionResult Error404(int statusCode)
     {

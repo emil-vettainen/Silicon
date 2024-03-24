@@ -1,21 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infrastructure.Entities.MongoDb;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Presentation.WebApp.Controllers;
 
 public class CoursesController : Controller
 {
-    public IActionResult Courses()
+    [HttpGet]
+    public async Task <IActionResult> Courses()
     {
-        return View();
+        using var http = new HttpClient();
+        var response = await http.GetAsync("https://localhost:7107/api/mongo");
+        var json = await response.Content.ReadAsStringAsync();
+        var data = JsonConvert.DeserializeObject<IEnumerable<CourseEntity>>(json);
+        return View(data);
     }
 
-
-
-
-    public IActionResult SingleCourse()
+    [HttpGet]
+    public async Task<IActionResult> SingleCourse(string id)
     {
-        return View();
+        using var http = new HttpClient();
+        var response = await http.GetAsync($"https://localhost:7107/api/mongo/{id}");
+        var json = await response.Content.ReadAsStringAsync();
+        var data = JsonConvert.DeserializeObject<CourseEntity>(json);
+
+        return View(data);
     }
-
-
 }

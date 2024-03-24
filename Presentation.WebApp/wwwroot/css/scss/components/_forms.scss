@@ -20,6 +20,7 @@ form {
                 padding: 1rem;
                 border-radius: 6px !important;
                 display: flex;
+                background-color: var(--clr-input);
                 /*   &.input-validation-error {
                 border: 1px solid var(--clr-danger);
                 color: var(--clr-danger);
@@ -46,6 +47,8 @@ form {
                 width: 100%;
                 box-shadow: none;
 
+
+
                 &.is-invalid {
                     border-color: var(--clr-danger);
                 }
@@ -55,7 +58,6 @@ form {
             .span {
                 padding-bottom: 1rem;
                 color: var(--clr-danger);
-               
             }
             /* .invalid-feedback {
            margin: 0;
@@ -118,7 +120,6 @@ form {
             span {
                 width: 100%;
                 margin: 0;
-               
             }
             /*input[type="checkbox"] {
                 height: 1.2rem;
@@ -155,12 +156,14 @@ form {
             border-radius: .5rem !important;
             border: 0.063rem solid var(--clr-gray-400);
             resize: none;
+            background-color: var(--clr-input);
+           
 
-          
+            
         }
 
 
-       
+
 
 
 

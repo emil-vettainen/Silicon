@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Infrastructure.Entities.AddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.AddressEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,10 +47,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.OptionalAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.OptionalAddressEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,10 +64,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OptionalAddresses", (string)null);
+                    b.ToTable("OptionalAddresses");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.UserAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.UserAddressEntity", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -84,10 +84,10 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OptionalAddressId");
 
-                    b.ToTable("UserAddresses", (string)null);
+                    b.ToTable("UserAddresses");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.UserEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -173,6 +173,41 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.SubscribeEntities.SubscribeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AdvertisingUpdates")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("DailyNewsletter")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EventUpdates")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Podcasts")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("StartupsWeekly")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WeenInReview")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -308,19 +343,19 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.UserAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.UserAddressEntity", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.AddressEntity", "Address")
+                    b.HasOne("Infrastructure.Entities.AccountEntites.AddressEntity", "Address")
                         .WithMany("UserAddresses")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Entities.OptionalAddressEntity", "OptionalAddress")
+                    b.HasOne("Infrastructure.Entities.AccountEntites.OptionalAddressEntity", "OptionalAddress")
                         .WithMany("UserAddresses")
                         .HasForeignKey("OptionalAddressId");
 
-                    b.HasOne("Infrastructure.Entities.UserEntity", "User")
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", "User")
                         .WithMany("UserAddresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -344,7 +379,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.UserEntity", null)
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -353,7 +388,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.UserEntity", null)
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -368,7 +403,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Entities.UserEntity", null)
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -377,24 +412,24 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.UserEntity", null)
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.AddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.AddressEntity", b =>
                 {
                     b.Navigation("UserAddresses");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.OptionalAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.OptionalAddressEntity", b =>
                 {
                     b.Navigation("UserAddresses");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.UserEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntites.UserEntity", b =>
                 {
                     b.Navigation("UserAddresses");
                 });
