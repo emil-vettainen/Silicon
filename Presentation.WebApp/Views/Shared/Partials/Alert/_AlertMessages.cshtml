@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     if (ViewBag.Success != null)
     {
         <div class="alert alert-success">@ViewBag.Success</div>
@@ -8,4 +8,44 @@
     {
         <div class="alert alert-danger">@ViewBag.Error</div>
     }
+
+    if (ViewBag.Warning != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Warning</div>
+    }
+} *@
+
+@{
+    var hasMessage = ViewBag.Success != null || ViewBag.Error != null || ViewBag.Warning != null;
+    var messageType = ViewBag.Success != null ? "success":
+                      ViewBag.Error != null ? "danger" :
+                      ViewBag.Warning != null ? "warning": "";
+    var message = ViewBag.Success ?? ViewBag.Error ?? ViewBag.Warning;
+}
+
+@if (hasMessage)
+{
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header alert alert-@messageType">
+                    <h5 class="modal-title" id="alertModalLabel">Message:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-theme-medium" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+            alertModal.show();
+        });
+    </script>
 }

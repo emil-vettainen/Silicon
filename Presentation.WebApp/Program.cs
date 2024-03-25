@@ -18,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
