@@ -1,10 +1,6 @@
-﻿using Business.Dtos;
-using Business.Services;
-using Infrastructure.Entities;
-using Microsoft.AspNetCore.Identity;
-using Presentation.WebApp.Models;
+﻿using Presentation.WebApp.Models.Account;
 
-namespace Presentation.WebApp.ViewModels;
+namespace Presentation.WebApp.ViewModels.Account;
 
 public class AccountDetailsViewModel
 {

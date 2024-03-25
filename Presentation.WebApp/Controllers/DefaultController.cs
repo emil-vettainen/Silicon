@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
-using Presentation.WebApp.ViewModels;
+using Presentation.WebApp.ViewModels.Default;
 using System.Text;
 
 namespace Presentation.WebApp.Controllers;
@@ -24,7 +23,7 @@ public class DefaultController : Controller
 
     [Route("/")]
     [HttpPost]
-    public async Task<IActionResult> Home(HomeViewModel viewModel)
+    public async Task<IActionResult> Subscribe(HomeViewModel viewModel)
     {
         if (ModelState.IsValid)
         {
@@ -54,7 +53,7 @@ public class DefaultController : Controller
             ViewBag.Warning = "Invalid";
         }
        
-        return View(viewModel);
+        return View("Home", viewModel);
     }
 
 

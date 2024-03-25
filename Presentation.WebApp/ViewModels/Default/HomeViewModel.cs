@@ -2,7 +2,7 @@
 
 using Presentation.WebApp.Models.Subscribe;
 
-namespace Presentation.WebApp.ViewModels;
+namespace Presentation.WebApp.ViewModels.Default;
 
 public class HomeViewModel
 {

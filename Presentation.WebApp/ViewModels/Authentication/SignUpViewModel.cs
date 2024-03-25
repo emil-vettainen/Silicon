@@ -1,9 +1,9 @@
 ﻿using Shared.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace Presentation.WebApp.Models;
+namespace Presentation.WebApp.ViewModels.Authentication;
 
-public class SignUpModel
+public class SignUpViewModel
 {
     [Display(Name = "First name", Prompt = "Enter your first name", Order = 0)]
     [Required(ErrorMessage = "First name is required")]

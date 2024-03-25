@@ -3,9 +3,8 @@ using Business.Services;
 using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.WebApp.ViewModels;
+using Presentation.WebApp.ViewModels.Authentication;
 using Shared.Responses.Enums;
-using System.Security.Claims;
 
 
 namespace Presentation.WebApp.Controllers;
@@ -42,7 +41,7 @@ public class AuthenticationController : Controller
         {
             return View(viewModel);
         }
-        var result = await _userService.CreateAsync(UserFactory.CreateUser(viewModel.SignUp.FirstName, viewModel.SignUp.LastName, viewModel.SignUp.Email, viewModel.SignUp.Password));
+        var result = await _userService.CreateAsync(UserFactory.ToDto(viewModel.FirstName, viewModel.LastName, viewModel.Email, viewModel.Password));
         switch (result.StatusCode)
         {
             case ResultStatus.EXISTS:
@@ -80,7 +79,7 @@ public class AuthenticationController : Controller
         {
             return View(viewModel);
         }
-        var result = await _signInManager.PasswordSignInAsync(viewModel.SignIn.Email, viewModel.SignIn.Password, viewModel.SignIn.RememberMe, false);
+        var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
         if(!result.Succeeded)
         {
             ViewBag.Error = "Incorret email or password";

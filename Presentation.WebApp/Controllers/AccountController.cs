@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models;
-using Presentation.WebApp.ViewModels;
 using Presentation.WebApp.ViewModels.Account;
 using Shared.Responses.Enums;
 

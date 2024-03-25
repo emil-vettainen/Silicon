@@ -39,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\NewFolder\" />
-    <Folder Include="Views\Shared\Partials\Sections\Authentication\" />
+    <Folder Include="Models\Admin\" />
+    <Folder Include="ViewModels\Admin\" />
     <Folder Include="wwwroot\css\scss\sections\account\details\" />
     <Folder Include="wwwroot\css\scss\sections\account\saved-courses\" />
     <Folder Include="wwwroot\css\scss\sections\account\security\" />
