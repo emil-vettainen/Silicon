@@ -1,6 +1,5 @@
 ﻿using Presentation.WebApp.Models;
-
-using Presentation.WebApp.Models.Subscribe;
+using Presentation.WebApp.Models.Default;
 
 namespace Presentation.WebApp.ViewModels.Default;
 

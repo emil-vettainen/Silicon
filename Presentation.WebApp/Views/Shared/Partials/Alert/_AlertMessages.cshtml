@@ -17,9 +17,7 @@
 
 @{
     var hasMessage = ViewBag.Success != null || ViewBag.Error != null || ViewBag.Warning != null;
-    var messageType = ViewBag.Success != null ? "success":
-                      ViewBag.Error != null ? "danger" :
-                      ViewBag.Warning != null ? "warning": "";
+    var messageType = ViewBag.Success != null ? "success": ViewBag.Error != null ? "danger" : ViewBag.Warning != null ? "warning": "";
     var message = ViewBag.Success ?? ViewBag.Error ?? ViewBag.Warning;
 }
 
@@ -42,10 +40,5 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
-            alertModal.show();
-        });
-    </script>
+    <script defer src="~/js/alert-modal.js"></script>
 }

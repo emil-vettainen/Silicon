@@ -29,13 +29,12 @@ public class DefaultController : Controller
         {
             try
             {
-                
                 var content = new StringContent(JsonConvert.SerializeObject(viewModel.SubscribeModel), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("https://localhost:7011/api/subscribers", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.Sucess = "You have been subscribed";
+                    ViewBag.Success = "You have been subscribed";
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
                 {
