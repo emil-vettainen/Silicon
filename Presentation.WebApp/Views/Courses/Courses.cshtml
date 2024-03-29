@@ -21,12 +21,38 @@
 
             <div class="form-options">
 
-                <select class="form-select">
+
+                <form method="get" asp-action="FilterByCategory" asp-controller="Courses">
+                    <select class="form-select" id="categorySelect" name="category" onchange="this.form.submit()">
+                        <option selected>All categories</option>
+                        <option value="BestSeller">Best Seller</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                </form>
+               
+
+
+
+@* 
+                <select class="form-select" id="categorySelect" onchange="filterCourses()">
                     <option selected>All categories</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
-                </select>
+                </select> *@
+
+             @*    <script>
+                    function filterCourses() {
+                        var category = document.getElementById('categorySelect').value;
+                        fetch(`/Courses/FilterByCategory?category=${category}`)
+                        .then(response => response.json())
+                        .then(data => )
+                    }
+
+                </script> *@
+
 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search courses">
@@ -45,15 +71,19 @@
                 <article class="course-card">
                     <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
                         <img class="course-img" src="@course.CourseImageUrl" alt="@course.CourseTitle">
+                        @if (course.IsBestseller)
+                        {
+                            <p class="best-seller text-s">Best Seller</p>
+                        }
                         <div class="card-text">
                             <div class="testar">
                                 <h5>@course.CourseTitle</h5>
                                 <p class="text-s">By @course.Author.FullName</p>
                                 @if (course.Price.DiscountPrice > 0)
                                 {
-                                    <div>
-                                        <p class="text-lg">$@course.Price.DiscountPrice.Value.ToString("F2")</p>
-                                        <p class="text-lg">$@course.Price.OriginalPrice.ToString("F2")</p>
+                                    <div class="course-price">
+                                        <p class="text-lg discount-price">$@course.Price.DiscountPrice.Value.ToString("F2")</p>
+                                        <p class="text-lg original-price">$@course.Price.OriginalPrice.ToString("F2")</p>
                                     </div>
                                 }
                                 else
@@ -68,7 +98,7 @@
                                     <p class="text-s">@course.Included.HoursOfVideo hours</p>
                                 </i>
                                 <i class="fa-regular fa-thumbs-up">
-                                    <p class="text-s">@course.Rating.InProcent% (@course.Rating.InNumbers K)</p>
+                                    <p class="text-s">@course.Rating.InProcent% (@(course.Rating.InNumbers / 1000m)K)</p>
                                 </i>
                             </div>
 
@@ -76,19 +106,50 @@
                     </a>
                     @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Courses") {
                       
-                            
-                        <button onclick="saveCourse('@course.Id')" type="submit" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
+                      @*   <form method="post" asp-action="Favorite" asp-controller="Courses">
+                            <input type="hidden" name="id" value="@course.Id"></input>
+                            <button type="submit" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
+                        </form> *@
+
+                        <button onclick="saveCourse('@course.Id')" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
 
                         <script>
+
                             function saveCourse(courseId) {
-                                fetch('/Courses/Favorite', {
+                                fetch(`/Courses/Favorite?id=${courseId}`, {
                                     method: 'POST',
                                     headers: {
-                                        'Content-Type': 'application/json'
+                                        'X-Requested-With' : 'XMLHttpRequest'
                                     },
+                               
+                                  
+                                })
+                                .then(response => {
+                                    if (response.ok) {
+                                        showAlert('Success', 'Sparad')
+                                    } else {
+                                        alert("något fick fel");
+                                    }
+                                   
                                 })
                             }
+
+
+                            function showAlert(type, message) {
+                                var modal = document.getElementById('alertModal');
+                                var modalBody = modal.querySelector('.modal-body');
+                                var modalHeader = modal.querySelector('.modal-header');
+
+                                modalHeader.classList = `modal-header alert alert-${type}`;
+                                modalBody.textContent = message;
+
+                                var alertModal = new bootstrap.Modal(modal);
+                                alertModal.show();
+
+                            }
+
                         </script>
+                        
                        
                     }
                     else
@@ -119,3 +180,4 @@
     </div>
 
 </section>
+

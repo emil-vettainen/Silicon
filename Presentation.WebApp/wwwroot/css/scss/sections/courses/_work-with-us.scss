@@ -1,10 +1,12 @@
 .work-with-us {
     padding: 5rem 0;
 
+
     .container {
         padding: 2rem 1rem;
         background-color: var(--clr-gray-100);
         align-items: center;
+
 
 
         .content {
@@ -30,7 +32,7 @@
             @include lg {
                 grid-column: 2 / 7;
 
-                .btn-theme-s {
+                .btn-theme-small {
                     align-self: flex-start;
                 }
             }

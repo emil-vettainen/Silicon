@@ -869,22 +869,36 @@ form .content .btn-theme-large {
 }
 .course-card a {
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .course-card a .course-img {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   width: 100%;
 }
+.course-card a .best-seller {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  color: var(--clr-white);
+  background-color: var(--clr-success);
+  border-radius: 6px;
+  padding: 1px 8px;
+}
 .course-card a .card-text {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 1.5rem 1rem;
+  flex-grow: 1;
 }
 .course-card a .card-text .testar {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-grow: 1;
 }
 .course-card a .card-text .testar h5 {
   transition: all 0.2s ease-in-out;
@@ -896,6 +910,17 @@ form .content .btn-theme-large {
 }
 .course-card a .card-text .testar .border {
   border-color: var(--clr-gray-300);
+}
+.course-card a .card-text .testar .course-price {
+  display: flex;
+  gap: 0.5rem;
+}
+.course-card a .card-text .testar .course-price .discount-price {
+  color: var(--clr-danger);
+}
+.course-card a .card-text .testar .course-price .original-price {
+  text-decoration: line-through;
+  color: var(--clr-gray-600);
 }
 .course-card a .card-text .card-info {
   display: flex;
@@ -2174,12 +2199,14 @@ footer .container .social-media a {
 }
 .courses .container .courses-options .form-options select {
   box-shadow: none;
+  min-width: 250px;
 }
 .courses .container .courses-options .form-options input {
   border-right: 0;
   border-color: var(--clr-gray-400);
   box-shadow: none;
   margin-left: 1rem;
+  min-width: 250px;
 }
 .courses .container .courses-options .form-options button {
   border-left: 0;
@@ -2215,7 +2242,7 @@ footer .container .social-media a {
   .work-with-us .container .content {
     grid-column: 2/7;
   }
-  .work-with-us .container .content .btn-theme-s {
+  .work-with-us .container .content .btn-theme-small {
     align-self: flex-start;
   }
 }

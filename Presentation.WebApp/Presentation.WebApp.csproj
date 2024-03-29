@@ -41,6 +41,7 @@
   <ItemGroup>
     <Folder Include="Models\Admin\" />
     <Folder Include="ViewModels\Admin\" />
+    <Folder Include="Views\Shared\Partials\CourseCard\" />
     <Folder Include="wwwroot\css\scss\sections\account\details\" />
     <Folder Include="wwwroot\css\scss\sections\account\saved-courses\" />
     <Folder Include="wwwroot\css\scss\sections\account\security\" />
