@@ -1,8 +1,8 @@
 ﻿using Infrastructure.Entities.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Presentation.WebApp.Models.Course;
 using Presentation.WebApp.ViewModels.Courses;
+
 
 namespace Presentation.WebApp.Controllers;
 
@@ -42,17 +42,22 @@ public class CoursesController : Controller
         return View(data);
     }
 
+ 
     [HttpGet]
     public async Task<IActionResult> FilterByCategory(string category)
     {
         try
         {
-            switch(category)
+            var url = category == "All" ? "https://localhost:7011/api/courses" : $"https://localhost:7011/api/courses?category={category}";
+            var response = await _httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-                case "BestSeller":
-                    
-                    break;
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
+                return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml", data);
             }
+
+           
         }
         catch (Exception)
         {
