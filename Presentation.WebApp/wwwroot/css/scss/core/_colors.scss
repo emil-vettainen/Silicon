@@ -2,6 +2,7 @@
     --background-color: #FFFFFF;
     --clr-transparent: transparent;
     --clr-white: #FFFFFF;
+
     --clr-gray-100: #F3F6FF;
     --clr-gray-200: #EFF2FC;
     --clr-gray-300: #E2E5F1;
@@ -11,6 +12,8 @@
     --clr-gray-700: #565973;
     --clr-gray-800: #33354D;
     --clr-gray-900: #0B0F19;
+
+
     --clr-theme: #6366F1;
     --clr-theme-secondary: #8B5CF6;
     --clr-theme-opacity: #6365f114;
@@ -24,6 +27,21 @@
     --clr-toolbox: #FFFFFF;
     --clr-sociallinks: #EFF2FC;
     --clr-input: #FFFFFF;
+}
+
+:root.dark {
+
+    --clr-gray-100: #0B0F19;
+    --clr-gray-200: #33354D;
+    --clr-gray-300: #565973;
+    --clr-gray-400: #9397AD;
+    --clr-gray-500: #B4B7C9;
+    --clr-gray-600: #D4D7E5;
+    --clr-gray-700: #E2E5F1;
+    --clr-gray-800: #EFF2FC;
+    --clr-gray-900: #F3F6FF;
+
+
 }
 
 .dark-theme {

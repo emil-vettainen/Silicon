@@ -27,6 +27,18 @@
   --clr-input: #FFFFFF;
 }
 
+:root.dark {
+  --clr-gray-100: #0B0F19;
+  --clr-gray-200: #33354D;
+  --clr-gray-300: #565973;
+  --clr-gray-400: #9397AD;
+  --clr-gray-500: #B4B7C9;
+  --clr-gray-600: #D4D7E5;
+  --clr-gray-700: #E2E5F1;
+  --clr-gray-800: #EFF2FC;
+  --clr-gray-900: #F3F6FF;
+}
+
 .dark-theme {
   --background-color: #0B0F19;
   --clr-transparent: transparent;
@@ -324,6 +336,30 @@ h6, .h6 {
   --bs-tooltip-padding-y: .4rem;
   --bs-tooltip-padding-x: 1rem;
   --bs-tooltip-opacity: 1;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.model-header {
+  border-bottom: none;
+}
+
+.model-content {
+  border: none;
+}
+
+.alert {
+  border-end-end-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .btn-theme-small {
@@ -2498,13 +2534,28 @@ footer .container .social-media a {
 
 .contact {
   background-color: var(--clr-gray-100);
-  padding: 5rem 0 8rem 0;
+  padding: 5rem 0 5rem 0;
 }
 .contact .container .contact-details {
-  grid-column: 1/5;
+  grid-column: 1/13;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 3rem;
+}
+.contact .container .contact-details h1 {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .contact .container .contact-details {
+    grid-column: 1/6;
+    flex-direction: column;
+  }
+}
+@media (min-width: 1200px) {
+  .contact .container .contact-details {
+    grid-column: 1/7;
+  }
 }
 .contact .container .contact-details .contact-content {
   display: flex;
@@ -2528,12 +2579,28 @@ footer .container .social-media a {
 }
 .contact .container .contact-form {
   background-color: var(--background-color);
-  grid-column: 7/13;
-  padding: 4rem 5rem 2rem 5rem;
+  grid-column: 1/13;
+  padding: 4rem 1rem 2rem 1rem;
   z-index: 99;
+}
+@media (min-width: 576px) {
+  .contact .container .contact-form {
+    padding: 4rem 5rem 4rem 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .contact .container .contact-form {
+    grid-column: 6/13;
+  }
+}
+@media (min-width: 1200px) {
+  .contact .container .contact-form {
+    grid-column: 7/13;
+  }
 }
 .contact .container .contact-form h2 {
   padding-bottom: 3rem;
+  text-wrap: pretty;
 }
 .contact .container .contact-form .btn-theme-small {
   box-shadow: 0px 8px 18px -8px rgba(99, 102, 241, 0.9);
@@ -2561,5 +2628,10 @@ footer .container .social-media a {
 }
 
 .map {
-  margin-top: -20rem;
+  height: 100%;
+}
+@media (min-width: 992px) {
+  .map {
+    margin-top: -20rem;
+  }
 }

@@ -1,7 +1,27 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener('DOMContentLoaded', function () {
+    let sw = document.querySelector('#theme-toggle')
 
-// Write your JavaScript code.
+    sw.addEventListener('change', function () {
+        let theme = this.checked ? "dark" : "light"
+
+        fetch(`/sitesettings/changetheme?theme=${theme}`)
+            .then(res => {
+                if (res.ok)
+                    window.location.reload()
+                else {
+                    console.log("...")
+                }
+                    
+            })
+
+
+    })
+})
+
+
+
+
+
 function submitForm() {
     document.getElementById('uploadForm').submit();
 }

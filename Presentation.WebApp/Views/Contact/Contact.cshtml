@@ -65,8 +65,11 @@
                     <div id="form-service" class="input-group">
                         <label asp-for="Service">Service <span>(optional)</span></label>
                         <select asp-for="Service" class="form-select">
-                            <option selected disabled>Choose the service you are interested in</option>
-                            <option>...</option>
+                            <option selected value="">Choose the service you are interested in</option>
+                            <option value="Service1">Service 1</option>
+                            <option value="Service2">Service 2</option>
+                            <option value="Service3">Service 3</option>
+                            <option value="Service4">Service 4</option>
                         </select>
                         <span asp-validation-for="Service" class="invalid-feedback"></span>
                     </div>
@@ -79,7 +82,7 @@
                     </div>
 
                     <div id="form-buttons">
-                        <button class="btn-theme-small" type="submit" name="action" value="basicinfo">Send Contact Request</button>
+                        <button class="btn-theme-small" type="submit">Send Contact Request</button>
                     </div>
 
                 </div>
@@ -99,3 +102,5 @@
 </section>
 
 
+@await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml");
+<script src="~/js/sign-up-validation.js" defer></script>

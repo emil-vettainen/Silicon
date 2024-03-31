@@ -1,13 +1,30 @@
 .contact {
     background-color: var(--clr-gray-100);
-    padding: 5rem 0 8rem 0;
+    padding: 5rem 0 5rem 0;
 
     .container {
+
+
         .contact-details {
-            grid-column: 1 / 5;
+            grid-column: 1 / 13;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
             gap: 3rem;
+
+            h1 {
+                width: 100%;
+            }
+
+
+            @include lg {
+                grid-column: 1/6;
+                flex-direction: column;
+            }
+
+            @include xl {
+                grid-column: 1/7;
+            }
 
 
 
@@ -17,6 +34,8 @@
                 display: flex;
                 align-items: flex-start;
                 gap: 20px;
+
+
 
                 i {
                     font-size: 1.75rem;
@@ -40,13 +59,27 @@
 
         .contact-form {
             background-color: var(--background-color);
-            grid-column: 7 / 13;
-            padding: 4rem 5rem 2rem 5rem;
+            grid-column: 1 / 13;
+            padding: 4rem 1rem 2rem 1rem;
             z-index: 99;
+          
 
+            @include sm {
+                padding: 4rem 5rem 4rem 5rem;
+            }
+
+
+            @include lg {
+                grid-column: 6/13;
+            }
+
+            @include xl {
+                grid-column: 7/13;
+            }
 
             h2 {
                 padding-bottom: 3rem;
+                text-wrap: pretty;
             }
 
 
@@ -56,7 +89,6 @@
             }
 
             #form-service {
-
                 display: flex;
                 flex-direction: column;
 
@@ -68,7 +100,6 @@
                         @include text-s;
                         font-weight: 600;
                     }
-                
                 }
 
                 select {
@@ -77,13 +108,17 @@
                     border-radius: 6px;
                     box-shadow: none;
                 }
-
             }
         }
     }
 }
 
 .map {
-    margin-top: -20rem;
+
+    height: 100%;
+
+    @include lg {
+        margin-top: -20rem;
+    }
 }
 

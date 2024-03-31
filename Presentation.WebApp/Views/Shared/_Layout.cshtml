@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en" class="@themeMode">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +27,8 @@
             crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/dark-mode.js" asp-append-version="true"></script>
+
+    @await Html.PartialAsync("~/Views/Shared/_CookieConsent.cshtml");
    @*  @await RenderSectionAsync("Scripts", required: false) *@
 </body>
 </html>
