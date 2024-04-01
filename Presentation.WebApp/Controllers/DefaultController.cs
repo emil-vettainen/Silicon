@@ -43,15 +43,14 @@ public class DefaultController : Controller
             }
             catch (Exception)
             {
-
-                ViewBag.Error = "fel";
+                //logger
+                ViewBag.Error = "An unexpected error occurred. Please try again!";
             }
         }
         else
         {
-            ViewBag.Warning = "Invalid";
+            ViewBag.Warning = "Invalid email address! The Email must match xx@xx.xx";
         }
-       
         return View("Home", viewModel);
     }
 

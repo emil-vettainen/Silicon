@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Configuration;
 using Shared.Factories;
 using Shared.Responses;
 using System.Runtime.CompilerServices;
@@ -21,15 +22,15 @@ public class UserService
 
     private readonly UserManager<UserEntity> _userManager;
     private readonly SignInManager<UserEntity> _signInManager;
-
-
     private readonly UserAddressRepository _userAddressRepository;
+    private readonly IConfiguration _config;
 
-    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository)
+    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository, IConfiguration config)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _userAddressRepository = userAddressRepository;
+        _config = config;
     }
 
 
@@ -252,64 +253,48 @@ public class UserService
 
 
 
-    public async Task<bool> UploadProfileImageAsync(string userId,  IFormFile profileImage)
+    public async Task<bool> UploadProfileImageAsync(ClaimsPrincipal user, IFormFile profileImage)
     {
 		try
 		{
-            var imagePath = SaveImageToFileAsync(profileImage);
+            var userEntity = await _userManager.GetUserAsync(user);
+            if (userEntity == null) return false;
 
+            var fileName = await SaveImageToFileAsync(userEntity.Id, profileImage);
+            if (string.IsNullOrEmpty(fileName)) return false;
 
-            
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if(user != null)
-            {
-                user.ProfileImageUrl = await imagePath;
-                await _userManager.UpdateAsync(user);
-            }
-
-
-            return true;
-            
-            
-           
-
+            userEntity.ProfileImageUrl = fileName;
+            var result = await _userManager.UpdateAsync(userEntity);
+            return result.Succeeded;
 		}
 		catch (Exception)
 		{
-
-			
-		}
-        return false;
+            //logger
+            return false;
+        }
     }
 
 
-
-
-    public async Task<string> SaveImageToFileAsync(IFormFile profileImage)
+    private async Task<string> SaveImageToFileAsync(string userId, IFormFile profileImage)
     {
         try
         {
-            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "uploads");
-            if (!Directory.Exists(uploadsFolderPath))
-            {
-                Directory.CreateDirectory(uploadsFolderPath);
-            }
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(profileImage.FileName);
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), _config["FileUploadPath"]!);
+            Directory.CreateDirectory(uploadsFolderPath);
+
+            var fileName = $"p_{userId}_{Guid.NewGuid()}{Path.GetExtension(profileImage.FileName)}";
             var filePath = Path.Combine(uploadsFolderPath, fileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await profileImage.CopyToAsync(fileStream);
             }
-            return $"/images/uploads/{fileName}";
+            return fileName;
         }
         catch (Exception)
         {
-
+            return string.Empty;
         }
-        return null!;
-
     }
 
 

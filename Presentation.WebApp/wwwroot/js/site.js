@@ -1,4 +1,8 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
+
+
+    handleProfileImageUpload()
+
     let sw = document.querySelector('#theme-toggle')
 
     sw.addEventListener('change', function () {
@@ -19,6 +23,22 @@
 })
 
 
+
+function handleProfileImageUpload() {
+    try {
+
+        let uploader = document.getElementById('uploadFile')
+        if (uploader != undefined) {
+            uploader.addEventListener('change', function() {
+                if (this.files.length > 0)
+                    this.form.submit()
+            })
+        }
+    } catch (e)
+    {
+        console.log(e)
+    }
+}
 
 
 

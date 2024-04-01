@@ -4,6 +4,7 @@ using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver.Core.Operations;
 using Presentation.WebApp.Models;
 using Presentation.WebApp.Models.Account;
 using Presentation.WebApp.ViewModels.Account;
@@ -165,26 +166,34 @@ public class AccountController : Controller
     }
 
 
-
-
-    #region ProfileImage [HttpPost]
     [HttpPost]
-    public async Task <IActionResult> UpdateProfileImage(AccountPanelViewModel viewModel)
+    public async Task<IActionResult> UploadProfileImage(IFormFile file)
     {
-        var userId = _userManager.GetUserId(User);
+        var result = await _userService.UploadProfileImageAsync(User, file);
+        return RedirectToAction("Details", "Account");
 
-        if (viewModel.ProfileImage != null)
-        {
+    }
 
-            var result = await _userService.UploadProfileImageAsync(userId!, viewModel.ProfileImage);
 
-            return RedirectToAction("Details");
+
+    //#region ProfileImage [HttpPost]
+    //[HttpPost]
+    //public async Task <IActionResult> UpdateProfileImage(AccountPanelViewModel viewModel)
+    //{
+    //    var userId = _userManager.GetUserId(User);
+
+    //    if (viewModel.ProfileImage != null)
+    //    {
+
+    //        var result = await _userService.UploadProfileImageAsync(userId!, viewModel.ProfileImage);
+
+    //        return RedirectToAction("Details");
          
            
-        }
+    //    }
 
-        ViewBag.Error = "Valideringsfel";
-        return RedirectToAction("Details");
-    }
-    #endregion
+    //    ViewBag.Error = "Valideringsfel";
+    //    return RedirectToAction("Details");
+    //}
+    //#endregion
 }
