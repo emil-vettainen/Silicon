@@ -6,6 +6,7 @@
 @{
     var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
     var isDark = (themeMode == "dark") ? true : false;
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <header>
@@ -60,7 +61,9 @@
 
                         @if(_signInManager.IsSignedIn(User))
                         {
-                            @await Component.InvokeAsync("NavProfileImage")
+                            <div class="navbar-profileimg">
+                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image"></a>
+                            </div>
                          
                         }
                         else

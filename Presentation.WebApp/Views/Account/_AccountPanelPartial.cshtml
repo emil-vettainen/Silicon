@@ -3,8 +3,6 @@
 }
 
 
-
-
 <aside class="account-panel">
     <div class="content">
 
@@ -13,7 +11,7 @@
         {
             <div class="account-user">
                 <div class="account-user-img">
-                    <img src="~/uploads/@user.ProfileImageUrl" alt="Profile Image">
+                    <img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image" />
                     <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UploadProfileImage">
                         <input type="file" name="file" id="uploadFile" hidden />
                         <label for="uploadFile" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Change picture" data-bs-custom-class="custom-tooltip" class="fa-regular fa-arrows-rotate-reverse change-user-img"></label>
@@ -24,8 +22,6 @@
             </div>
         }
 
-
-
         <nav class="account-options">
             <a class="@(ViewData["Title"]!.ToString() == "Details" ? "active-link" : "")" asp-action="Details" asp-controller="Account"><i class="fa-regular fa-gear"></i><span class="link-text">Account Details</span></a>
             <a class="@(ViewData["Title"]!.ToString() == "Security" ? "active-link" : "")" asp-action="Security" asp-controller="Account"><i class="fa-regular fa-lock"></i><span class="link-text">Security</span></a>
@@ -35,9 +31,6 @@
 
 
     </div>
-
-
-
 
 
 </aside>

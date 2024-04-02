@@ -170,6 +170,10 @@ public class AccountController : Controller
     public async Task<IActionResult> UploadProfileImage(IFormFile file)
     {
         var result = await _userService.UploadProfileImageAsync(User, file);
+        if (result)
+        {
+            ViewBag.Success = "Profile image have been updated!";
+        }
         return RedirectToAction("Details", "Account");
 
     }

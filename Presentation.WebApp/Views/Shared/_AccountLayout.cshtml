@@ -15,35 +15,15 @@
 <body>
     <div class="wrapper">
         @await Html.PartialAsync("~/Views/Shared/Partials/_HeaderPartial.cshtml")
-
         <section class="account">
             <div class="container">
-               
                 <div class="grid-12">
-
-                   
                     @await Html.PartialAsync("~/Views/Account/_AccountPanelPartial.cshtml");
-
-
                     <main class="account-content">@RenderBody()</main>
-
-
                 </div>
-
-                
-
-               
-
             </div>
-
-
             @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
-
         </section>
-
-
-
-     
         @await Html.PartialAsync("~/Views/Shared/Partials/_FooterPartial.cshtml")
     </div>
 
