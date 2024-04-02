@@ -11,6 +11,7 @@ public class CourseViewModel
     public string CourseDescription { get; set; } = null!;
     public string? CourseImageUrl { get; set; }
     public bool IsBestseller { get; set; } = false;
+    public string CourseCategory { get; set; } = null!;
     public RatingModel Rating { get; set; } = new();
     public PriceModel Price { get; set; } = new();
     public IncludedModel Included { get; set; } = new();

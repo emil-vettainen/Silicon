@@ -9,10 +9,12 @@ namespace Presentation.WebApp.Controllers;
 public class CoursesController : Controller
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public CoursesController(HttpClient httpClient)
+    public CoursesController(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _configuration = configuration;
     }
 
     [Route("/courses")]
@@ -23,12 +25,25 @@ public class CoursesController : Controller
         //var response = await _httpClient.GetAsync("https://localhost:7011/api/courses");
         //viewModel.Courses = JsonConvert.DeserializeObject<IEnumerable<CourseModel>>(await response.Content.ReadAsStringAsync())!;
 
+        try
+        {
+            var response = await _httpClient.GetAsync(_configuration["ApiUris:Courses"]);
+            if (response.IsSuccessStatusCode)
+            {
+                var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(await response.Content.ReadAsStringAsync());
+                return View(courses);
 
+            }
+         
+        }
+        catch (Exception)
+        {
 
-        var response = await _httpClient.GetAsync("https://localhost:7011/api/courses");
-        var json = await response.Content.ReadAsStringAsync();
-        var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
-        return View(data);
+            
+        }
+
+        return View();
+
     }
 
     [HttpGet]

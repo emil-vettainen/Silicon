@@ -8,28 +8,46 @@
 
 <section class="courses">
     <div class="container">
-
-        <div class="courses-bread">
-            <a href="#"><i class="fa-regular fa-house me-2"></i>Home</a>
-            <i class="fa-regular fa-angles-right"></i>
-            <a href="#">Courses</a>
-
-        </div>
-
         <div class="courses-options">
             <h1 class="pb-3">Courses</h1>
 
-            <div class="form-options">
+            
+
+
+                <form class="filters">
+
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-bs-toggle="dropdown">All categories</div>
+                        <div class="dropdown-menu">
+                            <div class="option" data-value="all">All categories</div>
+                            @if (Model != null)
+                            {
+                                foreach(var category in Model.Select(x => x.CourseCategory))
+                                {
+                                    <div class="option" data-value="@category">@category</div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="input-search-group">
+                        <input id="searchQuery" name="searchQuery" placeholder="Search courses" />
+                        <i class="fa-regular fa-search"></i>
+                    </div>
+
+
+                </form>
 
                
 
-                <form method="get" asp-action="FilterByCategory" asp-controller="Courses">
+                @* <form method="get" asp-action="FilterByCategory" asp-controller="Courses">
                     <select class="form-select" id="categorySelect" name="category" onchange="filterCourses()">
                         <option value="All">All categories</option>
                         <option value="Bestseller">Best Seller</option>
                        @*  <option value="2">Two</option>
                         <option value="3">Three</option> *@
-                    </select>
+          @*           </select>
 
                 </form>
 
@@ -51,7 +69,7 @@
                             });
                     }
 
-               </script>
+               </script> *@ 
  
 @* 
                 <select class="form-select" id="categorySelect" onchange="filterCourses()">
@@ -72,18 +90,24 @@
                 </script> *@
 
 
-                <div class="input-group">
+              @*   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search courses">
                     <button class="btn btn-outline-secondary search" type="button" >
                         <i class="fa-regular fa-magnifying-glass"></i>
                     </button>
-                </div>
+                </div> *@
 
-            </div>
         </div>
 
         <div id="boxes">
-            @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model);
+
+            @if (Model != null)
+            {
+                @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model)
+                
+            }
+
+           
 
         </div>
           

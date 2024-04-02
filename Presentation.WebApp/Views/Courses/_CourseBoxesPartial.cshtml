@@ -16,6 +16,9 @@
                     <div class="testar">
                         <h5>@course.CourseTitle</h5>
                         <p class="text-s">By @course.Author.FullName</p>
+
+
+
                         @if (course.Price.DiscountPrice > 0)
                         {
                             <div class="course-price">
@@ -27,7 +30,13 @@
                         {
                             <p class="text-lg">$@course.Price.OriginalPrice.ToString("F2")</p>
                         }
+
+
+
                         <span class="border border-1"></span>
+
+
+
                     </div>
 
                     <div class="card-info">
