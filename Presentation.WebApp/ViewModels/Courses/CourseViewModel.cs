@@ -16,6 +16,6 @@ public class CourseViewModel
     public PriceModel Price { get; set; } = new();
     public IncludedModel Included { get; set; } = new();
     public AuthorModel Author { get; set; } = new();
+    public List<HighlightsModel> Highlights { get; set; } = [];
     public List<ProgramDetailsModel> Content { get; set; } = [];
-
 }

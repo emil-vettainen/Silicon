@@ -790,6 +790,33 @@ form .content textarea {
 form .content .btn-theme-large {
   box-shadow: 0px 8px 18px -8px rgba(99, 102, 241, 0.9);
 }
+form .select {
+  position: relative;
+  min-width: 300px;
+}
+form .select .selected {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--clr-gray-400);
+  cursor: pointer;
+}
+form .select .select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-gray-400);
+  z-index: 999;
+}
+form .select .select-options .option {
+  padding: 10px;
+  cursor: pointer;
+}
+form .select .select-options .option:hover {
+  background-color: var(--clr-gray-400);
+}
 
 /*.account-panel {
     grid-column: 1 / 13;

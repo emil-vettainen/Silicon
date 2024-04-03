@@ -1,6 +1,4 @@
-﻿using Business.Dtos.Course;
-
-namespace Presentation.WebApp.Models.Course;
+﻿namespace Presentation.WebApp.Models.Course;
 
 public class CourseModel
 {
@@ -15,6 +13,7 @@ public class CourseModel
     public PriceModel Price { get; set; } = null!;
     public IncludedModel Included { get; set; } = null!;
     public AuthorModel Author { get; set; } = null!;
+    public List<HighlightsModel> Highlights { get; set; } = [];
     public List<ProgramDetailsModel> Content { get; set; } = [];
 }
 
@@ -54,6 +53,11 @@ public class SocialMediaModel
     public string? Subscribers { get; set; }
     public string? FacebookUrl { get; set; }
     public string? Followers { get; set; }
+}
+
+public class HighlightsModel
+{
+    public string Highlight { get; set; } = null!;
 }
 
 public class ProgramDetailsModel

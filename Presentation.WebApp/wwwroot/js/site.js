@@ -1,6 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
 
-
+    select()
+    searchQuery()
     handleProfileImageUpload()
 
     let sw = document.querySelector('#theme-toggle')
@@ -21,6 +22,85 @@
 
     })
 })
+
+
+function select() {
+    try {
+        let select = document.querySelector('.select')
+        let selected = select.querySelector('.selected')
+        let selectOptions = select.querySelector('.select-options')
+
+
+        selected.addEventListener('click', function () {
+            selectOptions.style.display = (selectOptions.style.display == 'block') ? 'none' : 'block'
+        })
+
+        let options = selectOptions.querySelectorAll('.option')
+        options.forEach(function (option) {
+            option.addEventListener('click', function () {
+                selected.innerHTML = this.textContent
+                selectOptions.style.display = 'none'
+
+                selected.setAttribute('data-value', this.getAttribute('data-value'))
+                
+               
+                filterCourses()
+            })
+        })
+
+    } catch (e) {
+        consol.log(e)
+    }
+}
+
+
+function searchQuery() {
+    try {
+        document.getElementById('searchQuery').addEventListener('keyup', function () {
+            filterCourses()
+        })
+
+    } catch (e) {
+
+    }
+}
+
+function filterCourses() {
+    const category = document.querySelector('.selected').getAttribute('data-value')
+    const searchQuery = document.getElementById('searchQuery').value
+
+
+    fetch(`/Courses/UpdateCoursesByFilter?category=${category}&searchQuery=${searchQuery}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Servern svarar med HTML
+        })
+        .then(data => {
+            document.getElementById('boxes').innerHTML = data; // Infoga HTML i elementet
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
+
+
+
+
+
+function updateCoursesByFilter() {
+    const category = document.querySelector('.select .selected').innerHTML || 'all'
+    const url = `/Courses/Courses?category=${encodeURIComponent(category)}`
+
+    fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            const parser = new DOMParser()
+            const dom = parser.parseFromString(data, 'text/html')
+            document.querySelector('.items').innerHTML = dom.querySelector('.items').innerHTML
+        })
+}
 
 
 

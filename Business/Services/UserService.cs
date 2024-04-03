@@ -293,6 +293,7 @@ public class UserService
         }
         catch (Exception)
         {
+            //logger
             return string.Empty;
         }
     }

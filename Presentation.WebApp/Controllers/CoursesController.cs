@@ -1,4 +1,5 @@
-﻿using Infrastructure.Entities.MongoDb;
+﻿using Business.Dtos.Course;
+using Infrastructure.Entities.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels.Courses;
@@ -21,10 +22,6 @@ public class CoursesController : Controller
     [HttpGet]
     public async Task <IActionResult> Courses()
     {
-        //var viewModel = new CourseViewModel();
-        //var response = await _httpClient.GetAsync("https://localhost:7011/api/courses");
-        //viewModel.Courses = JsonConvert.DeserializeObject<IEnumerable<CourseModel>>(await response.Content.ReadAsStringAsync())!;
-
         try
         {
             var response = await _httpClient.GetAsync(_configuration["ApiUris:Courses"]);
@@ -32,18 +29,13 @@ public class CoursesController : Controller
             {
                 var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(await response.Content.ReadAsStringAsync());
                 return View(courses);
-
             }
-         
         }
         catch (Exception)
         {
 
-            
         }
-
         return View();
-
     }
 
     [HttpGet]
@@ -59,25 +51,21 @@ public class CoursesController : Controller
 
  
     [HttpGet]
-    public async Task<IActionResult> FilterByCategory(string category)
+    public async Task<IActionResult> UpdateCoursesByFilter(string? category, string? searchQuery)
     {
         try
         {
-            var url = category == "All" ? "https://localhost:7011/api/courses" : $"https://localhost:7011/api/courses?category={category}";
-            var response = await _httpClient.GetAsync(url);
+            var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?category={category}&searchQuery={searchQuery}");
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
                 return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml", data);
             }
-
-           
         }
         catch (Exception)
         {
-
-            throw;
+            //logger
         }
         return RedirectToAction("Courses");
     }
@@ -89,4 +77,21 @@ public class CoursesController : Controller
 
         return Ok();
     }
+
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCourse(CreateCourseDto dto)
+    {
+        return Ok();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> EditCourse(string id)
+    {
+        return Ok();
+    }
+
+
+   
 }
