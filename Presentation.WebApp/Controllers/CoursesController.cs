@@ -3,6 +3,7 @@ using Infrastructure.Entities.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels.Courses;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Presentation.WebApp.Controllers;
@@ -39,14 +40,18 @@ public class CoursesController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> SingleCourse(string id)
+    public async Task<IActionResult> Details(string id)
     {
-        using var http = new HttpClient();
-        var response = await http.GetAsync($"https://localhost:7107/api/mongo/{id}");
-        var json = await response.Content.ReadAsStringAsync();
-        var data = JsonConvert.DeserializeObject<CourseEntity>(json);
+        var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?id={id}");
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var course = JsonConvert.DeserializeObject<CourseViewModel>(json);
+            return View(course);
+        }
+        
 
-        return View(data);
+        return View();
     }
 
  
@@ -61,6 +66,10 @@ public class CoursesController : Controller
                 var json = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
                 return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml", data);
+            }
+            else
+            {
+                return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml");
             }
         }
         catch (Exception)

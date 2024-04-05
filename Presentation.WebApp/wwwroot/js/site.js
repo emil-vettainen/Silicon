@@ -40,23 +40,25 @@ function select() {
             option.addEventListener('click', function () {
                 selected.innerHTML = this.textContent
                 selectOptions.style.display = 'none'
-
                 selected.setAttribute('data-value', this.getAttribute('data-value'))
-                
-               
                 filterCourses()
             })
         })
 
     } catch (e) {
-        consol.log(e)
+        console.log(e)
     }
 }
 
 
 function searchQuery() {
     try {
-        document.getElementById('searchQuery').addEventListener('keyup', function () {
+        document.getElementById('searchQuery').addEventListener('keydown', function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                return
+            }
+
             filterCourses()
         })
 
@@ -66,11 +68,15 @@ function searchQuery() {
 }
 
 function filterCourses() {
-    const category = document.querySelector('.selected').getAttribute('data-value')
+    const categoryElement = document.querySelector('.selected');
+    const category = categoryElement ? categoryElement.getAttribute('data-value') : ""; 
+ 
     const searchQuery = document.getElementById('searchQuery').value
 
 
-    fetch(`/Courses/UpdateCoursesByFilter?category=${category}&searchQuery=${searchQuery}`)
+
+    fetch(`/Courses/UpdateCoursesByFilter?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`)
+
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

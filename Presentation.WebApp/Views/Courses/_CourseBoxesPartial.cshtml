@@ -3,108 +3,117 @@
 
 
 <div class="courses-grid">
-    @foreach (var course in Model)
+    
+    @if (Model != null)
     {
-        <article class="course-card">
-            <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
-                <img class="course-img" src="@course.CourseImageUrl" alt="@course.CourseTitle">
-                @if (course.IsBestseller)
+        @foreach (var course in Model)
+        {
+            <article class="course-card">
+                <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
+                    <img class="course-img" src="~/uploads/courses/@course.CourseImageUrl" alt="@course.CourseTitle">
+                    @if (course.IsBestseller)
+                    {
+                        <p class="best-seller text-s">Best Seller</p>
+                    }
+                    <div class="card-text">
+                        <div class="testar">
+                            <h5>@course.CourseTitle</h5>
+                            <p class="text-s">By @course.Author.FullName</p>
+
+
+
+                            @if (course.Price.DiscountPrice > 0)
+                            {
+                                <div class="course-price">
+                                    <p class="text-lg discount-price">$@course.Price.DiscountPrice.Value.ToString("F2")</p>
+                                    <p class="text-lg original-price">$@course.Price.OriginalPrice.ToString("F2")</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-lg">$@course.Price.OriginalPrice.ToString("F2")</p>
+                            }
+
+
+
+                            <span class="border border-1"></span>
+
+
+
+                        </div>
+
+                        <div class="card-info">
+                            <i class="fa-regular fa-clock">
+                                <p class="text-s">@course.Included.HoursOfVideo hours</p>
+                            </i>
+                            <i class="fa-regular fa-thumbs-up">
+                                <p class="text-s">@course.Rating.InProcent% (@(course.Rating.InNumbers / 1000m)K)</p>
+                            </i>
+                        </div>
+
+                    </div>
+                </a>
+                @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Courses")
                 {
-                    <p class="best-seller text-s">Best Seller</p>
-                }
-                <div class="card-text">
-                    <div class="testar">
-                        <h5>@course.CourseTitle</h5>
-                        <p class="text-s">By @course.Author.FullName</p>
 
-
-
-                        @if (course.Price.DiscountPrice > 0)
-                        {
-                            <div class="course-price">
-                                <p class="text-lg discount-price">$@course.Price.DiscountPrice.Value.ToString("F2")</p>
-                                <p class="text-lg original-price">$@course.Price.OriginalPrice.ToString("F2")</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <p class="text-lg">$@course.Price.OriginalPrice.ToString("F2")</p>
-                        }
-
-
-
-                        <span class="border border-1"></span>
-
-
-
-                    </div>
-
-                    <div class="card-info">
-                        <i class="fa-regular fa-clock">
-                            <p class="text-s">@course.Included.HoursOfVideo hours</p>
-                        </i>
-                        <i class="fa-regular fa-thumbs-up">
-                            <p class="text-s">@course.Rating.InProcent% (@(course.Rating.InNumbers / 1000m)K)</p>
-                        </i>
-                    </div>
-
-                </div>
-            </a>
-            @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Courses")
-            {
-
-                @*   <form method="post" asp-action="Favorite" asp-controller="Courses">
+                    @*   <form method="post" asp-action="Favorite" asp-controller="Courses">
         <input type="hidden" name="id" value="@course.Id"></input>
         <button type="submit" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
         </form> *@
 
-                <button onclick="saveCourse('@course.Id')" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
+                    <button onclick="saveCourse('@course.Id')" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
 
-                <script>
+                    <script>
 
-                    function saveCourse(courseId) {
-                        fetch(`/Courses/Favorite?id=${courseId}`, {
-                            method: 'POST',
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
+                        function saveCourse(courseId) {
+                            fetch(`/Courses/Favorite?id=${courseId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
 
-
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    showAlert('Success', 'Sparad')
-                                } else {
-                                    alert("något fick fel");
-                                }
 
                             })
-                    }
+                                .then(response => {
+                                    if (response.ok) {
+                                        showAlert('Success', 'Sparad')
+                                    } else {
+                                        alert("något fick fel");
+                                    }
+
+                                })
+                        }
 
 
-                    function showAlert(type, message) {
-                        var modal = document.getElementById('alertModal');
-                        var modalBody = modal.querySelector('.modal-body');
-                        var modalHeader = modal.querySelector('.modal-header');
+                        function showAlert(type, message) {
+                            var modal = document.getElementById('alertModal');
+                            var modalBody = modal.querySelector('.modal-body');
+                            var modalHeader = modal.querySelector('.modal-header');
 
-                        modalHeader.classList = `modal-header alert alert-${type}`;
-                        modalBody.textContent = message;
+                            modalHeader.classList = `modal-header alert alert-${type}`;
+                            modalBody.textContent = message;
 
-                        var alertModal = new bootstrap.Modal(modal);
-                        alertModal.show();
+                            var alertModal = new bootstrap.Modal(modal);
+                            alertModal.show();
 
-                    }
+                        }
 
-                </script>
+                    </script>
 
 
-            }
-            else
-            {
-                <a asp-action="Remove" asp-controller="Account" asp-route-id="@course.Id" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></a>
-            }
+                }
+                else
+                {
+                    <a asp-action="Remove" asp-controller="Account" asp-route-id="@course.Id" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></a>
+                }
 
-        </article>
+            </article>
+        }
+    }
+
+    else
+    {
+        <div>Not Found!</div>
     }
 
 

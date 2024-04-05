@@ -12,10 +12,12 @@ public class CourseViewModel
     public string? CourseImageUrl { get; set; }
     public bool IsBestseller { get; set; } = false;
     public string CourseCategory { get; set; } = null!;
-    public RatingModel Rating { get; set; } = new();
-    public PriceModel Price { get; set; } = new();
-    public IncludedModel Included { get; set; } = new();
-    public AuthorModel Author { get; set; } = new();
-    public List<HighlightsModel> Highlights { get; set; } = [];
-    public List<ProgramDetailsModel> Content { get; set; } = [];
+    public DateTime Created { get; set; }
+    public DateTime LastUpdated { get; set; }
+    public RatingModel Rating { get; set; } = null!;
+    public PriceModel Price { get; set; } = null!;
+    public IncludedModel Included { get; set; } = null!;
+    public AuthorModel Author { get; set; } = null!;
+    public IList<HighlightsModel> Highlights { get; set; } = null!;
+    public IList<ProgramDetailsModel> Content { get; set; } = null!;
 }
