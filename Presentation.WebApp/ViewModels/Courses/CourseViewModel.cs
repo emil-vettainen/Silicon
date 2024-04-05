@@ -18,6 +18,6 @@ public class CourseViewModel
     public PriceModel Price { get; set; } = null!;
     public IncludedModel Included { get; set; } = null!;
     public AuthorModel Author { get; set; } = null!;
-    public IList<HighlightsModel> Highlights { get; set; } = null!;
-    public IList<ProgramDetailsModel> Content { get; set; } = null!;
+    public List<HighlightsModel> Highlights { get; set; } = null!;
+    public List<ProgramDetailsModel> Content { get; set; } = null!;
 }

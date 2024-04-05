@@ -1,9 +1,8 @@
 ﻿using Business.Dtos.Course;
-using Infrastructure.Entities.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels.Courses;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 
 namespace Presentation.WebApp.Controllers;
@@ -42,7 +41,7 @@ public class CoursesController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(string id)
     {
-        var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?id={id}");
+        var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}/{id}");
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
