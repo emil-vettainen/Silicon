@@ -16,9 +16,9 @@
 } *@
 
 @{
-    var hasMessage = ViewBag.Success != null || ViewBag.Error != null || ViewBag.Warning != null;
-    var messageType = ViewBag.Success != null ? "success": ViewBag.Error != null ? "danger" : ViewBag.Warning != null ? "warning": "";
-    var message = ViewBag.Success ?? ViewBag.Error ?? ViewBag.Warning;
+    var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
+    var messageType = TempData["Success"] != null ? "success" : TempData["Error"] != null ? "danger" : TempData["Warning"] != null ? "warning" : "";
+    var message = TempData["Success"] ?? TempData["Error"] ?? TempData["Warning"];
 }
 
 @if (hasMessage)

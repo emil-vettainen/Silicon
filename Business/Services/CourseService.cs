@@ -1,6 +1,7 @@
 ﻿using Business.Dtos.Course;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Shared.Responses;
 
 
 namespace Business.Services;
@@ -58,4 +59,18 @@ public class CourseService
         }
         return null!;
     }
+
+
+    //public async Task<ResponseResult> SaveToFavoriteAsync(string id)
+    //{
+    //    try
+    //    {
+
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //        throw;
+    //    }
+    //}
 }

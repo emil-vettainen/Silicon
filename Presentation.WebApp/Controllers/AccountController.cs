@@ -1,15 +1,20 @@
-﻿using Business.Factories;
+﻿using AutoMapper;
+using Business.Factories;
 using Business.Services;
 using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver.Core.Operations;
+using Newtonsoft.Json;
 using Presentation.WebApp.Models;
 using Presentation.WebApp.Models.Account;
+using Presentation.WebApp.Models.Courses;
 using Presentation.WebApp.ViewModels.Account;
+using Presentation.WebApp.ViewModels.Courses;
 using Shared.Responses.Enums;
-
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Presentation.WebApp.Controllers;
@@ -20,13 +25,19 @@ public class AccountController : Controller
     private readonly UserService _userService;
     private readonly AddressService _addressService;
     private readonly UserManager<UserEntity> _userManager;
-  
+    private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
+    private readonly IMapper _mapper;
 
-    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService)
+
+    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper)
     {
         _userManager = userManager;
         _userService = userService;
         _addressService = addressService;
+        _httpClient = httpClient;
+        _configuration = configuration;
+        _mapper = mapper;
     }
 
     #region Details
@@ -158,12 +169,7 @@ public class AccountController : Controller
     #endregion
 
 
-    public IActionResult SavedCourses()
-    {
-        return View();
-        
-     
-    }
+
 
 
     [HttpPost]
@@ -192,12 +198,119 @@ public class AccountController : Controller
     //        var result = await _userService.UploadProfileImageAsync(userId!, viewModel.ProfileImage);
 
     //        return RedirectToAction("Details");
-         
-           
+
+
     //    }
 
     //    ViewBag.Error = "Valideringsfel";
     //    return RedirectToAction("Details");
     //}
     //#endregion
+
+
+
+   
+
+
+    [HttpGet]
+    public async Task<IActionResult> SavedCourses()
+    {
+        var viewModel = new SavedCoursesViewModel();
+        try
+        {
+            
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Default");
+            }
+            viewModel.Courses = _mapper.Map<IEnumerable<CourseModel>>(await _userService.GetSavedCourseAsync(userId));
+
+
+            //var userId = _userManager.GetUserId(User);
+            //if (userId == null)
+            //{
+            //    return View(viewModel);
+            //}
+            //var savedCourses = await _userService.GetSavedCourseAsync(userId);
+
+            //var content = new StringContent(JsonConvert.SerializeObject(savedCourses.ContentResult), Encoding.UTF8, "application/json");
+            //var response = await _httpClient.PostAsync(_configuration["ApiUris:CoursesByIds"], content);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var result = JsonConvert.DeserializeObject<IEnumerable<CourseModel>>(await response.Content.ReadAsStringAsync());
+            //    viewModel.Courses = result ?? [];
+            //    return View(viewModel);
+
+            //}
+        }
+        catch (Exception)
+        {
+            //logger
+        }
+        return View(viewModel);
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> SaveCourse(string courseId)
+    {
+        try
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Default");
+            }
+            var result = await _userService.SaveCourseAsync(userId, courseId);
+            switch (result.StatusCode)
+            {
+                case ResultStatus.OK:
+                    TempData["Success"] = "Course have been saved!";
+                    break;
+                case ResultStatus.EXISTS:
+                    TempData["Warning"] = "Course is already saved";
+                    break;
+                default:
+                    TempData["Error"] = "Something went wrong. Please try again!";
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+            return StatusCode(500);
+        }
+        return Ok();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> RemoveOneCourse(string courseId)
+    {
+        try
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Default");
+            }
+            var result = await _userService.DeleteOneCourseAsync(userId, courseId);
+            if (result.StatusCode == ResultStatus.OK)
+            {
+                TempData["Success"] = "Course have been removed";
+                
+            }
+            else
+            {
+                TempData["Error"] = "Something went wrong. Please try again!";
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+            TempData["Error"] = "An unexpected error occurred. Please try again later";
+        }
+        return Ok();
+    }
 }

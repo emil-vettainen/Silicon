@@ -1,12 +1,13 @@
-﻿@using Presentation.WebApp.ViewModels.Courses
-@model CourseViewModel
+﻿@using Presentation.WebApp.Models.Courses
+@using Presentation.WebApp.ViewModels.Courses
+@model IEnumerable<CourseModel>
 
 
 <div class="courses-grid">
     
-    @if (Model.Courses != null)
+    @if (Model != null)
     {
-        @foreach (var course in Model.Courses)
+        @foreach (var course in Model)
         {
             <article class="course-card">
                 <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">
@@ -63,7 +64,7 @@
 
                     <button onclick="saveCourse('@course.Id')" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
 
-                    <script>
+                   @*  <script>
 
                         function saveCourse(courseId) {
                             fetch(`/Courses/Favorite?id=${courseId}`, {
@@ -98,13 +99,13 @@
 
                         }
 
-                    </script>
+                    </script> *@
 
 
                 }
                 else
                 {
-                    <a asp-action="Remove" asp-controller="Account" asp-route-id="@course.Id" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></a>
+                    <button onclick="removeCourse('@course.Id')" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
                 }
 
             </article>
@@ -121,3 +122,4 @@
 </div>
 
 
+<script defer src="~/js/save-remove-course.js"></script>

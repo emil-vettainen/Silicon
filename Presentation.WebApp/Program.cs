@@ -1,6 +1,7 @@
 using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Repositories;
 using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -70,6 +71,7 @@ builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<UserAddressRepository>();
 builder.Services.AddScoped<OptionalAddressRepository>();
 builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<SavedCourseRepository>();
 
 
 

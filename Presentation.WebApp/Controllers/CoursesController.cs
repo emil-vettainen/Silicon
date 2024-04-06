@@ -130,6 +130,21 @@ public class CoursesController : Controller
     }
 
 
+
+    //[HttpPost]
+    //public async Task<IActionResult> Favorite(string id)
+    //{
+    //    try
+    //    {
+    //        var result = await _courseService.SaveToFavoriteAsync(string id);
+
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //        throw;
+    //    }
+    //}
    
 
 

@@ -95,7 +95,7 @@
 
         <div id="boxes">
 
-            @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model)
+            @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
 
 
           
@@ -109,11 +109,11 @@
                     {
                         if (i == Model.Pagination.CurrentPage)
                         {
-                            <span class="number active">@i</span>
+                            <span class="btn-theme-small active-pag">@i</span>
                         }
                         else
                         {
-                            <a class="number" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
+                            <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
                         }
                     }
                 </div>
@@ -144,3 +144,4 @@
 
 </section>
 
+@await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
