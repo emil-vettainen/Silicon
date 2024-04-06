@@ -1,5 +1,5 @@
 ﻿@using Presentation.WebApp.ViewModels.Courses
-@model IEnumerable<CourseViewModel>
+@model CourseViewModel
 
 
 <section>
@@ -29,7 +29,7 @@
 
                 <tbody>
 
-                    @foreach (var course in Model)
+                    @foreach (var course in Model.Courses)
                     {
                         <tr>
                             <th> <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">@course.CourseTitle</a> </th>

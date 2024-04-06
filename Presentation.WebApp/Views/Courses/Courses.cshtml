@@ -1,6 +1,6 @@
 ﻿@using Presentation.WebApp.ViewModels.Courses
 
-@model IEnumerable<CourseViewModel>
+@model CourseViewModel
 
 @{
     ViewData["Title"] = "Courses";
@@ -20,9 +20,9 @@
                         <div class="selected">All categories</div>
                         <div class="select-options">
                             <div class="option" data-value="all">All categories</div>
-                            @if (Model != null)
+                            @if (Model.Categories != null)
                             {
-                                foreach(var category in Model.Select(x => x.CourseCategory).Distinct())
+                                foreach(var category in Model.Categories)
                                 {
                                     <div class="option" data-value="@category">@category</div>
                                 }
@@ -96,9 +96,30 @@
         <div id="boxes">
 
             @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model)
+
+
+          
            
 
            
+            @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
+            {
+                <div class="pagination">
+                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                    {
+                        if (i == Model.Pagination.CurrentPage)
+                        {
+                            <span class="number active">@i</span>
+                        }
+                        else
+                        {
+                            <a class="number" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
+                        }
+                    }
+                </div>
+            }
+
+
 
         </div>
           

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.WebApp.Configuration.AutoMapper;
 using Presentation.WebApp.Helpers;
 using Presentation.WebApp.ViewModels;
 using Shared.Utilis;
@@ -19,6 +20,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
 builder.Services.AddHttpClient();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperSettings));
 
 builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
@@ -61,6 +64,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
+
+builder.Services.AddScoped<CourseService>();
 
 builder.Services.AddScoped<UserAddressRepository>();
 builder.Services.AddScoped<OptionalAddressRepository>();

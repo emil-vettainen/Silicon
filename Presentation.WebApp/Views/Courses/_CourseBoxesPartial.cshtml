@@ -1,12 +1,12 @@
 ﻿@using Presentation.WebApp.ViewModels.Courses
-@model IEnumerable<CourseViewModel>
+@model CourseViewModel
 
 
 <div class="courses-grid">
     
-    @if (Model != null)
+    @if (Model.Courses != null)
     {
-        @foreach (var course in Model)
+        @foreach (var course in Model.Courses)
         {
             <article class="course-card">
                 <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">

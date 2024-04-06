@@ -41,7 +41,7 @@ function select() {
                 selected.innerHTML = this.textContent
                 selectOptions.style.display = 'none'
                 selected.setAttribute('data-value', this.getAttribute('data-value'))
-                filterCourses()
+                updateCoursesByFilter()
             })
         })
 
@@ -59,7 +59,7 @@ function searchQuery() {
                 return
             }
 
-            filterCourses()
+            updateCoursesByFilter()
         })
 
     } catch (e) {
@@ -67,46 +67,58 @@ function searchQuery() {
     }
 }
 
-function filterCourses() {
-    const categoryElement = document.querySelector('.selected');
-    const category = categoryElement ? categoryElement.getAttribute('data-value') : ""; 
+//function filterCourses() {
+//    const categoryElement = document.querySelector('.selected');
+//    const category = categoryElement ? categoryElement.getAttribute('data-value') : ""; 
  
-    const searchQuery = document.getElementById('searchQuery').value
+//    const searchQuery = document.getElementById('searchQuery').value
 
 
 
-    fetch(`/Courses/UpdateCoursesByFilter?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`)
+//    fetch(`/Courses/UpdateCoursesByFilter?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`)
 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text(); // Servern svarar med HTML
-        })
-        .then(data => {
-            document.getElementById('boxes').innerHTML = data; // Infoga HTML i elementet
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
-}
+//        .then(response => {
+//            if (!response.ok) {
+//                throw new Error('Network response was not ok');
+//            }
+//            return response.text(); // Servern svarar med HTML
+//        })
+//        .then(data => {
+//            document.getElementById('boxes').innerHTML = data; // Infoga HTML i elementet
+//        })
+//        .catch(error => {
+//            console.error('Fetch error:', error);
+//        });
+//}
 
 
 
 
 
 function updateCoursesByFilter() {
-    const category = document.querySelector('.select .selected').innerHTML || 'all'
-    const url = `/Courses/Courses?category=${encodeURIComponent(category)}`
+    const categoryElement = document.querySelector('.selected');
+    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
+
+    const searchQuery = document.getElementById('searchQuery').value
+
+    const url = `/courses?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`
+
 
     fetch(url)
         .then(res => res.text())
         .then(data => {
             const parser = new DOMParser()
             const dom = parser.parseFromString(data, 'text/html')
-            document.querySelector('.items').innerHTML = dom.querySelector('.items').innerHTML
+            document.querySelector('#boxes').innerHTML = dom.querySelector('#boxes').innerHTML
+
+            const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
+            document.querySelector('.pagination').innerHTML = pagination
         })
 }
+
+
+
+
 
 
 
