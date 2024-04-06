@@ -1,12 +1,13 @@
 ﻿@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewData["Title"] = "Saved Courses";
 }
 
 <section class="account-saved-courses">
-    <div class="container account grid-12">
-        @await Component.InvokeAsync("AccountPanel")
+    <div class="container">
+        
 
-        <div class="account-content grid-12">
+        <div class="d-flex flex-column">
 
             <div class="saved-items">
                 <h2>Saved Items</h2>
@@ -15,7 +16,7 @@
             
            
             
-                <article class="course-card">
+               @*  <article class="course-card">
 
                     <a href="/detials">
 
@@ -99,7 +100,7 @@
 
                 <button class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
             </article>
-
+ *@
 
            
 

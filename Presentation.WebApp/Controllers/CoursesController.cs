@@ -92,8 +92,15 @@ public class CoursesController : Controller
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
-            var course = JsonConvert.DeserializeObject<CourseViewModel>(json);
-            return View(course);
+            var course = JsonConvert.DeserializeObject<CourseModel>(json);
+
+
+            var viewModel = new CourseDetailsViewModel
+            {
+                Course = course,
+            };
+
+            return View(viewModel);
         }
         
 

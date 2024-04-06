@@ -1,15 +1,16 @@
 .breadcrumbs {
     grid-column: 1/13;
+    z-index: 2;
 
     nav {
-        
+
 
         ol {
             padding: 0;
             list-style: none;
             display: flex;
             gap: .5rem;
-            
+
 
             li {
                 color: var(--clr-gray-600);
