@@ -19,6 +19,7 @@
         @await Html.PartialAsync("~/Views/Shared/Partials/_HeaderPartial.cshtml")
         <main>@RenderBody()</main>
         @await Html.PartialAsync("~/Views/Shared/Partials/_FooterPartial.cshtml")
+      
     </div>
    
     <script src="https://kit.fontawesome.com/41c8b474e2.js" crossorigin="anonymous"></script>
@@ -28,7 +29,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/dark-mode.js" asp-append-version="true"></script>
 
-    @await Html.PartialAsync("~/Views/Shared/_CookieConsent.cshtml");
+    @await Html.PartialAsync("~/Views/Shared/_CookieConsent.cshtml")
+    @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
    @*  @await RenderSectionAsync("Scripts", required: false) *@
 </body>
 </html>

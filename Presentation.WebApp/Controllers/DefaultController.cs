@@ -40,6 +40,10 @@ public class DefaultController : Controller
                 {
                     ViewBag.Warning = "You are already a subscriber";
                 }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    ViewBag.Error = "Something went wrong, Please contact web admin.";
+                }
             }
             catch (Exception)
             {
