@@ -8,14 +8,11 @@ using Infrastructure.Repositories;
 using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Shared.Factories;
 using Shared.Responses;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,8 +28,9 @@ public class UserService
     private readonly SavedCourseRepository _savedCourseRepository;
     private readonly IConfiguration _configuration;
     private readonly HttpClient _httpClient;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository, IConfiguration config, SavedCourseRepository savedCourseRepository, HttpClient httpClient)
+    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository, IConfiguration config, SavedCourseRepository savedCourseRepository, HttpClient httpClient, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -40,6 +38,7 @@ public class UserService
         _configuration = config;
         _savedCourseRepository = savedCourseRepository;
         _httpClient = httpClient;
+        _contextAccessor = contextAccessor;
     }
 
 
@@ -395,5 +394,35 @@ public class UserService
             return ResponseFactory.Error();
         }
 
+    }
+
+
+    public async Task<bool> GetToken()
+    {
+        try
+        {
+            var tokenResponse = await _httpClient.SendAsync(new HttpRequestMessage 
+            { 
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{_configuration["Api:Token"]}?key={_configuration["Api:Key"]}"),
+            });
+            if (tokenResponse.IsSuccessStatusCode)
+            {
+                var token = await tokenResponse.Content.ReadAsStringAsync();
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                _contextAccessor.HttpContext!.Response.Cookies.Append("AccessToken", token, cookieOptions);
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+        }
+        return false;
     }
 }
