@@ -1,18 +1,20 @@
 ﻿@model CourseModel
 
-<section class="single-course-header" style="background-image: url('@Url.Content("~/uploads/courses/" + (!string.IsNullOrEmpty(Model.CourseImageUrl) ? Model.CourseImageUrl : "course_9.png"))');">
-    <div class="container">
-        <div class="breadcrumbs">
-            <nav>
-                <ol>
-                    <li> <a asp-action="Home" asp-controller="Default"><i class="fa-regular fa-house me-2"></i>Home</a></li>
-                    <li><i class="fa-regular fa-angles-right"></i></li>
-                    <li><a asp-action="Courses" asp-controller="Courses">Courses</a></li>
-                    <li><i class="fa-regular fa-angles-right"></i></li>
-                    <li class="active"><a asp-action="Details" asp-controller="Courses" asp-route-id="@Model.Id"  class="active">@Model.CourseTitle</a></li>
-                </ol>
-            </nav>
-        </div>
+@if (Model != null)
+{
+    <section class="single-course-header" style="background-image: url('@Url.Content("~/uploads/courses/" + (!string.IsNullOrEmpty(Model.CourseImageUrl) ? Model.CourseImageUrl : "course_9.png"))');">
+        <div class="container">
+            <div class="breadcrumbs">
+                <nav>
+                    <ol>
+                        <li> <a asp-action="Home" asp-controller="Default"><i class="fa-regular fa-house me-2"></i>Home</a></li>
+                        <li><i class="fa-regular fa-angles-right"></i></li>
+                        <li><a asp-action="Courses" asp-controller="Courses">Courses</a></li>
+                        <li><i class="fa-regular fa-angles-right"></i></li>
+                        <li class="active"><a asp-action="Details" asp-controller="Courses" asp-route-id="@Model.Id" class="active">@Model.CourseTitle</a></li>
+                    </ol>
+                </nav>
+            </div>
             <div class="badges">
                 @if (Model.IsBestseller)
                 {
@@ -40,18 +42,19 @@
                     <i class="star fas fa-star"></i>
                     <i class="star far fa-star"></i>
                 </div>
-               
+
                 <p>(1.2K reviews)</p>
                 <p><i class="fa-regular fa-thumbs-up"></i>@(Model.Rating.InNumbers / 1000) K likes</p>
-                
+
                 <p><i class="fa-regular fa-clock"></i>@Model.Included.HoursOfVideo hours</p>
             </div>
             <div class="course-created">
-            <img src="~/uploads/courses/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
+                <img src="~/uploads/courses/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
                 <div>
                     <h6>Created by</h6>
                     <p class="text-m">@Model.Author.FullName</p>
                 </div>
             </div>
-    </div>
-</section>
+        </div>
+    </section>
+}

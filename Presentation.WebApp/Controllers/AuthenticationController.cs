@@ -89,12 +89,11 @@ public class AuthenticationController : Controller
                 return View(viewModel);
             }
             var user = await _userManager.FindByEmailAsync(viewModel.Email);
-            if (user != null && await _userManager.IsInRoleAsync(user, "admin"))
+            if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
             {
                 if (!await _userService.GetToken())
                 {
                     TempData["Error"] = "Access token failed!";
-                    return View(viewModel);
                 }
             }
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))

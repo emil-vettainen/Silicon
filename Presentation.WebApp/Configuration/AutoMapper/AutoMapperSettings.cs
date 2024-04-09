@@ -20,6 +20,18 @@ namespace Presentation.WebApp.Configuration.AutoMapper
 
 
             CreateMap<CourseResultDto, CourseResultModel>();
+
+
+            CreateMap<CreateCourseModel, CreateCourseDto>();
+            CreateMap<RatingModel, RatingDto>();
+            CreateMap<PriceModel, PriceDto>();
+            CreateMap<IncludedModel, IncludedDto>();
+            CreateMap<AuthorModel, AuthorDto>();
+            CreateMap<SocialMediaModel, SocialMediaDto>();
+            CreateMap<HighlightsModel, HighlightsDto>();
+            CreateMap<ProgramDetailsModel, ProgramDetailsDto>();
+
+
         }
     }
 }

@@ -9,12 +9,12 @@
 
         <div>
             <h2>List of Courses</h2>
-            <a class="btn btn-primary" asp-controller="Courses" asp-action="CreateCourse">New Course</a>
+            <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateCourse">New Course</a>
         </div>
 
      
 
-        @if (Model != null)
+        @if (Model.Courses != null)
         {
             <table class="table">
                 <thead>
@@ -37,8 +37,8 @@
                             <th>@course.CourseCategory</th>
                             <th>
 
-                                <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="EditCourse" asp-route-id="@course.Id">Edit</a>
-                                <a class="btn btn-danger btn-sm" asp-controller="Courses" asp-action="DeleteCourse" asp-route-id="@course.Id">Delete</a>
+                                <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="EditCourse" asp-route-id="@course.Id">Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.Id">Delete</a>
 
                             </th>
                         </tr>
@@ -49,6 +49,10 @@
 
 
             </table>
+        }
+        else
+        {
+            <div class="container">No Courses Found</div>
         }
 
 

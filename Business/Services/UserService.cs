@@ -2,6 +2,7 @@
 using Business.Dtos.Course;
 using Business.Dtos.User;
 using Business.Factories;
+using Business.Services;
 using Infrastructure.Entities.AccountEntites;
 using Infrastructure.Entities.AccountEntities;
 using Infrastructure.Repositories;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Shared.Factories;
 using Shared.Responses;
+using Shared.Responses.Enums;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -365,7 +367,7 @@ public class UserService
                 return [];
             }
             var content = new StringContent(JsonConvert.SerializeObject(savedCourses), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(_configuration["ApiUris:CoursesByIds"], content);
+            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:CoursesByIds"]}?key={_configuration["Api:Key"]}", content);
             if (response.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(await response.Content.ReadAsStringAsync());

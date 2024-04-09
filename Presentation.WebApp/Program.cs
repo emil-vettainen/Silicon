@@ -31,6 +31,8 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
     options.Password.RequiredLength = 8;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = false;
+
+
 })
     .AddEntityFrameworkStores<AccountDbContext>().AddDefaultTokenProviders();
 
@@ -94,6 +96,23 @@ app.UseRouting();
 app.UseAuthentication();
 app.UserSessionValidation();
 app.UseAuthorization();
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roles = ["Admin", "User"];
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+
 
 app.MapControllerRoute(
     name: "default",

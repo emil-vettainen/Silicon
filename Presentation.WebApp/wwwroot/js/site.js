@@ -148,3 +148,41 @@ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 
+
+
+
+function addHighlight() {
+    const container = document.getElementById('highlights-container');
+    const index = container.querySelectorAll('.highlight').length;
+    const highlightHtml = `
+        <div class="input-group highlight">
+            <label>Highlight</label>
+            <input type="text" name="Course.Highlights[${index}].Highlight" class="form-control" />
+            <button type="button" onclick="removeHighlight(this)">Remove</button>
+        </div>`;
+    container.insertAdjacentHTML('beforeend', highlightHtml);
+}
+
+function removeHighlight(button) {
+    button.parentNode.remove();
+}
+
+
+
+function addContent() {
+    const container = document.getElementById('content-container');
+    const index = container.querySelectorAll('.content-item').length;
+    const contentHtml = `
+        <div class="input-group content-item">
+            <label for="Course_Content_${index}__Title">Title</label>
+            <input type="text" name="Course.Content[${index}].Title" class="form-control" />
+            <label for="Course_Content_${index}__Description">Description</label>
+            <input type="text" name="Course.Content[${index}].Description" class="form-control" />
+            <button class="btn-theme-medium" type="button" onclick="removeContent(this)">Remove</button>
+        </div>`;
+    container.insertAdjacentHTML('beforeend', contentHtml);
+}
+
+function removeContent(button) {
+    button.closest('.content-item').remove();
+}

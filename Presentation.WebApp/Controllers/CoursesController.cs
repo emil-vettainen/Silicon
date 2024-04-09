@@ -49,7 +49,7 @@ public class CoursesController : Controller
           
 
 
-            var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?category={category}&searchQuery={searchQuery}&pageNumber={pageNumber}&pageSize={pageSize}");
+            var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?key={_configuration["Api:Key"]}&category={category}&searchQuery={searchQuery}&pageNumber={pageNumber}&pageSize={pageSize}");
             if (response.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<CourseResultModel>(await response.Content.ReadAsStringAsync());
@@ -88,23 +88,35 @@ public class CoursesController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(string id)
     {
-        var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}/{id}");
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var json = await response.Content.ReadAsStringAsync();
-            var course = JsonConvert.DeserializeObject<CourseModel>(json);
-
-
-            var viewModel = new CourseDetailsViewModel
+            var viewModel = new CourseDetailsViewModel();
+            var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}/{id}?key={_configuration["Api:Key"]}");
+            if (response.IsSuccessStatusCode)
             {
-                Course = course,
-            };
+                var json = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<CourseModel>(json);
 
-            return View(viewModel);
+
+
+
+                viewModel.Course = result ?? new CourseModel();
+
+
+                return View(viewModel);
+            }
+
+
+            
         }
-        
+        catch (Exception)
+        {
+            //logger
 
-        return View();
+            
+        }
+        return View(new CourseDetailsViewModel());
+
     }
 
  

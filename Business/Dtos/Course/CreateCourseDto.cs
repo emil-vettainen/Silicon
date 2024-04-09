@@ -1,16 +1,15 @@
-﻿namespace Business.Dtos.Course;
+﻿using MongoDB.Driver;
 
-public class CourseDto
+namespace Business.Dtos.Course;
+
+public class CreateCourseDto
 {
-    public string Id { get; set; } = null!;
     public string CourseTitle { get; set; } = null!;
-    public string CourseIngress { get; set; } = null!;
     public string CourseDescription { get; set; } = null!;
-    public string? CourseImageUrl { get; set; }
+    public string CourseIngress { get; set; } = null!;
     public bool IsBestseller { get; set; } = false;
+    public string? CourseImageUrl { get; set; }
     public string CourseCategory { get; set; } = null!;
-    public DateTime Created { get; set; }
-    public DateTime LastUpdated { get; set; }
     public RatingDto Rating { get; set; } = null!;
     public PriceDto Price { get; set; } = null!;
     public IncludedDto Included { get; set; } = null!;

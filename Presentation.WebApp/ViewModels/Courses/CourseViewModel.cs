@@ -1,5 +1,4 @@
-﻿using Presentation.WebApp.Models.Course;
-using Presentation.WebApp.Models.Courses;
+﻿using Presentation.WebApp.Models.Courses;
 
 
 namespace Presentation.WebApp.ViewModels.Courses;

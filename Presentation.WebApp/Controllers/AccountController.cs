@@ -309,7 +309,7 @@ public class AccountController : Controller
         catch (Exception)
         {
             //logger
-            TempData["Error"] = "An unexpected error occurred. Please try again later";
+            TempData["Error"] = "An unexpected error occurred. Please try again later!";
         }
         return Ok();
     }
