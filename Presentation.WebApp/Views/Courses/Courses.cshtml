@@ -1,5 +1,6 @@
-﻿@using Infrastructure.Entities.MongoDb
-@model IEnumerable<CourseEntity>
+﻿@using Presentation.WebApp.ViewModels.Courses
+
+@model CourseViewModel
 
 @{
     ViewData["Title"] = "Courses";
@@ -7,77 +8,124 @@
 
 <section class="courses">
     <div class="container">
-
-        <div class="courses-bread">
-            <a href="#"><i class="fa-regular fa-house me-2"></i>Home</a>
-            <i class="fa-regular fa-angles-right"></i>
-            <a href="#">Courses</a>
-
-        </div>
-
         <div class="courses-options">
             <h1 class="pb-3">Courses</h1>
 
-            <div class="form-options">
+            
 
-                <select class="form-select">
+
+                <form class="filters">
+
+                    <div class="select">
+                        <div class="selected">All categories</div>
+                        <div class="select-options">
+                            <div class="option" data-value="all">All categories</div>
+                            @if (Model.Categories != null)
+                            {
+                                foreach(var category in Model.Categories)
+                                {
+                                    <div class="option" data-value="@category">@category</div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="input-search-group">
+                        <input id="searchQuery" name="searchQuery" placeholder="Search courses" />
+                        <i class="fa-regular fa-search"></i>
+                    </div>
+
+
+                </form>
+
+
+            <script>
+                
+
+            </script>
+
+
+
+
+
+
+
+
+
+            @* <form method="get" asp-action="FilterByCategory" asp-controller="Courses">
+                    <select class="form-select" id="categorySelect" name="category" onchange="filterCourses()">
+                        <option value="All">All categories</option>
+                        <option value="Bestseller">Best Seller</option>
+                       @*  <option value="2">Two</option>
+                        <option value="3">Three</option> *@
+               @*      </select>
+
+                </form> *@
+
+              
+ 
+@* 
+                <select class="form-select" id="categorySelect" onchange="filterCourses()">
                     <option selected>All categories</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
 
-                <div class="input-group">
+             @*    <script>
+                    function filterCourses() {
+                        var category = document.getElementById('categorySelect').value;
+                        fetch(`/Courses/FilterByCategory?category=${category}`)
+                        .then(response => response.json())
+                        .then(data => )
+                    }
+
+                </script> *@
+
+
+              @*   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search courses">
                     <button class="btn btn-outline-secondary search" type="button" >
                         <i class="fa-regular fa-magnifying-glass"></i>
                     </button>
-                </div>
+                </div> *@
 
-            </div>
         </div>
 
-        <div class="courses-grid">
+        <div id="boxes">
 
-            @foreach (var course in Model)
+            @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
+
+
+          
+           
+
+           
+            @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
             {
-                <article class="course-card">
-
-                    <a asp-action="SingleCourse" asp-controller="Courses" asp-route-id="@course.CourseId">
-
-
-                        <img class="course-img" src="~/images/courses/course-1.svg" alt="">
-
-
-
-
-                        <div class="card-text">
-                            <div class="testar">
-                                <h5>@course.Title</h5>
-                                <p class="text-s">@course.Author.FullName</p>
-                                <p class="text-lg">@course.Price.OriginalPrice</p>
-                                <span class="border border-1"></span>
-                            </div>
-
-                            <div class="card-info">
-                                <i class="fa-regular fa-clock">
-                                    <p class="text-s">220 hours</p>
-                                </i>
-                                <i class="fa-regular fa-thumbs-up">
-                                    <p class="text-s">94% (4.2K)</p>
-                                </i>
-                            </div>
-
-                        </div>
-                    </a>
-
-                    <button class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-                </article>
+                <div class="pagination">
+                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                    {
+                        if (i == Model.Pagination.CurrentPage)
+                        {
+                            <span class="btn-theme-small active-pag">@i</span>
+                        }
+                        else
+                        {
+                            <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
+                        }
+                    }
+                </div>
             }
 
 
-           
+
         </div>
+          
+
+
+     
 
     </div>
 </section>
@@ -95,3 +143,4 @@
     </div>
 
 </section>
+

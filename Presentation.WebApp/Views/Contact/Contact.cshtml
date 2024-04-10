@@ -1,42 +1,39 @@
-﻿@using Presentation.WebApp.ViewModels.Contact
-@model ContactUsViewModel
+﻿@model ContactUsViewModel
 
 @{
     ViewData["Title"] = "Contact";
 }
 
-
 <section class="contact">
     <div class="container grid-12">
-
-        <nav>
-            <ol>
-                <li class="breadcrumb"><a href="">Home</a></li>
-                <li class="breadcrumb active"><a href="">Contact</a></li>
-            </ol>
-        </nav>
-
-
-
+        <div class="breadcrumbs">
+            <nav>
+                <ol>
+                    <li> <a asp-action="Home" asp-controller="Default"><i class="fa-regular fa-house me-2"></i>Home</a></li>
+                    <li><i class="fa-regular fa-angles-right"></i></li>
+                    <li class="active"><a asp-action="Contact" asp-controller="Contact" class="active">Contact</a></li>
+                </ol>
+            </nav>
+        </div>
         <div class="contact-details">
             <h1>Contact Us</h1>
 
             <div class="contact-content">
-                <i class="fa-regular fa-envelope"></i>
+                <i class="fa-regular fa-envelope icon"></i>
                 <div>
                     <h4>Email us</h4>
                     <p class="text-m">Please feel free to drop us a line. We will respond as soon as possible.</p>
-                    <a href="#">Leave a message</a>
+                    <a href="#">Leave a message<i class="fa-regular fa-arrow-right"></i></a>
                 </div>
             </div>
 
 
             <div class="contact-content">
-                <i class="fa-regular fa-user-plus careers"></i>
+                <i class="fa-regular fa-user-plus careers icon"></i>
                 <div>
                     <h4>Careers</h4>
                     <p class="text-m">Sit ac ipsum leo lorem magna nunc mattis maecenas non vestibulum.</p>
-                    <a href="#">Send an application</a>
+                    <a href="#">Send an application<i class="fa-regular fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -65,8 +62,11 @@
                     <div id="form-service" class="input-group">
                         <label asp-for="Service">Service <span>(optional)</span></label>
                         <select asp-for="Service" class="form-select">
-                            <option selected disabled>Choose the service you are interested in</option>
-                            <option>...</option>
+                            <option selected value="">Choose the service you are interested in</option>
+                            <option value="Service1">Service 1</option>
+                            <option value="Service2">Service 2</option>
+                            <option value="Service3">Service 3</option>
+                            <option value="Service4">Service 4</option>
                         </select>
                         <span asp-validation-for="Service" class="invalid-feedback"></span>
                     </div>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div id="form-buttons">
-                        <button class="btn-theme-small" type="submit" name="action" value="basicinfo">Send Contact Request</button>
+                        <button class="btn-theme-small" type="submit">Send Contact Request</button>
                     </div>
 
                 </div>
@@ -99,3 +99,5 @@
 </section>
 
 
+@await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml");
+<script src="~/js/sign-up-validation.js" defer></script>

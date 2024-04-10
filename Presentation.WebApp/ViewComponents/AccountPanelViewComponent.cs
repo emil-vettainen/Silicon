@@ -3,6 +3,7 @@ using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.ViewModels;
+using Presentation.WebApp.ViewModels.Account;
 
 namespace Presentation.WebApp.ViewComponents;
 

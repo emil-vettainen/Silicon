@@ -34,7 +34,3 @@ public class UserSessionValidationMiddleware
         await _next(context);
     }
 }
-
-// var user = await userManager.GetUserAsync(context.User);
-// if (user == null) 
-// await signInManager.SignOutAsync();

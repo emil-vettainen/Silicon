@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Infrastructure.Entities.AccountEntities;
 
 namespace Infrastructure.Entities.AccountEntites;
 
@@ -30,4 +31,6 @@ public class UserEntity : IdentityUser
     public bool IsExternalAccount { get; set; } = false;
 
     public ICollection<UserAddressEntity> UserAddresses { get; set; } = new List<UserAddressEntity>();
+
+    public ICollection<SavedCourseEntity> SavedCourses { get; set;} = new List<SavedCourseEntity>();
 }

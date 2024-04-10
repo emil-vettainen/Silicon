@@ -1,31 +1,27 @@
-﻿@model SignInViewModel
+﻿@using Presentation.WebApp.ViewModels.Authentication
+@model SignInViewModel
 @{
     ViewData["Title"] = "Sign in";
 }
 
 <section id="signin">
     <div class="container">
-       
         <form method="post" asp-controller="Authentication" asp-action="SignIn" asp-route-ReturnUrl="@ViewData["ReturnUrl"]" novalidate>
-            @await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
             <h1>Welcome Back</h1>
             <p>Don´t have an account yet? <a asp-action="SignUp">Sign up here.</a></p>
-
-
-
             <div class="content">
                 <div id="form-email" class="input-group">
-                    <label asp-for="SignIn.Email"></label>
-                    <input asp-for="SignIn.Email" class="form-control" />
-                    <span asp-validation-for="SignIn.Email" class="invalid-feedback"></span>
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="invalid-feedback"></span>
                 </div>
                 <div id="form-password" class="input-group">
-                    <label asp-for="SignIn.Password"></label>
-                    <input asp-for="SignIn.Password" class="form-control" />
-                    <span asp-validation-for="SignIn.Password" class="invalid-feedback"></span>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="invalid-feedback"></span>
                 </div>
                 <div id="form-remember" class="checkbox-group">
-                    <input asp-for="SignIn.RememberMe" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SignIn.RememberMe)
+                    <input asp-for="RememberMe" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.RememberMe)
                 </div>
                 <button id="form-submit" class="btn-theme-large" type="submit">Sign In</button>
 
@@ -36,11 +32,9 @@
                     <a asp-action="Google" asp-controller="Authentication" class="btn-gray-medium"><i class="fa-brands fa-google"></i>Google</a>
                     <a asp-action="Facebook" asp-controller="Authentication" class="btn-gray-medium"><i class="fa-brands fa-facebook-f"></i>Facebook</a>
                 </div>
-
-
             </div>
         </form>
     </div>
 </section>
-
+@await Html.PartialAsync("~/Views/Shared/Partials/Alert/_AlertMessages.cshtml")
 <script defer src="~/js/signin-validation.js"></script>

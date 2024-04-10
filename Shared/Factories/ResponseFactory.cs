@@ -59,4 +59,22 @@ public class ResponseFactory
             StatusCode = ResultStatus.EXISTS,
         };
     }
+
+    public static ResponseResult Forbidden(string? message = null)
+    {
+        return new ResponseResult
+        {
+            Message = message ?? "Unauthorized",
+            StatusCode = ResultStatus.FORBIDDEN,
+        };
+    }
+
+    public static ResponseResult Unavailable(string? message = null)
+    {
+        return new ResponseResult
+        {
+            Message = message ?? "Unavailable",
+            StatusCode = ResultStatus.UNAVAILABLE,
+        };
+    }
 }

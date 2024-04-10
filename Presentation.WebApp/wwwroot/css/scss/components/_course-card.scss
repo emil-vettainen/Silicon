@@ -5,9 +5,9 @@
     z-index: 1;
     position: relative;
 
+
+
     @include shadow-s;
-
-
 
 
 
@@ -15,13 +15,24 @@
 
     a {
         text-decoration: none;
-
-
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
         .course-img {
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
             width: 100%;
+        }
+
+        .best-seller {
+            position: absolute;
+            top: 12px;
+            left: 20px;
+            color: var(--clr-white);
+            background-color: var(--clr-success);
+            border-radius: 6px;
+            padding: 1px 8px;
         }
 
 
@@ -31,13 +42,17 @@
             flex-direction: column;
             gap: 10px;
             padding: 1.5rem 1.0rem;
+            flex-grow: 1;
+
 
 
             .testar {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                
+                flex-grow: 1;
+
+
 
 
 
@@ -55,6 +70,21 @@
 
                 .border {
                     border-color: var(--clr-gray-300);
+                }
+
+
+                .course-price {
+                    display: flex;
+                    gap: .5rem;
+
+                    .discount-price {
+                        color: var(--clr-danger);
+                    }
+
+                    .original-price {
+                        text-decoration: line-through;
+                        color: var(--clr-gray-600);
+                    }
                 }
             }
 

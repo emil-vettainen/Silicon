@@ -175,6 +175,19 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntities.SavedCourseEntity", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.ToTable("SavedCourses");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.SubscribeEntities.SubscribeEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -368,6 +381,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.AccountEntities.SavedCourseEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.AccountEntites.UserEntity", "User")
+                        .WithMany("SavedCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -431,6 +455,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Entities.AccountEntites.UserEntity", b =>
                 {
+                    b.Navigation("SavedCourses");
+
                     b.Navigation("UserAddresses");
                 });
 #pragma warning restore 612, 618

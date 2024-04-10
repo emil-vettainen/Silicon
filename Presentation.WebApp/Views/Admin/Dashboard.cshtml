@@ -1,5 +1,63 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Presentation.WebApp.ViewModels.Courses
+@model CourseViewModel
+
+
+<section>
+
+    <div class="container">
+
+
+        <div>
+            <h2>List of Courses</h2>
+            <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateCourse">New Course</a>
+        </div>
+
+     
+
+        @if (Model.Courses != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var course in Model.Courses)
+                    {
+                        <tr>
+                            <th> <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">@course.CourseTitle</a> </th>
+                            <th>@course.Author.FullName</th>
+                            <th>@course.CourseCategory</th>
+                            <th>
+
+                                <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="EditCourse" asp-route-id="@course.Id">Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.Id">Delete</a>
+
+                            </th>
+                        </tr>
+                    }
+
+
+                </tbody>
+
+
+            </table>
+        }
+        else
+        {
+            <div class="container">No Courses Found</div>
+        }
+
+
+    </div>
+
+
+</section>
+

@@ -1,17 +1,22 @@
 ﻿using Business.Dtos;
+using Business.Dtos.Course;
 using Business.Dtos.User;
 using Business.Factories;
+using Business.Services;
 using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Entities.AccountEntities;
+using Infrastructure.Repositories;
 using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Shared.Factories;
 using Shared.Responses;
-using System.Runtime.CompilerServices;
+using Shared.Responses.Enums;
 using System.Security.Claims;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Business.Services;
@@ -21,15 +26,21 @@ public class UserService
 
     private readonly UserManager<UserEntity> _userManager;
     private readonly SignInManager<UserEntity> _signInManager;
-
-
     private readonly UserAddressRepository _userAddressRepository;
+    private readonly SavedCourseRepository _savedCourseRepository;
+    private readonly IConfiguration _configuration;
+    private readonly HttpClient _httpClient;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository)
+    public UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository, IConfiguration config, SavedCourseRepository savedCourseRepository, HttpClient httpClient, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _userAddressRepository = userAddressRepository;
+        _configuration = config;
+        _savedCourseRepository = savedCourseRepository;
+        _httpClient = httpClient;
+        _contextAccessor = contextAccessor;
     }
 
 
@@ -252,64 +263,49 @@ public class UserService
 
 
 
-    public async Task<bool> UploadProfileImageAsync(string userId,  IFormFile profileImage)
+    public async Task<bool> UploadProfileImageAsync(ClaimsPrincipal user, IFormFile profileImage)
     {
 		try
 		{
-            var imagePath = SaveImageToFileAsync(profileImage);
+            var userEntity = await _userManager.GetUserAsync(user);
+            if (userEntity == null) return false;
 
+            var fileName = await SaveImageToFileAsync(userEntity.Id, profileImage);
+            if (string.IsNullOrEmpty(fileName)) return false;
 
-            
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if(user != null)
-            {
-                user.ProfileImageUrl = await imagePath;
-                await _userManager.UpdateAsync(user);
-            }
-
-
-            return true;
-            
-            
-           
-
+            userEntity.ProfileImageUrl = fileName;
+            var result = await _userManager.UpdateAsync(userEntity);
+            return result.Succeeded;
 		}
 		catch (Exception)
 		{
-
-			
-		}
-        return false;
+            //logger
+            return false;
+        }
     }
 
 
-
-
-    public async Task<string> SaveImageToFileAsync(IFormFile profileImage)
+    private async Task<string> SaveImageToFileAsync(string userId, IFormFile profileImage)
     {
         try
         {
-            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "uploads");
-            if (!Directory.Exists(uploadsFolderPath))
-            {
-                Directory.CreateDirectory(uploadsFolderPath);
-            }
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(profileImage.FileName);
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["FileUploadPath"]!);
+            Directory.CreateDirectory(uploadsFolderPath);
+
+            var fileName = $"p_{userId}_{Guid.NewGuid()}{Path.GetExtension(profileImage.FileName)}";
             var filePath = Path.Combine(uploadsFolderPath, fileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await profileImage.CopyToAsync(fileStream);
             }
-            return $"/images/uploads/{fileName}";
+            return fileName;
         }
         catch (Exception)
         {
-
+            //logger
+            return string.Empty;
         }
-        return null!;
-
     }
 
 
@@ -337,5 +333,98 @@ public class UserService
 
         return ResponseFactory.Ok();
 
+    }
+
+
+
+    public async Task<ResponseResult> SaveCourseAsync(string userId, string courseId)
+    {
+        try
+        {
+            var existingCourse = await _savedCourseRepository.ExistsAsync(x => x.UserId == userId && x.CourseId == courseId);
+            if (existingCourse)
+            {
+                return ResponseFactory.Exists();
+            }
+            var result = await _savedCourseRepository.CreateAsync(new SavedCourseEntity {UserId = userId, CourseId = courseId});
+            return result != null ? ResponseFactory.Ok() : ResponseFactory.Error();
+        }
+        catch (Exception)
+        {
+            //logger
+            return ResponseFactory.Error();
+        }
+    }
+
+
+    public async Task<IEnumerable<CourseDto>> GetSavedCourseAsync(string userId)
+    {
+        try
+        {
+            var savedCourses = await _savedCourseRepository.GetSavedCoursesAsync(userId);
+            if (!savedCourses.Any())
+            {
+                return [];
+            }
+            var content = new StringContent(JsonConvert.SerializeObject(savedCourses), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:CoursesByIds"]}?key={_configuration["Api:Key"]}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(await response.Content.ReadAsStringAsync());
+                return result ?? [];
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+
+        }
+        return [];
+    }
+
+
+    public async Task<ResponseResult> DeleteOneCourseAsync(string userId, string courseId)
+    {
+        try
+        {
+            var response = await _savedCourseRepository.DeleteAsync(x => x.UserId == userId && x.CourseId == courseId);
+            return response ? ResponseFactory.Ok() : ResponseFactory.NotFound();
+        }
+        catch (Exception)
+        {
+
+            return ResponseFactory.Error();
+        }
+
+    }
+
+
+    public async Task<bool> GetToken()
+    {
+        try
+        {
+            var tokenResponse = await _httpClient.SendAsync(new HttpRequestMessage 
+            { 
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{_configuration["Api:Token"]}?key={_configuration["Api:Key"]}"),
+            });
+            if (tokenResponse.IsSuccessStatusCode)
+            {
+                var token = await tokenResponse.Content.ReadAsStringAsync();
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                _contextAccessor.HttpContext!.Response.Cookies.Append("AccessToken", token, cookieOptions);
+                return true;
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+        }
+        return false;
     }
 }

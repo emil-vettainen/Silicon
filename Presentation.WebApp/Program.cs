@@ -1,11 +1,13 @@
 using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Repositories;
 using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.WebApp.Configuration.AutoMapper;
 using Presentation.WebApp.Helpers;
 using Presentation.WebApp.ViewModels;
 using Shared.Utilis;
@@ -18,12 +20,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
 
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperSettings));
+
 builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = false;
+
+
 })
     .AddEntityFrameworkStores<AccountDbContext>().AddDefaultTokenProviders();
 
@@ -60,9 +69,12 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AddressService>();
 
+builder.Services.AddScoped<CourseService>();
+
 builder.Services.AddScoped<UserAddressRepository>();
 builder.Services.AddScoped<OptionalAddressRepository>();
 builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<SavedCourseRepository>();
 
 
 
@@ -84,6 +96,23 @@ app.UseRouting();
 app.UseAuthentication();
 app.UserSessionValidation();
 app.UseAuthorization();
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roles = ["Admin", "User"];
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+
 
 app.MapControllerRoute(
     name: "default",

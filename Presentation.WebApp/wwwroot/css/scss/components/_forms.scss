@@ -20,7 +20,6 @@ form {
                 padding: 1rem;
                 border-radius: 6px !important;
                 display: flex;
-                background-color: var(--clr-input);
                 /*   &.input-validation-error {
                 border: 1px solid var(--clr-danger);
                 color: var(--clr-danger);
@@ -157,9 +156,6 @@ form {
             border: 0.063rem solid var(--clr-gray-400);
             resize: none;
             background-color: var(--clr-input);
-           
-
-            
         }
 
 
@@ -169,6 +165,69 @@ form {
 
         .btn-theme-large {
             @include theme-shadow;
+        }
+    }
+
+    .select {
+        position: relative;
+        min-width: 250px;
+
+      
+
+
+        .selected {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--clr-gray-400);
+            cursor: pointer;
+        }
+
+
+        .select-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--clr-white);
+            border: 1px solid var(--clr-gray-400);
+            z-index: 999;
+
+
+            .option {
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            .option:hover {
+                background-color: var(--clr-gray-400);
+            }
+        }
+    }
+
+    .input-search-group {
+        position: relative;
+
+        input {
+            border: 1px solid;
+            border-color: var(--clr-gray-400);
+            border-radius: 6px;
+            padding: .5rem;
+            min-width: 100%;
+
+          
+
+            @include lg {
+                min-width: 270px;
+            }
+        }
+
+        .fa-search {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
         }
     }
 }

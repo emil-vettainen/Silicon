@@ -6,7 +6,7 @@ namespace Business.Factories;
 
 public class UserFactory
 {
-    public static CreateUserDto CreateUser(string firstName, string lastName, string email, string password)
+    public static CreateUserDto ToDto(string firstName, string lastName, string email, string password)
     {
 		try
 		{

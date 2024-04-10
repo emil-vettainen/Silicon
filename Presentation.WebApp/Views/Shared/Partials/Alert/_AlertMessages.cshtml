@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     if (ViewBag.Success != null)
     {
         <div class="alert alert-success">@ViewBag.Success</div>
@@ -8,4 +8,37 @@
     {
         <div class="alert alert-danger">@ViewBag.Error</div>
     }
+
+    if (ViewBag.Warning != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Warning</div>
+    }
+} *@
+
+@{
+    var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
+    var messageType = TempData["Success"] != null ? "success" : TempData["Error"] != null ? "danger" : TempData["Warning"] != null ? "warning" : "";
+    var message = TempData["Success"] ?? TempData["Error"] ?? TempData["Warning"];
+}
+
+@if (hasMessage)
+{
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header alert alert-@messageType">
+                    <h5 class="modal-title" id="alertModalLabel">Message:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-theme-medium" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="~/js/alert-modal.js"></script>
 }

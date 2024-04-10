@@ -1,4 +1,4 @@
-﻿using Presentation.WebApp.Models.AccountSecurity;
+﻿using Presentation.WebApp.Models.Account;
 
 namespace Presentation.WebApp.ViewModels.Account;
 

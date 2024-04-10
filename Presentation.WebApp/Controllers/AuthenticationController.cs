@@ -3,9 +3,8 @@ using Business.Services;
 using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.WebApp.ViewModels;
+using Presentation.WebApp.ViewModels.Authentication;
 using Shared.Responses.Enums;
-using System.Security.Claims;
 
 
 namespace Presentation.WebApp.Controllers;
@@ -15,13 +14,15 @@ public class AuthenticationController : Controller
     private readonly UserManager<UserEntity> _userManager;
     private readonly SignInManager<UserEntity> _signInManager;   
     private readonly UserService _userService;
+    private readonly HttpClient _httpClient;
 
 
-    public AuthenticationController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserService userService)
+    public AuthenticationController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserService userService, HttpClient httpClient)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _userService = userService;
+        _httpClient = httpClient;
     }
 
     #region SignUp
@@ -42,7 +43,7 @@ public class AuthenticationController : Controller
         {
             return View(viewModel);
         }
-        var result = await _userService.CreateAsync(UserFactory.CreateUser(viewModel.SignUp.FirstName, viewModel.SignUp.LastName, viewModel.SignUp.Email, viewModel.SignUp.Password));
+        var result = await _userService.CreateAsync(UserFactory.ToDto(viewModel.FirstName, viewModel.LastName, viewModel.Email, viewModel.Password));
         switch (result.StatusCode)
         {
             case ResultStatus.EXISTS:
@@ -69,28 +70,43 @@ public class AuthenticationController : Controller
         var viewModel = new SignInViewModel();
         return View(viewModel);  
     }
-    
 
-  
-    [Route("/signin")]
+
     [HttpPost]
+    [Route("/signin")]
     public async Task<IActionResult> SignIn(SignInViewModel viewModel, string? returnUrl)
     {
-        if(!ModelState.IsValid)
+        try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
+            if (!result.Succeeded)
+            {
+                TempData["Error"] = "Incorret email or password";
+                return View(viewModel);
+            }
+            var user = await _userManager.FindByEmailAsync(viewModel.Email);
+            if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                if (!await _userService.GetToken())
+                {
+                    TempData["Error"] = "Access token failed!";
+                }
+            }
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception)
+        {
+            TempData["Error"] = "An unexpected error occurred, Please try again!";
             return View(viewModel);
         }
-        var result = await _signInManager.PasswordSignInAsync(viewModel.SignIn.Email, viewModel.SignIn.Password, viewModel.SignIn.RememberMe, false);
-        if(!result.Succeeded)
-        {
-            ViewBag.Error = "Incorret email or password";
-            return View(viewModel);
-        }
-        if(!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) 
-        {
-            return Redirect(returnUrl);
-        }
-        return RedirectToAction("Index", "Home");
     }
     #endregion
 
@@ -104,7 +120,7 @@ public class AuthenticationController : Controller
     #endregion
 
 
-
+    #region External Authentication
     public IActionResult Google()
     {
         var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("ExternalCallback"));
@@ -120,7 +136,6 @@ public class AuthenticationController : Controller
     public async Task<IActionResult> ExternalCallback()
     {
         var result = await _userService.HandleExternalLoginAsync();
-
         switch (result.StatusCode)
         {
             case ResultStatus.OK: 
@@ -133,88 +148,11 @@ public class AuthenticationController : Controller
                     ViewBag.Error = "Authentication failed. Please try again.";
                     return RedirectToAction("SignIn", "Authentication");
                 }
-
             default:
                 ViewBag.Error = "An unexpected error occurred.";
                 break;
-
-
         }
-
         return RedirectToAction("SignIn", "Authentication");
-
-
-
-
-        //if (result.StatusCode == ResultStatus.OK)
-        //{
-        //    if (HttpContext.User != null)
-        //    {
-        //        return RedirectToAction("Details", "Account");
-        //    }
-        //    else
-        //    {
-        //        ViewBag.Error = "Failed to authenticate";
-        //        return RedirectToAction("SignIn", "Authentication");
-        //    }
-        //}
-        //else
-        //{
-        //    ViewBag.Error = result.Message ?? "Failed to authenticate";
-        //    return RedirectToAction("SignIn", "Authentication");
-        //}
-
-
-        //var info = await _signInManager.GetExternalLoginInfoAsync();
-
-        //if (info != null)
-        //{
-        //    var userEntity = new UserEntity
-        //    {
-        //        FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
-        //        LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
-        //        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
-        //        UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-        //    };
-
-        //    var user = await _userManager.FindByEmailAsync(userEntity.Email);
-
-
-        //    if (user == null)
-        //    {
-        //        var result = await _userManager.CreateAsync(userEntity);
-        //        if (result.Succeeded)
-        //        {
-        //            user = await _userManager.FindByEmailAsync(userEntity.Email);
-        //        }
-        //    }
-
-
-        //    // exists 
-
-        //    if (user != null)
-        //    {
-        //        if (user.FirstName != userEntity.FirstName || user.LastName != userEntity.LastName || user.Email != userEntity.Email )
-        //        {
-        //            user.FirstName = userEntity.FirstName;
-        //            user.LastName = userEntity.LastName;
-        //            user.Email = userEntity.Email;
-
-        //            await _userManager.UpdateAsync(user);
-        //        }
-
-        //        await _signInManager.SignInAsync(user, isPersistent: false);
-
-        //        if (HttpContext.User != null)
-        //        {
-        //            return RedirectToAction("Details", "Account");
-        //        }
-        //    }
-        //}
-
-        //ViewBag.Error = "Failed to authenticate with Facebook ";
-        //return RedirectToAction("SignIn", "Authenticaction");
     }
-
-   
+    #endregion
 }

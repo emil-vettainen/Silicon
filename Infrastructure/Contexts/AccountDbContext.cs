@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Entities.AccountEntites;
+using Infrastructure.Entities.AccountEntities;
 using Infrastructure.Entities.SubscribeEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ public class AccountDbContext(DbContextOptions<AccountDbContext> options) : Iden
     public DbSet<OptionalAddressEntity> OptionalAddresses { get; set; }
     public DbSet<UserAddressEntity> UserAddresses { get; set; }
     public DbSet<SubscribeEntity> Subscribers { get; set; }
+    public DbSet<SavedCourseEntity> SavedCourses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -35,5 +37,12 @@ public class AccountDbContext(DbContextOptions<AccountDbContext> options) : Iden
             .HasForeignKey(x => x.OptionalAddressId)
             .IsRequired(false);
 
+        builder.Entity<SavedCourseEntity>()
+            .HasKey(x => new {x.UserId, x.CourseId});
+
+        builder.Entity<SavedCourseEntity>()
+            .HasOne(x => x.User)
+            .WithMany(x => x.SavedCourses)
+            .HasForeignKey(x => x.UserId);
     }
 }

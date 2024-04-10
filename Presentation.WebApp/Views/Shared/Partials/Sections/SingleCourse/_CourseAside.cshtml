@@ -1,5 +1,6 @@
-﻿@using Infrastructure.Entities.MongoDb
-@model CourseEntity
+﻿@using Presentation.WebApp.Models.Courses
+
+@model CourseModel
 
 
 <aside class="course-include">
@@ -27,7 +28,7 @@
         }
     </ul>
 
-    @if (!string.IsNullOrEmpty(@Model.Price.DiscountPrice))
+    @if (!string.IsNullOrEmpty(@Model.Price.DiscountPrice.ToString()))
     {
         <div class="course-price pb-2">
             <h2>$@Model.Price.DiscountPrice</h2>
