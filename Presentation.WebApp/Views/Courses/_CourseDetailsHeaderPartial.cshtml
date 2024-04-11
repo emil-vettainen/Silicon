@@ -2,7 +2,7 @@
 
 @if (Model != null)
 {
-    <section class="single-course-header" style="background-image: url('@Url.Content("~/uploads/courses/" + (!string.IsNullOrEmpty(Model.CourseImageUrl) ? Model.CourseImageUrl : "course_9.png"))');">
+    <section class="single-course-header" style="background-image: url('@Url.Content("~/uploads/courses-img/" + (!string.IsNullOrEmpty(Model.CourseImageUrl) ? Model.CourseImageUrl : "course_9.png"))');">
         <div class="container">
             <div class="breadcrumbs">
                 <nav>
@@ -49,7 +49,7 @@
                 <p><i class="fa-regular fa-clock"></i>@Model.Included.HoursOfVideo hours</p>
             </div>
             <div class="course-created">
-                <img src="~/uploads/courses/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
+                <img src="~/uploads/courses/authors-img/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
                 <div>
                     <h6>Created by</h6>
                     <p class="text-m">@Model.Author.FullName</p>

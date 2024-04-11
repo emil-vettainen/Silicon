@@ -20,7 +20,7 @@ namespace Presentation.WebApp.Configuration.AutoMapper
 
 
             CreateMap<CourseResultDto, CourseResultModel>();
-
+            CreateMap<CourseModel, UpdateCourseDto>();
 
             CreateMap<CreateCourseModel, CreateCourseDto>();
             CreateMap<RatingModel, RatingDto>();

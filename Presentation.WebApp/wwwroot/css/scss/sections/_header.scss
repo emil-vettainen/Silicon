@@ -2,6 +2,7 @@ header {
 
     .navbar {
         padding: 0;
+        background-color: var(--clr-bg-section);
 
         .container {
             padding: .5rem 20px .5rem 20px;
@@ -16,7 +17,7 @@ header {
 
 
                 .navbar-toggler-icon {
-                    background-image: var(--background-color);
+                    background-image: var(--clr-bg-section);
                 }
 
                 &:focus {
@@ -32,7 +33,7 @@ header {
             .offcanvas {
 
                 .offcanvas-header {
-                    background-color: var(--background-color);
+                    background-color: var(--clr-bg-section);
                     justify-content: space-between;
                     padding: 20px;
 
@@ -47,7 +48,7 @@ header {
 
                 .offcanvas-body {
                     padding: 20px;
-                    background-color: var(--background-color);
+                    background-color: var(--clr-bg-section);
                     display: flex;
                     flex-direction: column;
                     justify-content: start;

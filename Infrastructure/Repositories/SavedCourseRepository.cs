@@ -29,5 +29,26 @@ namespace Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> DeleteAllSavedcoursesAsync(string userId)
+        {
+            try
+            {
+                var savedCourses = await _context.SavedCourses.Where(x => x.UserId == userId).ToListAsync();
+                if (!savedCourses.Any())
+                {
+                    return false;
+                }
+
+                _context.SavedCourses.RemoveRange(savedCourses);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                //logger
+                return false;
+            }
+        }
+
     }
 }

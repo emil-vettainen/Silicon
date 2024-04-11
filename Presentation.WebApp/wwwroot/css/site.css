@@ -1,5 +1,6 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 :root {
+  --clr-bg-section: #FFFFFF;
   --background-color: #FFFFFF;
   --clr-transparent: transparent;
   --clr-white: #FFFFFF;
@@ -12,6 +13,8 @@
   --clr-gray-700: #565973;
   --clr-gray-800: #33354D;
   --clr-gray-900: #0B0F19;
+  --clr-text-header: #0B0F19;
+  --clr-text-body: #565973;
   --clr-theme: #6366F1;
   --clr-theme-secondary: #8B5CF6;
   --clr-theme-opacity: #6365f114;
@@ -28,15 +31,20 @@
 }
 
 :root.dark {
-  --clr-gray-100: #0B0F19;
+  --clr-bg-section: #0B0F19;
+  --clr-gray-100: #151822;
   --clr-gray-200: #33354D;
   --clr-gray-300: #565973;
   --clr-gray-400: #9397AD;
   --clr-gray-500: #B4B7C9;
   --clr-gray-600: #D4D7E5;
-  --clr-gray-700: #E2E5F1;
+  --clr-gray-700: #565973;
   --clr-gray-800: #EFF2FC;
   --clr-gray-900: #F3F6FF;
+  --clr-text-header: #FFFFFF;
+  --clr-text-body: #B5B7BA;
+  --clr-toolbox: #1E212B;
+  --clr-sociallinks: #171B25;
 }
 
 .dark-theme {
@@ -70,12 +78,12 @@
 html, body {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
   font-size: 16px;
-  background-color: var(--background-color);
+  background-color: var(--clr-bg-section);
 }
 
 img, svg {
@@ -91,7 +99,7 @@ img, svg {
 .text-xs {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -101,7 +109,7 @@ img, svg {
 .text-s {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -111,7 +119,7 @@ img, svg {
 .text-m {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -121,7 +129,7 @@ img, svg {
 .text-lg {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -131,7 +139,7 @@ img, svg {
 .text-xl {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -141,7 +149,7 @@ img, svg {
 .text-lead {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -151,7 +159,7 @@ img, svg {
 .d1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -161,7 +169,7 @@ img, svg {
 .d2 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -171,7 +179,7 @@ img, svg {
 .d3 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -181,7 +189,7 @@ img, svg {
 .d4 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -191,7 +199,7 @@ img, svg {
 .d5 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -201,7 +209,7 @@ img, svg {
 .d6 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -211,7 +219,7 @@ img, svg {
 h1, .h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -221,7 +229,7 @@ h1, .h1 {
 h2, .h2 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -231,7 +239,7 @@ h2, .h2 {
 h3, .h3 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -241,7 +249,7 @@ h3, .h3 {
 h4, .h4 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -251,7 +259,7 @@ h4, .h4 {
 h5, .h5 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -261,7 +269,7 @@ h5, .h5 {
 h6, .h6 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -296,7 +304,7 @@ h6, .h6 {
 .error-message {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -517,14 +525,14 @@ h6, .h6 {
 .btn-switch label {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
   font-size: 1rem;
   color: var(--clr-gray-800);
   font-weight: 600;
-  color: var(--clr-label-dt);
+  color: var(--clr-text-header);
 }
 .btn-switch .switch {
   position: relative;
@@ -577,7 +585,7 @@ h6, .h6 {
 .btn-social {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -600,7 +608,7 @@ h6, .h6 {
 a {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -616,7 +624,7 @@ a:hover {
 .menu-link {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1142,6 +1150,7 @@ form .input-search-group .fa-search {
 
 header .navbar {
   padding: 0;
+  background-color: var(--clr-bg-section);
 }
 header .navbar .container {
   padding: 0.5rem 20px 0.5rem 20px;
@@ -1156,7 +1165,7 @@ header .navbar .container .navbar-toggler {
   padding: 0;
 }
 header .navbar .container .navbar-toggler .navbar-toggler-icon {
-  background-image: var(--background-color);
+  background-image: var(--clr-bg-section);
 }
 header .navbar .container .navbar-toggler:focus {
   box-shadow: none;
@@ -1166,7 +1175,7 @@ header .navbar .container .navbar-toggler i {
   color: var(--clr-gray-900);
 }
 header .navbar .container .offcanvas .offcanvas-header {
-  background-color: var(--background-color);
+  background-color: var(--clr-bg-section);
   justify-content: space-between;
   padding: 20px;
 }
@@ -1176,7 +1185,7 @@ header .navbar .container .offcanvas .offcanvas-header .navbar-toggler i {
 }
 header .navbar .container .offcanvas .offcanvas-body {
   padding: 20px;
-  background-color: var(--background-color);
+  background-color: var(--clr-bg-section);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -1243,7 +1252,7 @@ header .navbar .container .offcanvas .offcanvas-body .offcanvas-btn div:nth-chil
 footer {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1268,6 +1277,7 @@ footer .container .social-media a {
 #showcase {
   position: relative;
   margin-bottom: 80px;
+  background-color: var(--clr-bg-section);
 }
 @media (min-width: 992px) {
   #showcase {
@@ -1316,7 +1326,7 @@ footer .container .social-media a {
   #showcase .container .content h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1326,7 +1336,7 @@ footer .container .social-media a {
 #showcase .container .content p {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1337,7 +1347,7 @@ footer .container .social-media a {
   #showcase .container .content p {
     line-height: 160%;
     font-weight: 400;
-    color: var(--clr-gray-700);
+    color: var(--clr-text-body);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1389,7 +1399,7 @@ footer .container .social-media a {
 .our-tool .container h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1400,7 +1410,7 @@ footer .container .social-media a {
   .our-tool .container h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1441,7 +1451,7 @@ footer .container .social-media a {
 .our-tool .container .toolboxes-grid .box p {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1531,7 +1541,7 @@ footer .container .social-media a {
 .switch-between .container div h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1546,7 +1556,7 @@ footer .container .social-media a {
   .switch-between .container div h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1559,7 +1569,7 @@ footer .container .social-media a {
   .switch-between .container div h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1681,7 +1691,7 @@ footer .container .social-media a {
 .our-app .container .content h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1695,7 +1705,7 @@ footer .container .social-media a {
   .our-app .container .content h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1710,7 +1720,7 @@ footer .container .social-media a {
 .work-tools .container h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1720,7 +1730,7 @@ footer .container .social-media a {
   .work-tools .container h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1801,7 +1811,7 @@ footer .container .social-media a {
 .newsletter .container .content h1 {
   line-height: 130%;
   font-weight: 800;
-  color: var(--clr-gray-900);
+  color: var(--clr-text-header);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -1813,7 +1823,7 @@ footer .container .social-media a {
   .newsletter .container .content h1 {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: "Manrope", sans-serif;
     margin: 0;
     padding: 0;
@@ -1873,6 +1883,13 @@ footer .container .social-media a {
   grid-template-columns: repeat(2, 1fr);
   flex-grow: 1;
   gap: 0.5rem;
+}
+.newsletter .container .content form .checkboxes .form-check .form-check-input {
+  box-shadow: none;
+}
+.newsletter .container .content form .checkboxes .form-check .form-check-input:checked {
+  background-color: var(--clr-theme);
+  border-color: var(--clr-theme);
 }
 @media (min-width: 576px) {
   .newsletter .container .content form .checkboxes {
@@ -2096,6 +2113,7 @@ footer .container .social-media a {
   padding-top: 2rem;
   padding-bottom: 5rem;
   position: relative;
+  min-height: 100vh;
 }
 .account .container .account-panel {
   grid-column: 1/13;
@@ -2243,7 +2261,7 @@ footer .container .social-media a {
 .account-details .basic-info form .content label span {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -2287,7 +2305,7 @@ footer .container .social-media a {
 .account-details .address-info form .content #form-address-2 label span {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -2596,7 +2614,7 @@ footer .container .social-media a {
 .single-course-header .container .course-specs p {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
@@ -2868,7 +2886,7 @@ footer .container .social-media a {
 .contact .container .contact-form #form-service label span {
   line-height: 160%;
   font-weight: 400;
-  color: var(--clr-gray-700);
+  color: var(--clr-text-body);
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;

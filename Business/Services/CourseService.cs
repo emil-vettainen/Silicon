@@ -15,14 +15,14 @@ public class CourseService
 {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
- 
+    private readonly UploadService _uploadService;
 
-    public CourseService(HttpClient httpClient, IConfiguration configuration)
+
+    public CourseService(HttpClient httpClient, IConfiguration configuration, UploadService uploadService)
     {
         _httpClient = httpClient;
         _configuration = configuration;
-        
-
+        _uploadService = uploadService;
     }
 
 
@@ -77,11 +77,11 @@ public class CourseService
 
             if (courseImage != null && courseImage.Length > 0)
             {
-                dto.CourseImageUrl = await SaveFileAsync(courseImage);
+                dto.CourseImageUrl = await _uploadService.SaveFileAsync(courseImage, "courses-img");
             }
             if (authorImage != null && authorImage.Length > 0)
             {
-                dto.Author.ProfileImageUrl = await SaveFileAsync(authorImage);
+                dto.Author.ProfileImageUrl = await _uploadService.SaveFileAsync(authorImage, "authors-img");
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -113,6 +113,50 @@ public class CourseService
         }
     }
 
+
+
+    public async Task<ResponseResult> UpdateCourseApiAsync(UpdateCourseDto dto, IFormFile? courseImage, IFormFile? authorImage, string accessToken)
+    {
+        try
+        {
+
+            if (courseImage != null && courseImage.Length > 0)
+            {
+                dto.CourseImageUrl = await _uploadService.SaveFileAsync(courseImage, "courses-img");
+            }
+            if (authorImage != null && authorImage.Length > 0)
+            {
+                dto.Author.ProfileImageUrl = await _uploadService.SaveFileAsync(authorImage, "authors-img");
+            }
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var content = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"{_configuration["ApiUris:Courses"]}/{dto.Id}?key={_configuration["Api:Key"]}", content);
+
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.Created:
+                    return ResponseFactory.Ok("Course has been created");
+
+                case System.Net.HttpStatusCode.Conflict:
+                    return ResponseFactory.Exists();
+
+                case System.Net.HttpStatusCode.BadRequest:
+                    return ResponseFactory.Error();
+
+                case System.Net.HttpStatusCode.Unauthorized:
+                    return ResponseFactory.Forbidden();
+
+                default:
+                    return ResponseFactory.Unavailable();
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+            return ResponseFactory.Unavailable();
+        }
+    }
 
 
 

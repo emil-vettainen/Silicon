@@ -1,6 +1,7 @@
 #showcase {
     position: relative;
     margin-bottom: 80px;
+    background-color: var(--clr-bg-section);
 
     @include lg {
         display: flex;

@@ -76,6 +76,7 @@ builder.Services.AddScoped<OptionalAddressRepository>();
 builder.Services.AddScoped<AddressRepository>();
 builder.Services.AddScoped<SavedCourseRepository>();
 
+builder.Services.AddScoped<UploadService>();
 
 
 builder.Services.AddSingleton<ErrorLogger>(new ErrorLogger(@"C:\CSharp\Silicon\log.txt"));

@@ -399,6 +399,29 @@ public class UserService
     }
 
 
+
+    public async Task<ResponseResult> DeleteAllCoursesAsync(string userId)
+    {
+        try
+        {
+            var result = await _savedCourseRepository.DeleteAllSavedcoursesAsync(userId);
+            return result ? ResponseFactory.Ok() : ResponseFactory.NotFound();
+
+
+
+
+
+
+        }
+        catch (Exception)
+        {
+            //logger
+            return ResponseFactory.Error();
+        }
+    }
+
+
+
     public async Task<bool> GetToken()
     {
         try

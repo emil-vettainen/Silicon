@@ -19,7 +19,7 @@
 
             <div class="saved-items">
                 <h2>Saved Items</h2>
-                <a href="" class="btn-danger-medium delete-all"><i class="fa-regular fa-trash"></i>Delete all</a>
+                <button onclick="removeAllCourses()" href="" class="btn-danger-medium delete-all"><i class="fa-regular fa-trash"></i>Delete all</button>
             </div>
            
             @if(Model.Courses!.Any())
@@ -29,7 +29,7 @@
             }
             else
             {
-                <div>No Saved Courses</div>
+                <div>No courses was found</div>
             }
            
             

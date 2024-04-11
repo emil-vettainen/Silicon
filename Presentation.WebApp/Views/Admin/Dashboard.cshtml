@@ -37,9 +37,12 @@
                             <th>@course.CourseCategory</th>
                             <th>
 
-                                <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="EditCourse" asp-route-id="@course.Id">Edit</a>
-                                <a class="btn btn-danger btn-sm" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.Id">Delete</a>
-
+                                <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="UpdateCourse" asp-route-id="@course.Id">Edit</a>
+                                <button class="btn btn-danger btn-sm" onclick="deleteCourseAdmin('@course.Id')">Delete</button>
+                             @*    <form asp-controller="Admin" asp-action="DeleteCourse" method="post" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                                    <input type="hidden" name="courseId" value="@course.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form> *@
                             </th>
                         </tr>
                     }
@@ -61,3 +64,4 @@
 
 </section>
 
+<script defer src="~/js/save-remove-course.js"></script>

@@ -11,7 +11,7 @@
         {
             <div class="account-user">
                 <div class="account-user-img">
-                    <img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image" />
+                    <img src="~/uploads/profiles-img/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image" />
                     <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="UploadProfileImage">
                         <input type="file" name="file" id="uploadFile" hidden />
                         <label for="uploadFile" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Change picture" data-bs-custom-class="custom-tooltip" class="fa-regular fa-arrows-rotate-reverse change-user-img"></label>

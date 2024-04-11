@@ -5,6 +5,7 @@ using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Presentation.WebApp.Models.Courses;
 using Presentation.WebApp.ViewModels.Admin;
 using Presentation.WebApp.ViewModels.Courses;
 using Shared.Factories;
@@ -34,6 +35,7 @@ namespace Presentation.WebApp.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             try
@@ -56,7 +58,7 @@ namespace Presentation.WebApp.Controllers
 
             }
 
-            return View();
+            return View(new CourseViewModel());
 
             
         }
@@ -113,6 +115,86 @@ namespace Presentation.WebApp.Controllers
                 return View(viewModel);
             }
            
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCourse(string id)
+        {
+            var viewModel = new UpdateCourseViewModel();
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}/{id}?key={_configuration["Api:Key"]}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = JsonConvert.DeserializeObject<CourseModel>(await response.Content.ReadAsStringAsync());
+                    viewModel.Course = result ?? new CourseModel();
+                }
+
+            }
+            catch (Exception)
+            {
+                //logger
+
+                
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCourse(UpdateCourseViewModel viewModel, IFormFile? courseImage, IFormFile? authorImage)
+        {
+            try
+            {
+                ModelState.Remove("courseImage");
+                ModelState.Remove("authorImage");
+
+                if (ModelState.IsValid)
+                {
+                    var accessToken = HttpContext.Request.Cookies["AccessToken"];
+                    var result = await _courseService.UpdateCourseApiAsync(_mapper.Map<UpdateCourseDto>(viewModel.Course), courseImage, authorImage, accessToken!);
+                    switch (result.StatusCode)
+                    {
+                        case ResultStatus.CREATED:
+                            TempData["Success"] = result.Message;
+                            return RedirectToAction("Dashboard", "Admin");
+
+                        default:
+                            TempData["Error"] = result.Message;
+                            return View(viewModel);
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View(viewModel); 
+        }
+
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCourse(string courseId)
+        {
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Request.Cookies["AccessToken"]);
+                var response = await _httpClient.DeleteAsync($"{_configuration["ApiUris:Courses"]}/{courseId}?key={_configuration["Api:Key"]}");
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Success"] = "Course has been deleted!";
+                    
+                }
+
+            }
+            catch (Exception)
+            {
+                //logger
+            }
+            return Ok();
         }
     }
 }

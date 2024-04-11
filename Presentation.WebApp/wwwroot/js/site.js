@@ -112,7 +112,7 @@ function updateCoursesByFilter() {
             document.querySelector('#boxes').innerHTML = dom.querySelector('#boxes').innerHTML
 
             const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
-            document.querySelector('.pagination').innerHTML = pagination
+            /*document.querySelector('.pagination').innerHTML = pagination*/
         })
 }
 

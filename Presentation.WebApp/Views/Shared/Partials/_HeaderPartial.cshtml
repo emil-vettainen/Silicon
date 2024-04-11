@@ -69,7 +69,7 @@
                         @if(_signInManager.IsSignedIn(User))
                         {
                             <div class="navbar-profileimg">
-                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image"></a>
+                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? $"profiles-img/{user.ProfileImageUrl}" : "user-profile.png")" alt="Profile Image"></a>
                             </div>
                          
                         }

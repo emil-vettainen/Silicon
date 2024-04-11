@@ -28,9 +28,10 @@ public class AccountController : Controller
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
+    private readonly UploadService _uploadService;
 
 
-    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper)
+    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper, UploadService uploadService)
     {
         _userManager = userManager;
         _userService = userService;
@@ -38,6 +39,7 @@ public class AccountController : Controller
         _httpClient = httpClient;
         _configuration = configuration;
         _mapper = mapper;
+        _uploadService = uploadService;
     }
 
     #region Details
@@ -175,10 +177,10 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> UploadProfileImage(IFormFile file)
     {
-        var result = await _userService.UploadProfileImageAsync(User, file);
+        var result = await _uploadService.UploadProfileImageAsync(User, file);
         if (result)
         {
-            ViewBag.Success = "Profile image have been updated!";
+            TempData["Success"] = "Profile image have been updated!";
         }
         return RedirectToAction("Details", "Account");
 
@@ -312,5 +314,37 @@ public class AccountController : Controller
             TempData["Error"] = "An unexpected error occurred. Please try again later!";
         }
         return Ok();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> RemoveAllCourses()
+    {
+        try
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Default");
+            }
+            var result = await _userService.DeleteAllCoursesAsync(userId);
+            switch (result.StatusCode)
+            {
+                case ResultStatus.OK:
+                    TempData["Success"] = "All saved courses have been removed!";
+                    break;
+                case ResultStatus.NOT_FOUND:
+                    TempData["Warning"] = "No saved courses!";
+                    break;
+                default:
+                    TempData["Error"] = "An unexpected error occurred. Please try again later!";
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+            //logger
+        }
+        return Ok();    
     }
 }
