@@ -1,6 +1,4 @@
-﻿@using Presentation.WebApp.ViewModels.Courses
-
-@model CourseViewModel
+﻿@model CourseViewModel
 
 @{
     ViewData["Title"] = "Courses";
@@ -10,129 +8,69 @@
     <div class="container">
         <div class="courses-options">
             <h1 class="pb-3">Courses</h1>
-
-            
-
-
-                <form class="filters">
-
-                    <div class="select">
-                        <div class="selected">All categories</div>
-                        <div class="select-options">
-                            <div class="option" data-value="all">All categories</div>
-                            @if (Model.Categories != null)
+            <form class="filters">
+                <div class="select">
+                    <div class="selected">All categories</div>
+                    <div class="select-options">
+                        <div class="option" data-value="all">All categories</div>
+                        @if (Model.Categories != null)
+                        {
+                            foreach(var category in Model.Categories)
                             {
-                                foreach(var category in Model.Categories)
+                                <div class="option" data-value="@category">@category</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="input-search-group">
+                    <input id="searchQuery" name="searchQuery" placeholder="Search courses" />
+                    <i class="fa-regular fa-search"></i>
+                </div>
+            </form>
+        </div>
+
+        @if (Model.IsSuccess)
+        {
+            if (Model.Courses != null && Model.Courses.Any())
+            {
+                <div id="boxes">
+
+                    @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
+
+                    @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
+                    {
+                        <div class="pagination">
+                            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                            {
+                                if (i == Model.Pagination.CurrentPage)
                                 {
-                                    <div class="option" data-value="@category">@category</div>
+                                    <span class="btn-theme-small active-pag">@i</span>
+                                }
+                                else
+                                {
+                                    <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
                                 }
                             }
                         </div>
-                    </div>
-
-
-                    <div class="input-search-group">
-                        <input id="searchQuery" name="searchQuery" placeholder="Search courses" />
-                        <i class="fa-regular fa-search"></i>
-                    </div>
-
-
-                </form>
-
-
-            <script>
-                
-
-            </script>
-
-
-
-
-
-
-
-
-
-            @* <form method="get" asp-action="FilterByCategory" asp-controller="Courses">
-                    <select class="form-select" id="categorySelect" name="category" onchange="filterCourses()">
-                        <option value="All">All categories</option>
-                        <option value="Bestseller">Best Seller</option>
-                       @*  <option value="2">Two</option>
-                        <option value="3">Three</option> *@
-               @*      </select>
-
-                </form> *@
-
-              
- 
-@* 
-                <select class="form-select" id="categorySelect" onchange="filterCourses()">
-                    <option selected>All categories</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-
-             @*    <script>
-                    function filterCourses() {
-                        var category = document.getElementById('categorySelect').value;
-                        fetch(`/Courses/FilterByCategory?category=${category}`)
-                        .then(response => response.json())
-                        .then(data => )
-                    }
-
-                </script> *@
-
-
-              @*   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search courses">
-                    <button class="btn btn-outline-secondary search" type="button" >
-                        <i class="fa-regular fa-magnifying-glass"></i>
-                    </button>
-                </div> *@
-
-        </div>
-
-        <div id="boxes">
-
-            @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
-
-
-          
-           
-
-           
-            @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
-            {
-                <div class="pagination">
-                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
-                    {
-                        if (i == Model.Pagination.CurrentPage)
-                        {
-                            <span class="btn-theme-small active-pag">@i</span>
-                        }
-                        else
-                        {
-                            <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
-                        }
                     }
                 </div>
             }
-
-
-
-        </div>
-          
-
-
-     
-
+            else
+            {
+                <div>
+                    <h4 class="pt-5 text-center">Currently, there are no courses available.</h4>
+                </div>
+            }
+        } 
+        else
+        {
+            <div>
+                <h4 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h4>
+            </div>
+        }
     </div>
 </section>
-
-
 <section class="work-with-us">
-
     <div class="container grid-12">
         <div class="content">
             <p class="text-l">Ready to get started?</p>
@@ -141,6 +79,4 @@
         </div>
         <img src="~/images/courses/illustration.svg" alt="Work with us">
     </div>
-
 </section>
-

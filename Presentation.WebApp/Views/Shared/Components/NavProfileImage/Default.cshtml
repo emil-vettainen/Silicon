@@ -1,5 +1,0 @@
-﻿@model ProfileImageViewModel
-
-<div class="navbar-profileimg">
-    <a asp-action="Details" asp-controller="Account"><img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "/images/pngegg.png")" alt="Profile Image")"></a>
-</div>

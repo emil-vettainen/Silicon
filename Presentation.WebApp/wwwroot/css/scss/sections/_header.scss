@@ -4,6 +4,17 @@ header {
         padding: 0;
         background-color: var(--clr-bg-section);
 
+        .navbar-profileimg {
+            img {
+                border-radius: 50%;
+                max-height: 44px;
+                max-width: 44px;
+                aspect-ratio: 1/1;
+                object-fit: fill;
+            }
+        }
+
+
         .container {
             padding: .5rem 20px .5rem 20px;
 

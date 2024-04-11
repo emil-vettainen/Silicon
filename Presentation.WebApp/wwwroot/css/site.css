@@ -28,6 +28,7 @@
   --clr-toolbox: #FFFFFF;
   --clr-sociallinks: #EFF2FC;
   --clr-input: #FFFFFF;
+  --clr-favorite: #33354D;
 }
 
 :root.dark {
@@ -45,6 +46,10 @@
   --clr-text-body: #B5B7BA;
   --clr-toolbox: #1E212B;
   --clr-sociallinks: #171B25;
+  --clr-theme-gradient: (90deg, #6366F1 0%, #8B5CF6 50%, #D946EF 100%);
+  --clr-theme-gradient-background: (-1deg, rgba(99, 101, 241, 0.10) 0%, rgba(216, 70, 239, 0.05) 45%, rgba(241, 244, 253, 0.07) 75%);
+  --clr-input: #10141E;
+  --clr-favorite: #33354D;
 }
 
 .dark-theme {
@@ -72,7 +77,7 @@
   --clr-label-dt: #B5B7BA;
   --clr-toolbox: #1E212B;
   --clr-sociallinks: #171B25;
-  --clr-input: 10141E;
+  --clr-input: #1A1D26;
 }
 
 html, body {
@@ -369,6 +374,21 @@ h6, .h6 {
   right: 0;
 }
 
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid inset;
+  -webkit-text-fill-color: var(--clr-text-body);
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .btn-theme-small {
   background-color: var(--clr-theme);
   border-radius: 6px;
@@ -640,34 +660,6 @@ a:hover {
   text-decoration: none;
 }
 
-.app {
-  display: grid;
-  grid-template-columns: 2fr;
-  align-items: end;
-  padding: 1rem 0;
-}
-.app .star-rating .fa-solid {
-  color: var(--clr-warning);
-}
-@media (min-width: 576px) {
-  .app {
-    grid-template-columns: 2fr;
-  }
-}
-@media (min-width: 768px) {
-  .app {
-    grid-template-columns: 2fr;
-  }
-}
-@media (min-width: 992px) {
-  .app {
-    grid-template-columns: 2fr auto;
-  }
-}
-.app .app-img {
-  padding-top: 1rem;
-}
-
 form {
   display: grid;
 }
@@ -675,80 +667,29 @@ form .content {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* span {
-      border: 1px solid transparent;
-
-      &.field-validation-error {
-          position: static;
-          color: var(--clr-danger);
-      }
-  }*/
 }
 form .content .input-group {
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
-  /* .invalid-feedback {
-             margin: 0;
-             width: fit-content;
-          }
-  */
-  /* span {
-      &.field-validation-error {
-          color: var(--clr-danger);
-          font-size: .875rem;
-          &::after {
-              position: absolute;
-              display: block;
-              font-size: 1.75rem;
-              top: 45px;
-              right: 10px;
-              content: '\2BBF'
-          }
-      }
-      &.field-validation-valid {
-
-          &::after {
-              position: absolute;
-              display: block;
-              font-size: 1.5rem;
-              top: 45px;
-              right: 10px;
-              content: '\2713';
-              color: var(--clr-success);
-
-          }
-      }
-  }*/
 }
 form .content .input-group input {
   padding: 1rem;
   border-radius: 6px !important;
   display: flex;
-  /*   &.input-validation-error {
-      border: 1px solid var(--clr-danger);
-      color: var(--clr-danger);
-
-
-
-      &::placeholder {
-          color: var(--clr-danger);
-      }
-
-      &:focus {
-          outline-color: var(--clr-danger);
-      }
-  }
-
-  &.inpup-validation-valid {
-      border: 1px solid var(--clr-sucess);
-      color: var(--clr-success);
-  }*/
 }
 form .content .input-group .form-control {
   padding: 1rem;
   width: 100%;
   box-shadow: none;
+  background-color: var(--clr-input);
+  color: var(--clr-text-body);
+}
+form .content .input-group .form-control:focus {
+  color: var(--clr-text-body);
+}
+form .content .input-group .form-control::placeholder {
+  color: var(--clr-text-body);
 }
 form .content .input-group .form-control.is-invalid {
   border-color: var(--clr-danger);
@@ -767,15 +708,6 @@ form .content .checkbox-group {
   flex-wrap: wrap;
   justify-content: flex-start;
   column-gap: 6px;
-  /*input[type="checkbox"] {
-      height: 1.2rem;
-      width: 1.2rem;
-
-      &.input-validation-error {
-          position: relative;
-          box-shadow: 0 0 0 0.063rem var(--clr-danger);
-      }
-  }*/
 }
 form .content .checkbox-group .form-check-input {
   border: 1px solid var(--clr-gray-500);
@@ -848,147 +780,18 @@ form .input-search-group .fa-search {
   font-size: 1.2rem;
 }
 
-/*.account-panel {
-    grid-column: 1 / 13;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-    position: relative;
-
-
-    @include lg {
-        grid-column: 1/4;
-        border-right: 1px solid var(--clr-gray-300);
-        padding-right: 1rem;
-    }
-
-    .content {
-        position: sticky;
-        top: 1rem;
-
-
-
-
-        .account-user {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-
-
-
-            .account-user-img {
-                position: relative;
-                padding-bottom: 1rem;
-                max-height: 122px;
-                max-width: 122px;
-                border-radius: 50%;
-
-
-
-                img {
-                    border-radius: 50%;
-                    max-height: 120px;
-                    max-width: 120px;
-                    aspect-ratio: 1/1;
-                    object-fit: fill;
-                }
-
-
-
-
-
-                .change-user-img {
-                    position: absolute;
-                    background-color: var(--background-color);
-                    color: var(--clr-gray-800);
-                    bottom: 5px;
-                    right: 0;
-                    padding: 8px;
-                    border-radius: 50%;
-                    border: 1px solid var(--clr-gray-300);
-                    cursor: pointer;
-                }
-            }
-
-
-
-
-
-            h5 {
-                padding: 1rem 0 .5rem 0;
-            }
-        }
-
-        .account-options {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            padding-top: 1.5rem;
-
-
-            .link-text {
-                display: none;
-            }
-
-            @include lg {
-                flex-direction: column;
-
-
-                .link-text {
-                    display:block;
-                }
-            }
-
-            a {
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 8px;
-                font-size: .875rem;
-                font-weight: 600;
-                line-height: 160%;
-                border-radius: 6px;
-                padding: 11px 28px;
-                color: var(--clr-neutral);
-                text-decoration: none;
-                transition: all .2s ease-in-out;
-
-                .rotate {
-                    transform: rotate(-90deg);
-                }
-
-                &:hover {
-                    color: var(--clr-theme);
-                    background-color: var(--clr-gray-300);
-                }
-            }
-
-            .active-link {
-                color: var(--clr-white);
-                background-color: var(--clr-theme);
-
-                @include theme-shadow;
-
-                &:hover {
-                    color: var(--clr-white);
-                    background-color: var(--clr-theme);
-                }
-            }
-
-
-        }
-    }
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  grid-column: 1/13;
+  padding-top: 2rem;
+  gap: 2rem;
 }
-*/
-.navbar-profileimg img {
-  border-radius: 50%;
-  max-height: 44px;
-  max-width: 44px;
-  aspect-ratio: 1/1;
-  object-fit: fill;
+@media (min-width: 1400px) {
+  .courses-grid {
+    grid-column: 5/13;
+  }
 }
 
 .course-card {
@@ -1004,6 +807,7 @@ form .input-search-group .fa-search {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: var(--clr-gray-100);
 }
 .course-card a .course-img {
   border-top-left-radius: 6px;
@@ -1085,7 +889,7 @@ form .input-search-group .fa-search {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--clr-gray-800);
+  color: var(--clr-favorite);
   background-color: var(--clr-white);
   padding: 10px 12px;
   border-radius: 50%;
@@ -1096,20 +900,6 @@ form .input-search-group .fa-search {
 }
 .course-card .favorite:hover {
   color: var(--clr-theme);
-}
-
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1rem;
-  grid-column: 1/13;
-  padding-top: 2rem;
-  gap: 2rem;
-}
-@media (min-width: 1400px) {
-  .courses-grid {
-    grid-column: 5/13;
-  }
 }
 
 .breadcrumbs {
@@ -1148,9 +938,30 @@ form .input-search-group .fa-search {
   background-color: var(--clr-theme);
 }
 
+.cookie-consent {
+  padding: 2rem 0;
+  background-color: var(--clr-gray-100);
+}
+.cookie-consent .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.cookie-consent .container button {
+  padding: 0.5rem 1.3rem;
+}
+
 header .navbar {
   padding: 0;
   background-color: var(--clr-bg-section);
+}
+header .navbar .navbar-profileimg img {
+  border-radius: 50%;
+  max-height: 44px;
+  max-width: 44px;
+  aspect-ratio: 1/1;
+  object-fit: fill;
 }
 header .navbar .container {
   padding: 0.5rem 20px 0.5rem 20px;
@@ -1713,6 +1524,33 @@ footer .container .social-media a {
     text-align: start;
   }
 }
+.our-app .container .content .app {
+  display: grid;
+  grid-template-columns: 2fr;
+  align-items: end;
+  padding: 1rem 0;
+}
+.our-app .container .content .app .star-rating .fa-solid {
+  color: var(--clr-warning);
+}
+@media (min-width: 576px) {
+  .our-app .container .content .app {
+    grid-template-columns: 2fr;
+  }
+}
+@media (min-width: 768px) {
+  .our-app .container .content .app {
+    grid-template-columns: 2fr;
+  }
+}
+@media (min-width: 992px) {
+  .our-app .container .content .app {
+    grid-template-columns: 2fr auto;
+  }
+}
+.our-app .container .content .app .app-img {
+  padding-top: 1rem;
+}
 
 .work-tools {
   padding: 5rem 0;
@@ -1909,6 +1747,15 @@ footer .container .social-media a {
   box-shadow: none;
   border-radius: 6px !important;
   padding: 0.5rem;
+  background-color: var(--clr-input);
+  border-color: var(--clr-gray-400);
+  color: var(--clr-text-body);
+}
+.newsletter .container .content form .input-group input:focus {
+  color: var(--clr-text-body);
+}
+.newsletter .container .content form .input-group input::placeholder {
+  color: var(--clr-text-body);
 }
 .newsletter .container .content form .input-group .btn-theme-medium {
   border-radius: 6px !important;
@@ -1936,13 +1783,6 @@ footer .container .social-media a {
   }
 }
 
-.not-found {
-  /*padding: 2rem 0;
-
-  @include xl {
-      padding: 5rem 0 5rem 0;
-  }*/
-}
 .not-found .container {
   display: flex;
   flex-direction: column;
@@ -2154,13 +1994,13 @@ footer .container .social-media a {
 }
 .account .container .account-panel .content .account-user .account-user-img .change-user-img {
   position: absolute;
-  background-color: var(--background-color);
-  color: var(--clr-gray-800);
+  background-color: var(--clr-gray-100);
+  color: var(--clr--white);
   bottom: 5px;
   right: 0;
   padding: 8px;
   border-radius: 50%;
-  border: 1px solid var(--clr-gray-300);
+  border: 1px solid var(--clr-gray-100);
   cursor: pointer;
 }
 .account .container .account-panel .content .account-user h5 {
@@ -2203,7 +2043,7 @@ footer .container .social-media a {
   transform: rotate(-90deg);
 }
 .account .container .account-panel .content .account-options a:hover {
-  color: var(--clr-theme);
+  color: var(--clr-text-header);
   background-color: var(--clr-gray-300);
 }
 .account .container .account-panel .content .account-options .active-link {
@@ -2385,6 +2225,13 @@ footer .container .social-media a {
   align-items: center;
   padding-bottom: 0.5rem;
 }
+.account-saved-courses .saved-items .btn-danger-medium {
+  background-color: transparent;
+  border-color: var(--clr-danger);
+}
+.account-saved-courses .saved-items .btn-danger-medium:hover {
+  background-color: var(--clr-danger);
+}
 .account-saved-courses .course-card {
   grid-column: span 12;
   border-bottom-left-radius: 6px;
@@ -2439,25 +2286,6 @@ footer .container .social-media a {
   .account-saved-courses .course-card {
     grid-column: span 6;
   }
-}
-.account-saved-courses .course-card .favorite {
-  position: absolute;
-  top: 15px;
-  right: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--clr-gray-800);
-  background-color: var(--clr-white);
-  padding: 10px 12px;
-  border-radius: 50%;
-  transition: color 0.2s ease-in-out;
-  border: none;
-  cursor: pointer;
-  z-index: 20;
-}
-.account-saved-courses .course-card .favorite:hover {
-  color: var(--clr-theme);
 }
 
 .courses {
@@ -2572,9 +2400,11 @@ footer .container .social-media a {
 }
 .single-course-header .container h1 {
   z-index: 2;
+  color: var(--clr-white);
 }
 .single-course-header .container p {
   z-index: 2;
+  color: var(--clr-text-body);
 }
 .single-course-header .container .badges {
   display: flex;
@@ -2649,12 +2479,6 @@ footer .container .social-media a {
 }
 .single-course-header .container .course-created div .text-m {
   color: var(--clr-white);
-}
-.single-course-header .container h1 {
-  color: var(--clr-white);
-}
-.single-course-header .container .text-lg {
-  color: var(--clr-gray-200);
 }
 
 .single-course-description {
@@ -2795,10 +2619,14 @@ footer .container .social-media a {
 .single-course-author .container .author-info div .author-followers .youtube {
   background-color: var(--clr-danger);
   color: var(--clr-white);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
 }
 .single-course-author .container .author-info div .author-followers .facebook {
   background-color: var(--clr-info);
   color: var(--clr-white);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
 }
 
 .contact {

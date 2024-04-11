@@ -58,7 +58,6 @@ function searchQuery() {
                 event.preventDefault()
                 return
             }
-
             updateCoursesByFilter()
         })
 
@@ -69,8 +68,8 @@ function searchQuery() {
 
 //function filterCourses() {
 //    const categoryElement = document.querySelector('.selected');
-//    const category = categoryElement ? categoryElement.getAttribute('data-value') : ""; 
- 
+//    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
+
 //    const searchQuery = document.getElementById('searchQuery').value
 
 
@@ -95,28 +94,70 @@ function searchQuery() {
 
 
 
+//function updateCoursesByFilter() {
+//    const categoryElement = document.querySelector('.selected');
+//    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
+
+//    const searchQuery = document.getElementById('searchQuery').value
+
+//    const url = `/courses?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`
+
+
+//    fetch(url)
+//        .then(res => res.text())
+//        .then(data => {
+//            const parser = new DOMParser()
+//            const dom = parser.parseFromString(data, 'text/html')
+//            document.querySelector('#boxes').innerHTML = dom.querySelector('#boxes').innerHTML
+
+//            const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
+//            /*document.querySelector('.pagination').innerHTML = pagination*/
+//        })
+//}
+
 function updateCoursesByFilter() {
-    const categoryElement = document.querySelector('.selected');
-    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
+    const categoryElement = document.querySelector('.selected')
+    const category = categoryElement ? categoryElement.getAttribute('data-value') : ""
 
     const searchQuery = document.getElementById('searchQuery').value
 
     const url = `/courses?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`
 
-
     fetch(url)
         .then(res => res.text())
         .then(data => {
-            const parser = new DOMParser()
+            const parser = new DOMParser();
             const dom = parser.parseFromString(data, 'text/html')
-            document.querySelector('#boxes').innerHTML = dom.querySelector('#boxes').innerHTML
+            const coursesBox = dom.querySelector('#boxes')
 
+            // Kontrollera om svaret innehåller några kursboxar
+            if (!coursesBox || !coursesBox.innerHTML.trim()) {
+                // Om inga kursboxar finns, visa "Not Found!"
+                document.querySelector('#boxes').innerHTML = '<div>No courses found.</div>'
+            } else {
+                // Annars, uppdatera innehållet med de hittade kursboxarna
+                document.querySelector('#boxes').innerHTML = coursesBox.innerHTML
+            }
+
+            // Hantera paginering om sådan finns
+            const paginationElement = document.querySelector('.pagination');
             const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
-            /*document.querySelector('.pagination').innerHTML = pagination*/
+            if (paginationElement) {
+                paginationElement.innerHTML = pagination;
+            }
+        })
+        .finally(() => {
+            onAjaxComplete(); // Initialisera tooltips igen efter AJAX-anropet
         })
 }
 
 
+function onAjaxComplete() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
 
 
 

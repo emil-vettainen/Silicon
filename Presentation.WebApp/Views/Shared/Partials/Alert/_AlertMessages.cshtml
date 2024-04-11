@@ -40,5 +40,12 @@
         </div>
     </div>
 
-    <script defer src="~/js/alert-modal.js"></script>
+  
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+            alertModal.show();
+        });
+    </script>
+  
 }

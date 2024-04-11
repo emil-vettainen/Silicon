@@ -7,7 +7,7 @@
         flex-direction: column;
         align-items: center;
         gap: 40px;
-        
+
         @include lg {
             flex-direction: row;
             justify-content: space-around;
@@ -50,6 +50,42 @@
                 @include lg {
                     @include h1;
                     text-align: start;
+                }
+            }
+
+            .app {
+                display: grid;
+                grid-template-columns: 2fr;
+                align-items: end;
+                padding: 1rem 0;
+
+                .star-rating {
+
+                    .fa-solid {
+                        color: var(--clr-warning);
+                    }
+                }
+
+
+
+
+                @include sm {
+                    grid-template-columns: 2fr;
+                }
+
+
+                @include md {
+                    grid-template-columns: 2fr;
+                }
+
+                @include lg {
+                    grid-template-columns: 2fr auto;
+                }
+
+
+
+                .app-img {
+                    padding-top: 1rem;
                 }
             }
         }

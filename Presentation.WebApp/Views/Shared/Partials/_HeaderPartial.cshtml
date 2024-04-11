@@ -1,7 +1,6 @@
 ﻿@using Infrastructure.Entities.AccountEntites
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<UserEntity> _signInManager
 
 @{
     var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
@@ -29,7 +28,7 @@
                         <li class="nav-item">
                             <a class="menu-link" asp-controller="Default" asp-action="Home">Overview</a>
                         </li>
-                        @if (_signInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
                                 <a class="menu-link" asp-controller="Courses" asp-action="Courses">Courses</a>
@@ -41,7 +40,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="menu-link" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+                                    <a class="menu-link" asp-controller="Admin" asp-action="Dashboard">Admin</a>
                                 </li>
                             }
                         }
@@ -54,7 +53,6 @@
                                 <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
                             </li>
                         }
-                       
                     </ul>
                     <div class="offcanvas-btn">
                         <div class="btn-switch">
@@ -66,12 +64,11 @@
                             <label>Dark</label>
                         </div>
 
-                        @if(_signInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="navbar-profileimg">
                                 <a asp-action="Details" asp-controller="Account"><img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? $"profiles-img/{user.ProfileImageUrl}" : "user-profile.png")" alt="Profile Image"></a>
                             </div>
-                         
                         }
                         else
                         {

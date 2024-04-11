@@ -40,10 +40,12 @@
 
         h1 {
             z-index: 2;
+            color: var(--clr-white);
         }
 
         p {
             z-index: 2;
+            color: var(--clr-text-body);
         }
 
 
@@ -134,12 +136,6 @@
             }
         }
 
-        h1 {
-            color: var(--clr-white);
-        }
-
-        .text-lg {
-            color: var(--clr-gray-200);
-        }
+       
     }
 }

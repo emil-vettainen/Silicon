@@ -59,13 +59,13 @@
 
                         .change-user-img {
                             position: absolute;
-                            background-color: var(--background-color);
-                            color: var(--clr-gray-800);
+                            background-color: var(--clr-gray-100);
+                            color: var(--clr--white);
                             bottom: 5px;
                             right: 0;
                             padding: 8px;
                             border-radius: 50%;
-                            border: 1px solid var(--clr-gray-300);
+                            border: 1px solid var(--clr-gray-100);
                             cursor: pointer;
                         }
                     }
@@ -120,7 +120,7 @@
                         }
 
                         &:hover {
-                            color: var(--clr-theme);
+                            color: var(--clr-text-header);
                             background-color: var(--clr-gray-300);
                         }
                     }

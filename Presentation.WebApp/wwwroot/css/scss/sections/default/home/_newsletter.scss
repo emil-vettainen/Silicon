@@ -120,6 +120,18 @@
                         box-shadow: none;
                         border-radius: 6px !important;
                         padding: .5rem;
+                        background-color: var(--clr-input);
+                        border-color: var(--clr-gray-400);
+                        color: var(--clr-text-body);
+
+                        &:focus {
+                            color: var(--clr-text-body);
+                        }
+
+
+                        &::placeholder {
+                            color: var(--clr-text-body);
+                        }
                     }
 
                     .btn-theme-medium {

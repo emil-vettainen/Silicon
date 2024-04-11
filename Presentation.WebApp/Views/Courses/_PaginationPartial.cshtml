@@ -1,0 +1,15 @@
+﻿@model PaginationModel
+
+<div class="pagination">
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i == Model.CurrentPage)
+        {
+            <span class="btn-theme-small active-pag">@i</span>
+        }
+        else
+        {
+            <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.PageSize})">@i</a>
+        }
+    }
+</div>

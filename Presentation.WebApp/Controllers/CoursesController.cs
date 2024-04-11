@@ -55,10 +55,11 @@ public class CoursesController : Controller
                 var result = JsonConvert.DeserializeObject<CourseResultModel>(await response.Content.ReadAsStringAsync());
 
 
-               
+
 
                 var viewModel = new CourseViewModel
                 {
+                    IsSuccess = true,
                     Courses = result?.Courses ?? [],
 
                     Pagination = new PaginationModel

@@ -1,9 +1,4 @@
 .not-found {
-    /*padding: 2rem 0;
-
-    @include xl {
-        padding: 5rem 0 5rem 0;
-    }*/
 
     .container {
         display: flex;
@@ -14,18 +9,14 @@
         .content {
             img {
             }
-
             h1 {
                 text-align: center;
             }
-
             .text-xl {
                 text-align: center;
                 padding: 1rem 0;
             }
         }
-
-
         nav {
             a {
 

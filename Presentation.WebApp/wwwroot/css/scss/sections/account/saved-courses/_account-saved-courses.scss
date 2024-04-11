@@ -6,6 +6,16 @@
         justify-content: space-between;
         align-items: center;
         padding-bottom: .5rem;
+
+
+        .btn-danger-medium {
+            background-color: transparent;
+            border-color: var(--clr-danger);
+
+            &:hover {
+                background-color: var(--clr-danger);
+            }
+        }
     }
 
     .course-card {
@@ -97,25 +107,6 @@
 
 
 
-        .favorite {
-            position: absolute;
-            top: 15px;
-            right: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--clr-gray-800);
-            background-color: var(--clr-white);
-            padding: 10px 12px;
-            border-radius: 50%;
-            transition: color .2s ease-in-out;
-            border: none;
-            cursor: pointer;
-            z-index: 20;
-
-            &:hover {
-                color: var(--clr-theme);
-            }
-        }
+      
     }
 }

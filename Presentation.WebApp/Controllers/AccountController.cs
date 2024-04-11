@@ -268,8 +268,7 @@ public class AccountController : Controller
             switch (result.StatusCode)
             {
                 case ResultStatus.OK:
-                    TempData["Success"] = "Course have been saved!";
-                    break;
+                    return Json(new { status = "success", message = "Course has been saved!" });
                 case ResultStatus.EXISTS:
                     TempData["Warning"] = "Course is already saved";
                     break;
