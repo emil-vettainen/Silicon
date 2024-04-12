@@ -227,3 +227,6 @@ function addContent() {
 function removeContent(button) {
     button.closest('.content-item').remove();
 }
+
+
+

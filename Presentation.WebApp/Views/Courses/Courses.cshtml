@@ -35,7 +35,7 @@
             {
                 <div id="boxes">
 
-                    @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
+                    @await Html.PartialAsync("~/Views/Shared/Partials/_CourseBoxesPartial.cshtml", Model.Courses)
 
                     @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
                     {
@@ -58,14 +58,14 @@
             else
             {
                 <div>
-                    <h4 class="pt-5 text-center">Currently, there are no courses available.</h4>
+                    <h6 class="pt-5 text-center">Currently, there are no courses available.</h6>
                 </div>
             }
         } 
         else
         {
             <div>
-                <h4 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h4>
+                <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
             </div>
         }
     </div>

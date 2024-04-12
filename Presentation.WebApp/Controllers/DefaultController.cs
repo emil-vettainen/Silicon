@@ -34,26 +34,26 @@ public class DefaultController : Controller
 
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.Success = "You have been subscribed";
+                    TempData["Success"] = "You have been subscribed";
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
                 {
-                    ViewBag.Warning = "You are already a subscriber";
+                    TempData["Warning"] = "You are already a subscriber";
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    ViewBag.Error = "Something went wrong, Please contact web admin.";
+                    TempData["Error"] = "Something went wrong, Please contact web admin.";
                 }
             }
             catch (Exception)
             {
                 //logger
-                ViewBag.Error = "An unexpected error occurred. Please try again!";
+                TempData["Erorr"] = "An unexpected error occurred. Please try again!";
             }
         }
         else
         {
-            ViewBag.Warning = "Invalid email address! The Email must match xx@xx.xx";
+            TempData["Warning"] = "Invalid email address! The Email must match xx@xx.xx";
         }
         return View("Home", viewModel);
     }

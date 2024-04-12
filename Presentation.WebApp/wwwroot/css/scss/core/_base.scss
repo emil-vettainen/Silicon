@@ -208,3 +208,25 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #000 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+
+.swal2-confirm {
+    background-color: var(--clr-theme)!important;
+    box-shadow: none!important;
+}
+
+.swal2-popup {
+    background-color: var(--clr-bg-section)!important;
+}
+
+.swal2-title {
+    color: var(--clr-text-header)!important;
+}
+
+.swal2-html-container {
+    color: var(--clr-text-header) !important;
+}
+
+.non-clickable {
+    cursor: not-allowed;
+}

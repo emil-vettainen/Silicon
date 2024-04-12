@@ -389,6 +389,27 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.swal2-confirm {
+  background-color: var(--clr-theme) !important;
+  box-shadow: none !important;
+}
+
+.swal2-popup {
+  background-color: var(--clr-bg-section) !important;
+}
+
+.swal2-title {
+  color: var(--clr-text-header) !important;
+}
+
+.swal2-html-container {
+  color: var(--clr-text-header) !important;
+}
+
+.non-clickable {
+  cursor: not-allowed;
+}
+
 .btn-theme-small {
   background-color: var(--clr-theme);
   border-radius: 6px;
@@ -683,7 +704,7 @@ form .content .input-group .form-control {
   width: 100%;
   box-shadow: none;
   background-color: var(--clr-input);
-  color: var(--clr-text-body);
+  color: var(--clr-text-header);
 }
 form .content .input-group .form-control:focus {
   color: var(--clr-text-body);
@@ -692,7 +713,7 @@ form .content .input-group .form-control::placeholder {
   color: var(--clr-text-body);
 }
 form .content .input-group .form-control.is-invalid {
-  border-color: var(--clr-danger);
+  border-color: var(--clr-body);
 }
 form .content .input-group .span {
   padding-bottom: 1rem;
@@ -746,7 +767,7 @@ form .select .select-options {
   top: 100%;
   left: 0;
   right: 0;
-  background-color: var(--clr-white);
+  background-color: var(--clr-bg-section);
   border: 1px solid var(--clr-gray-400);
   z-index: 999;
 }
@@ -755,7 +776,7 @@ form .select .select-options .option {
   cursor: pointer;
 }
 form .select .select-options .option:hover {
-  background-color: var(--clr-gray-400);
+  background-color: var(--clr-gray-100);
 }
 form .input-search-group {
   position: relative;
@@ -766,6 +787,8 @@ form .input-search-group input {
   border-radius: 6px;
   padding: 0.5rem;
   min-width: 100%;
+  background-color: var(--clr-bg-section);
+  color: var(--clr-text-body);
 }
 @media (min-width: 992px) {
   form .input-search-group input {

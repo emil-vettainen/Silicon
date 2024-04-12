@@ -5,15 +5,12 @@ using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver.Core.Operations;
 using Newtonsoft.Json;
-using Presentation.WebApp.Models;
 using Presentation.WebApp.Models.Account;
 using Presentation.WebApp.Models.Courses;
 using Presentation.WebApp.ViewModels.Account;
-using Presentation.WebApp.ViewModels.Courses;
 using Shared.Responses.Enums;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -211,49 +208,45 @@ public class AccountController : Controller
 
 
 
-   
 
 
+    #region Saved Courses
     [HttpGet]
     public async Task<IActionResult> SavedCourses()
     {
         var viewModel = new SavedCoursesViewModel();
         try
         {
-            
             var userId = _userManager.GetUserId(User);
             if (userId == null)
             {
                 return RedirectToAction("Index", "Default");
             }
-            viewModel.Courses = _mapper.Map<IEnumerable<CourseModel>>(await _userService.GetSavedCourseAsync(userId));
-
-
-            //var userId = _userManager.GetUserId(User);
-            //if (userId == null)
-            //{
-            //    return View(viewModel);
-            //}
-            //var savedCourses = await _userService.GetSavedCourseAsync(userId);
-
-            //var content = new StringContent(JsonConvert.SerializeObject(savedCourses.ContentResult), Encoding.UTF8, "application/json");
-            //var response = await _httpClient.PostAsync(_configuration["ApiUris:CoursesByIds"], content);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var result = JsonConvert.DeserializeObject<IEnumerable<CourseModel>>(await response.Content.ReadAsStringAsync());
-            //    viewModel.Courses = result ?? [];
-            //    return View(viewModel);
-
-            //}
+            var savedCourses = await _userService.GetSavedCourseAsync(userId);
+            var content = new StringContent(JsonConvert.SerializeObject(savedCourses), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:CoursesByIds"]}?key={_configuration["Api:Key"]}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<IEnumerable<CourseModel>>(await response.Content.ReadAsStringAsync());
+                viewModel.IsSuccces = true;
+                viewModel.Courses = result ?? [];
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                viewModel.IsSuccces = true;
+                viewModel.Courses = [];
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
         }
         return View(viewModel);
     }
+    #endregion
 
 
+    #region Save Course
     [HttpPost]
     public async Task<IActionResult> SaveCourse(string courseId)
     {
@@ -265,27 +258,24 @@ public class AccountController : Controller
                 return RedirectToAction("Index", "Default");
             }
             var result = await _userService.SaveCourseAsync(userId, courseId);
-            switch (result.StatusCode)
-            {
-                case ResultStatus.OK:
-                    return Json(new { status = "success", message = "Course has been saved!" });
-                case ResultStatus.EXISTS:
-                    TempData["Warning"] = "Course is already saved";
-                    break;
-                default:
-                    TempData["Error"] = "Something went wrong. Please try again!";
-                    break;
-            }
+            return result.StatusCode switch
+            { 
+                ResultStatus.OK => Ok(),
+                ResultStatus.EXISTS => Conflict(),
+                ResultStatus.ERROR => BadRequest(),
+                _ => StatusCode(500)
+            };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
             return StatusCode(500);
         }
-        return Ok();
     }
+    #endregion
 
 
+    #region Remove One Course
     [HttpPost]
     public async Task<IActionResult> RemoveOneCourse(string courseId)
     {
@@ -297,25 +287,23 @@ public class AccountController : Controller
                 return RedirectToAction("Index", "Default");
             }
             var result = await _userService.DeleteOneCourseAsync(userId, courseId);
-            if (result.StatusCode == ResultStatus.OK)
+            return result.StatusCode switch
             {
-                TempData["Success"] = "Course have been removed";
-                
-            }
-            else
-            {
-                TempData["Error"] = "Something went wrong. Please try again!";
-            }
+                ResultStatus.OK => Ok(),
+                ResultStatus.NOT_FOUND => Conflict(),
+                _ => StatusCode(500),
+            };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
-            TempData["Error"] = "An unexpected error occurred. Please try again later!";
+            Debug.WriteLine(ex.Message);
+            return StatusCode(500);
         }
-        return Ok();
     }
+    #endregion
 
 
+    #region Remove All Courses
     [HttpPost]
     public async Task<IActionResult> RemoveAllCourses()
     {
@@ -327,23 +315,20 @@ public class AccountController : Controller
                 return RedirectToAction("Index", "Default");
             }
             var result = await _userService.DeleteAllCoursesAsync(userId);
-            switch (result.StatusCode)
+            return result.StatusCode switch
             {
-                case ResultStatus.OK:
-                    TempData["Success"] = "All saved courses have been removed!";
-                    break;
-                case ResultStatus.NOT_FOUND:
-                    TempData["Warning"] = "No saved courses!";
-                    break;
-                default:
-                    TempData["Error"] = "An unexpected error occurred. Please try again later!";
-                    break;
-            }
+                ResultStatus.OK => Ok(),
+                ResultStatus.NOT_FOUND => Conflict(),
+                _ => StatusCode(500),
+            };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
+            return StatusCode(500);
         }
-        return Ok();    
     }
+    #endregion
+
+
 }

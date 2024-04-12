@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Admin\" />
-    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 
 </Project>

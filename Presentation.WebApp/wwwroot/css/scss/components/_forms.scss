@@ -15,18 +15,16 @@ form {
                 padding: 1rem;
                 border-radius: 6px !important;
                 display: flex;
-
-              
             }
 
-            
+
 
             .form-control {
                 padding: 1rem;
                 width: 100%;
                 box-shadow: none;
                 background-color: var(--clr-input);
-                color: var(--clr-text-body);
+                color: var(--clr-text-header);
 
 
 
@@ -43,7 +41,7 @@ form {
 
 
                 &.is-invalid {
-                    border-color: var(--clr-danger);
+                    border-color: var(--clr-body);
                 }
             }
 
@@ -111,7 +109,7 @@ form {
             top: 100%;
             left: 0;
             right: 0;
-            background-color: var(--clr-white);
+            background-color: var(--clr-bg-section);
             border: 1px solid var(--clr-gray-400);
             z-index: 999;
 
@@ -121,13 +119,14 @@ form {
             }
 
             .option:hover {
-                background-color: var(--clr-gray-400);
+                background-color: var(--clr-gray-100);
             }
         }
     }
 
     .input-search-group {
         position: relative;
+        
 
         input {
             border: 1px solid;
@@ -135,6 +134,8 @@ form {
             border-radius: 6px;
             padding: .5rem;
             min-width: 100%;
+            background-color: var(--clr-bg-section);
+            color: var(--clr-text-body);
 
             @include lg {
                 min-width: 270px;

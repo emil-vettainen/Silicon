@@ -22,15 +22,27 @@
                 <button onclick="removeAllCourses()" href="" class="btn-danger-medium delete-all"><i class="fa-regular fa-trash"></i>Delete all</button>
             </div>
            
-            @if(Model.Courses!.Any())
+            @if (Model.IsSuccces)
             {
-                @await Html.PartialAsync("~/Views/Courses/_CourseBoxesPartial.cshtml", Model.Courses)
+                @if (Model.Courses!.Any())
+                {
+                    @await Html.PartialAsync("~/Views/Shared/Partials/_CourseBoxesPartial.cshtml", Model.Courses)
+
+                }
+                else
+                {
+                    <div>No saved courses</div>
+                }
 
             }
             else
             {
-                <div>No courses was found</div>
+                <div>
+                    <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
+                </div>
             }
+
+           
            
             
             

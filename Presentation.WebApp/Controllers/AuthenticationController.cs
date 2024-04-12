@@ -5,25 +5,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.ViewModels.Authentication;
 using Shared.Responses.Enums;
+using System.Diagnostics;
 
 
 namespace Presentation.WebApp.Controllers;
 
-public class AuthenticationController : Controller
+public class AuthenticationController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserService userService, HttpClient httpClient) : Controller
 {
-    private readonly UserManager<UserEntity> _userManager;
-    private readonly SignInManager<UserEntity> _signInManager;   
-    private readonly UserService _userService;
-    private readonly HttpClient _httpClient;
-
-
-    public AuthenticationController(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserService userService, HttpClient httpClient)
-    {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _userService = userService;
-        _httpClient = httpClient;
-    }
+    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly SignInManager<UserEntity> _signInManager = signInManager;   
+    private readonly UserService _userService = userService;
+    private readonly HttpClient _httpClient = httpClient;
 
     #region SignUp
     [Route("/register")]
@@ -34,31 +26,41 @@ public class AuthenticationController : Controller
     }
 
 
-  
     [Route("/register")]
     [HttpPost]
     public async Task <IActionResult> SignUp(SignUpViewModel viewModel)
     {
-        if(!ModelState.IsValid)
+        try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            var result = await _userService.CreateAsync(UserFactory.ToDto(viewModel.FirstName, viewModel.LastName, viewModel.Email, viewModel.Password));
+            switch (result.StatusCode)
+            {
+                case ResultStatus.EXISTS:
+                    TempData["Warning"] = "Email is alredy exists";
+                    return View(viewModel);
+
+                case ResultStatus.OK:
+                    return RedirectToAction(nameof(SignIn));
+
+                default:
+                    TempData["Error"] = result.Message;
+                    return View(viewModel);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            TempData["Error"] = "An unexpected error occurred, Please try again!";
             return View(viewModel);
         }
-        var result = await _userService.CreateAsync(UserFactory.ToDto(viewModel.FirstName, viewModel.LastName, viewModel.Email, viewModel.Password));
-        switch (result.StatusCode)
-        {
-            case ResultStatus.EXISTS:
-                ViewBag.Error = "Email is already exists";
-                return View(viewModel);
-
-            case ResultStatus.OK:
-                return RedirectToAction(nameof(SignIn));
-
-            default:
-                ViewBag.Error = result.Message;
-                return View(viewModel); 
-        }
+        
     }
     #endregion
+
 
 
     #region SignIn
@@ -93,22 +95,24 @@ public class AuthenticationController : Controller
             {
                 if (!await _userService.GetToken())
                 {
-                    TempData["Error"] = "Access token failed!";
+                    TempData["Warning"] = "Access token failed!";
                 }
             }
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Default");
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Debug.WriteLine(ex.Message);
             TempData["Error"] = "An unexpected error occurred, Please try again!";
             return View(viewModel);
         }
     }
     #endregion
+
 
 
     #region SignOut
@@ -118,6 +122,7 @@ public class AuthenticationController : Controller
         return RedirectToAction("Home", "Default");
     }
     #endregion
+
 
 
     #region External Authentication
@@ -141,18 +146,20 @@ public class AuthenticationController : Controller
             case ResultStatus.OK: 
                 if (HttpContext.User != null)
                 {
-                    return RedirectToAction("Details", "Account");
+                    return RedirectToAction("Home", "Default");
                 }
                 else
                 {
-                    ViewBag.Error = "Authentication failed. Please try again.";
+                    TempData["Error"] = "Authentication failed.Please try again.";
                     return RedirectToAction("SignIn", "Authentication");
                 }
             default:
-                ViewBag.Error = "An unexpected error occurred.";
+                TempData["Error"] = "An unexpected error occurred, Please try again!";
                 break;
         }
         return RedirectToAction("SignIn", "Authentication");
     }
     #endregion
+
+
 }

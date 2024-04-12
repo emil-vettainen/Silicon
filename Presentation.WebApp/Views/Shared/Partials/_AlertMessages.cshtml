@@ -15,7 +15,7 @@
     }
 } *@
 
-@{
+@* @{
     var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
     var messageType = TempData["Success"] != null ? "success" : TempData["Error"] != null ? "danger" : TempData["Warning"] != null ? "warning" : "";
     var message = TempData["Success"] ?? TempData["Error"] ?? TempData["Warning"];
@@ -48,4 +48,63 @@
         });
     </script>
   
+} *@
+
+
+@* @{
+    var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
+    var message = TempData["Success"] ?? TempData["Error"] ?? TempData["Warning"];
+}
+
+@if (hasMessage)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+
+            Swal.fire({
+                icon: "error",
+                title: message,
+            });
+
+        })
+    </script>
+}
+ *@
+
+
+@{
+    var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
+    var iconType = "";
+    var message = "";
+    if (TempData["Success"] != null)
+    {
+        message = TempData["Success"]!.ToString()!;
+        iconType = "success";
+    }
+    else if (TempData["Error"] != null)
+    {
+        message = TempData["Error"]!.ToString()!;
+        iconType = "error";
+    }
+    else if (TempData["Warning"] != null)
+    {
+        message = TempData["Warning"]!.ToString()!;
+        iconType = "warning";
+    }
+}
+
+@if (hasMessage)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var messageType = "@Html.Raw((iconType))";
+            var messageText = "@Html.Raw((message))";
+
+            Swal.fire({
+                icon: messageType,
+                text: messageText,
+            });
+        });
+    </script>
 }

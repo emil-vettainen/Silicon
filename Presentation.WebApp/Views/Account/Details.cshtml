@@ -24,7 +24,7 @@
                             <label asp-for="BasicInfo.FirstName"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.FirstName" class="form-control" disabled />
+                                <input asp-for="BasicInfo.FirstName" class="form-control non-clickable" disabled />
                                 <input asp-for="BasicInfo.FirstName" class="form-control" hidden />
                             }
                             else
@@ -37,7 +37,7 @@
                             <label asp-for="BasicInfo.LastName"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.LastName" class="form-control" disabled />
+                                <input asp-for="BasicInfo.LastName" class="form-control non-clickable" disabled />
                                 <input asp-for="BasicInfo.LastName" class="form-control" hidden />
                             }
                             else
@@ -50,7 +50,7 @@
                             <label asp-for="BasicInfo.Email"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.Email" class="form-control" disabled />
+                                <input asp-for="BasicInfo.Email" class="form-control non-clickable" disabled />
                                 <input asp-for="BasicInfo.Email" class="form-control" hidden />
                             }
                             else

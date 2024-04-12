@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using Shared.Factories;
 using Shared.Responses;
@@ -81,7 +82,7 @@ public class UserService
                 else
                 {
                     user = await _userManager.FindByEmailAsync(userEntity.Email!);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user!, isPersistent: false);
                     return ResponseFactory.Ok();
                 }
                
@@ -357,22 +358,22 @@ public class UserService
     }
 
 
-    public async Task<IEnumerable<CourseDto>> GetSavedCourseAsync(string userId)
+    public async Task<IEnumerable<string>> GetSavedCourseAsync(string userId)
     {
         try
         {
-            var savedCourses = await _savedCourseRepository.GetSavedCoursesAsync(userId);
-            if (!savedCourses.Any())
-            {
-                return [];
-            }
-            var content = new StringContent(JsonConvert.SerializeObject(savedCourses), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:CoursesByIds"]}?key={_configuration["Api:Key"]}", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(await response.Content.ReadAsStringAsync());
-                return result ?? [];
-            }
+            return await _savedCourseRepository.GetSavedCoursesAsync(userId);
+            //if (!savedCourses.Any())
+            //{
+            //    return [];
+            //}
+            //var content = new StringContent(JsonConvert.SerializeObject(savedCourses), Encoding.UTF8, "application/json");
+            //var response = await _httpClient.PostAsync($"{_configuration["ApiUris:CoursesByIds"]}?key={_configuration["Api:Key"]}", content);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var result = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(await response.Content.ReadAsStringAsync());
+            //    return result ?? [];
+            //}
         }
         catch (Exception)
         {
