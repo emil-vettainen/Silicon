@@ -23,13 +23,17 @@ public class AddressService
 
 
 
-    public async Task<AddressDto> GetAddressInfoAsync(string userId)
+    public async Task<AddressDto?> GetAddressInfoAsync(string userId)
     {
         try
         {
             var result = await _userAddressRepository.GetAllAddressesAsync(userId);
-            if (result != null)
+            if (result != null && result.Address != null)
             {
+              
+
+
+
                 var dto = AddressFactory.GetAddressDto(result.Address.StreetName, result.OptionalAddress?.OptionalAddress, result.Address.PostalCode, result.Address.City);
                 return dto;
             }
@@ -38,7 +42,7 @@ public class AddressService
         {
             
         }
-        return null!;
+        return null;
     }
 
 

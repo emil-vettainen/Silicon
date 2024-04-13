@@ -74,11 +74,11 @@ public class AccountController : Controller
                     switch (response.StatusCode)
                     {
                         case ResultStatus.OK:
-                            ViewBag.Success = "Your basic info has been updated!";
+                            TempData["Success"] = "Your basic info has been updated!";
                             break;
 
                         default:
-                            ViewBag.Error = "Something went wrong, please try again!";
+                            TempData["Error"] = "Something went wrong, please try again!";
                             break;
                     }
                 }
@@ -91,17 +91,17 @@ public class AccountController : Controller
                     switch (respone.StatusCode)
                     {
                         case ResultStatus.OK:
-                            ViewBag.Success = "Your address info has been updated";
+                            TempData["Success"] = "Your address info has been updated";
                                 break;
                         default:
-                            ViewBag.Error = "Something went wrong, please try again";
+                            TempData["Error"] = "Something went wrong, please try again";
                             break;
                     }
                 }
                 break;
         }
         viewModel.BasicInfo ??= new BasicInfoModel { FirstName = userInfo.FirstName, LastName = userInfo.LastName, Email = userInfo.Email, Phone = userInfo.PhoneNumber, Biography = userInfo.Biography };
-        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = addressInfo.StreetName, Addressline_2 = addressInfo.OptionalAddress, PostalCode = addressInfo.PostalCode, City = addressInfo.City };
+        viewModel.AddressInfo ??= new AddressInfoModel { Addressline_1 = addressInfo?.StreetName!, Addressline_2 = addressInfo?.OptionalAddress, PostalCode = addressInfo?.PostalCode!, City = addressInfo?.City!};
         viewModel.IsExternalAccount = userInfo.IsExternalAccount;
         
         return View(viewModel);

@@ -65,20 +65,10 @@ namespace Presentation.WebApp.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> CreateCourse()
+        public IActionResult CreateCourse()
         {
-            try
-            {
-                var viewModel = new CreateCourseViewModel();
-                
-                return View(viewModel);
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            var viewModel = new CreateCourseViewModel();
+            return View(viewModel);
         }
 
 
@@ -99,22 +89,23 @@ namespace Presentation.WebApp.Controllers
                 switch (result.StatusCode)
                 {
                     case ResultStatus.CREATED:
-                        TempData["Success"] = result.Message;
+                        TempData["Success"] = "Course has been created";
                         return RedirectToAction("Dashboard", "Admin");
 
-                    default:
-                        TempData["Error"] = result.Message;
+                    case ResultStatus.EXISTS:
+                        TempData["Warning"] = "Course with given title is already exists!";
                         return View(viewModel);
 
+                    default:
+                        TempData["Error"] = "Something went wrong, please try again!";
+                        return View(viewModel);
                 }
-
             }
             catch (Exception)
             {
-                TempData["Error"] = "Try again";
+                TempData["Error"] = "The server encountered an unexpected condition!";
                 return View(viewModel);
             }
-           
         }
 
 

@@ -91,7 +91,7 @@ public class CourseService
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.Created:
-                    return ResponseFactory.Ok("Course has been created");
+                    return ResponseFactory.Ok();
 
                 case System.Net.HttpStatusCode.Conflict:
                     return ResponseFactory.Exists();
@@ -136,7 +136,7 @@ public class CourseService
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.Created:
-                    return ResponseFactory.Ok("Course has been created");
+                    return ResponseFactory.Ok();
 
                 case System.Net.HttpStatusCode.Conflict:
                     return ResponseFactory.Exists();

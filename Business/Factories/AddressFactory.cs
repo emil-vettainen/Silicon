@@ -28,10 +28,10 @@ public class AddressFactory
 		{
 			return new AddressDto
 			{
-				StreetName = streetName,
-				OptionalAddress = optionalAddress,
-				PostalCode = postalCode,
-				City = city
+				StreetName = streetName ?? "",
+				OptionalAddress = optionalAddress ?? "",
+				PostalCode = postalCode ?? "",
+				City = city ?? ""
 			};
 		}
 		catch (Exception)

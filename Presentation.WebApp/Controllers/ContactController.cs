@@ -41,17 +41,17 @@ public class ContactController : Controller
 
             if (response.IsSuccessStatusCode)
             {
-                ViewBag.Success = "Your request was sent successfully, we will get back to you as soon as possible!";
+                TempData["Success"] = "Your request was sent successfully, we will get back to you as soon as possible!";
             }
             else
             {
-                ViewBag.Error = "Something went wrong. Please try again!";
+                TempData["Error"] = "Something went wrong. Please try again!";
             }
         }
         catch (Exception)
         {
             //logger
-            ViewBag.Error = "The server encountered an unexpected condition";
+            TempData["Error"] = "An unexpected error occurred, Please contact support!";
         }
         return View();
     }

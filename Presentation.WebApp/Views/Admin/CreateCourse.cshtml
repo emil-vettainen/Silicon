@@ -5,7 +5,7 @@
     ViewData["Title"] = "Create Course";
 }
 
-<section id="createCourse">
+<section id="courses-admin">
     <div class="container">
         <form method="post" asp-controller="Admin" asp-action="CreateCourse" novalidate enctype="multipart/form-data">
             <h1>Create Course</h1>
@@ -35,7 +35,7 @@
                     <span asp-validation-for="Course.CourseCategory" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-terms" class="checkbox-group">
+                <div id="form-seller" class="checkbox-group">
                     <input asp-for="Course.IsBestseller" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.IsBestseller)
                 </div>
 
@@ -65,19 +65,19 @@
                     <span asp-validation-for="Course.Price.DiscountPrice" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-included" class="input-group">
+                <div id="form-included-hours" class="input-group">
                     <label asp-for="Course.Included.HoursOfVideo"></label>
                     <input asp-for="Course.Included.HoursOfVideo" class="form-control" />
                     <span asp-validation-for="Course.Included.HoursOfVideo" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-included" class="input-group">
+                <div id="form-included-articles" class="input-group">
                     <label asp-for="Course.Included.Articles"></label>
                     <input asp-for="Course.Included.Articles" class="form-control" />
                     <span asp-validation-for="Course.Included.Articles" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-included" class="input-group">
+                <div id="form-included-resourses" class="input-group">
                     <label asp-for="Course.Included.Resourses"></label>
                     <input asp-for="Course.Included.Resourses" class="form-control" />
                     <span asp-validation-for="Course.Included.Resourses" class="invalid-feedback"></span>
@@ -85,15 +85,20 @@
 
              
 
-                <div id="form-terms" class="checkbox-group">
+                <div id="form-lifetime" class="checkbox-group">
                     <input asp-for="Course.Included.LifetimeAccess" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.LifetimeAccess)
                 </div>
 
-                <div id="form-terms" class="checkbox-group">
+                <div id="form-certificate" class="checkbox-group">
                     <input asp-for="Course.Included.Certificate" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.Certificate)
                 </div>
 
-                <hr />
+
+                <hr id="form-hr-price" />
+
+                <h4 id="form-price" class="pb-2">Price: </h4>
+
+                @* <hr />
 
                 <h4 class="pb-2">Author: </h4>
 
@@ -197,7 +202,7 @@
 
                 <button id="form-submit" class="btn-theme-large" type="submit">
                     <span id="button-text">Create Course</span>
-                </button>
+                </button> *@
             </div>
         </form>
     </div>

@@ -704,7 +704,7 @@ form .content .input-group .form-control {
   width: 100%;
   box-shadow: none;
   background-color: var(--clr-input);
-  color: var(--clr-text-header);
+  color: var(--clr-text-body);
 }
 form .content .input-group .form-control:focus {
   color: var(--clr-text-body);
@@ -2700,7 +2700,7 @@ footer .container .social-media a {
   font-size: 1.75rem;
   color: var(--clr-theme);
   padding: 16px;
-  background-color: var(--background-color);
+  background-color: var(--clr-bg-section);
   border-radius: 50%;
 }
 .contact .container .contact-details .contact-content .careers {
@@ -2715,9 +2715,10 @@ footer .container .social-media a {
   margin-left: 10px;
 }
 .contact .container .contact-form {
-  background-color: var(--background-color);
+  background-color: var(--clr-bg-section);
   grid-column: 1/13;
   padding: 4rem 1rem 2rem 1rem;
+  margin-top: 2rem;
   z-index: 99;
   box-shadow: 0px 2px 6.4px -1px rgba(19, 16, 34, 0.03), 0px 4.4px 12px -1px rgba(19, 16, 34, 0.06);
 }
@@ -2763,10 +2764,115 @@ footer .container .social-media a {
   padding: 1rem;
   border-radius: 6px;
   box-shadow: none;
+  background-color: var(--clr-input);
+  color: var(--clr-text-body);
 }
 
 @media (min-width: 992px) {
   .map {
     margin-top: -20rem;
   }
+}
+
+#courses-admin .container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  padding-top: 2rem;
+}
+#courses-admin .container form {
+  grid-column: 1/13;
+}
+@media (min-width: 992px) {
+  #courses-admin .container form {
+    grid-column: 3/11;
+  }
+}
+@media (min-width: 1200px) {
+  #courses-admin .container form {
+    grid-column: 4/10;
+  }
+}
+@media (min-width: 1400px) {
+  #courses-admin .container form {
+    padding: 0 3rem;
+  }
+}
+#courses-admin .container form .content {
+  padding-top: 1rem;
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  #courses-admin .container form .content {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: "title title title title title title" "ingress ingress ingress ingress ingress ingress" "desc desc desc desc desc desc" "category category category category category category" "img img img img img img" "numbers numbers numbers procent procent procent" "hours hours articles articles resourses resourses" "seller seller lifetime lifetime certificate certificate" "hr-price hr-price hr-price hr-price hr-price hr-price" "title-price title-price title-price title-price title-price title-prce" "original original original discount discount discount";
+  }
+}
+#courses-admin .container form .content #form-title {
+  grid-area: title;
+}
+#courses-admin .container form .content #form-ingress {
+  grid-area: ingress;
+}
+#courses-admin .container form .content #form-description {
+  grid-area: desc;
+}
+#courses-admin .container form .content #form-img {
+  grid-area: img;
+  display: flex;
+  flex-direction: column;
+}
+#courses-admin .container form .content #form-category {
+  grid-area: category;
+}
+#courses-admin .container form .content #form-seller {
+  grid-area: seller;
+}
+#courses-admin .container form .content #form-rating-numbers {
+  grid-area: numbers;
+}
+#courses-admin .container form .content #form-rating-procent {
+  grid-area: procent;
+}
+#courses-admin .container form .content #form-price-original {
+  grid-area: original;
+}
+#courses-admin .container form .content #form-price-discount {
+  grid-area: discount;
+}
+#courses-admin .container form .content #form-included-hours {
+  grid-area: hours;
+}
+#courses-admin .container form .content #form-included-articles {
+  grid-area: articles;
+}
+#courses-admin .container form .content #form-included-resourses {
+  grid-area: resourses;
+}
+#courses-admin .container form .content #form-lifetime {
+  grid-area: lifetime;
+}
+#courses-admin .container form .content #form-certificate {
+  grid-area: certificate;
+}
+#courses-admin .container form .content #form-hr-price {
+  grid-area: hr-price;
+}
+#courses-admin .container form .content #form-price {
+  grid-area: title-price;
+}
+
+.dashboard .container div {
+  padding-bottom: 1rem;
+}
+.dashboard .container div h2 {
+  padding-bottom: 0.5rem;
+}
+.dashboard .container table {
+  background-color: red !important;
+}
+.dashboard .container td {
+  background-color: var(--clr-danger);
 }

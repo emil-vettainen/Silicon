@@ -1,0 +1,135 @@
+#courses-admin {
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1rem;
+        padding-top: 2rem;
+
+        form {
+            grid-column: 1/13;
+
+
+
+            @include lg {
+                grid-column: 3/11;
+            }
+
+            @include xl {
+                grid-column: 4/10;
+            }
+
+            @include xxl {
+                padding: 0 3rem;
+            }
+
+
+
+            .content {
+                padding-top: 1rem;
+                display: grid;
+                align-items: center;
+                gap: 1rem;
+
+
+                @include md {
+                    grid-template-columns: repeat(6, 1fr);
+                    grid-template-areas: 
+                        "title title title title title title" 
+                        "ingress ingress ingress ingress ingress ingress" 
+                        "desc desc desc desc desc desc"
+                        "category category category category category category" 
+                        "img img img img img img" 
+                        "numbers numbers numbers procent procent procent"
+                        "hours hours articles articles resourses resourses"     
+                        "seller seller lifetime lifetime certificate certificate"
+                        "hr-price hr-price hr-price hr-price hr-price hr-price"
+                        
+                        "title-price title-price title-price title-price title-price title-prce"
+                        "original original original discount discount discount" 
+                        
+                       
+                        
+                    
+                    ;
+                }
+
+
+
+
+
+
+                #form-title {
+                    grid-area: title;
+                }
+
+                #form-ingress {
+                    grid-area: ingress;
+                }
+
+                #form-description {
+                    grid-area: desc;
+                }
+
+                #form-img {
+                    grid-area: img;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                #form-category {
+                    grid-area: category;
+                }
+
+                #form-seller {
+                    grid-area: seller;
+                }
+
+
+                #form-rating-numbers {
+                    grid-area: numbers;
+                }
+
+                #form-rating-procent {
+                    grid-area: procent;
+                }
+
+                #form-price-original {
+                    grid-area: original;
+                }
+
+                #form-price-discount {
+                    grid-area: discount;
+                }
+
+                #form-included-hours {
+                    grid-area: hours;
+                }
+
+                #form-included-articles {
+                    grid-area: articles;
+                }
+
+                #form-included-resourses {
+                    grid-area: resourses;
+                }
+
+                #form-lifetime {
+                    grid-area: lifetime;
+                }
+
+                #form-certificate {
+                    grid-area: certificate;
+                }
+
+                #form-hr-price{
+                    grid-area: hr-price;
+                }
+
+                #form-price {
+                    grid-area: title-price;
+                }
+            }
+        }
+    }
+}

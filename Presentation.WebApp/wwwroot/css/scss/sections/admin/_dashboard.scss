@@ -1,0 +1,28 @@
+.dashboard {
+
+    .container {
+
+        div {
+            padding-bottom: 1rem;
+
+            h2 {
+                padding-bottom: .5rem;
+            }
+        }
+
+        
+
+            table {
+                background-color: red!important;
+            }
+
+
+            td {
+                background-color: var(--clr-danger);
+            }
+
+            tbody {
+            }
+        
+    }
+}
