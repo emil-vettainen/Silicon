@@ -75,8 +75,9 @@
 
 @{
     var hasMessage = TempData["Success"] != null || TempData["Error"] != null || TempData["Warning"] != null;
-    var iconType = "";
     var message = "";
+    var iconType = "";
+
     if (TempData["Success"] != null)
     {
         message = TempData["Success"]!.ToString()!;

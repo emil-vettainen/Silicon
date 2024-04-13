@@ -53,11 +53,11 @@ function select() {
 
 function searchQuery() {
     try {
-        document.getElementById('searchQuery').addEventListener('keydown', function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault()
-                return
-            }
+        document.getElementById('searchQuery').addEventListener('change', function (event) {
+            //if (event.key === "Enter") {
+            //    event.preventDefault()
+            //    return
+            //}
             updateCoursesByFilter()
         })
 
@@ -133,7 +133,7 @@ function updateCoursesByFilter() {
             // Kontrollera om svaret innehåller några kursboxar
             if (!coursesBox || !coursesBox.innerHTML.trim()) {
                 // Om inga kursboxar finns, visa "Not Found!"
-                document.querySelector('#boxes').innerHTML = '<div>No courses found.</div>'
+                document.querySelector('#boxes').innerHTML = '<div><h6 class="pt-5 text-center">No courses found.</h6></div>'
             } else {
                 // Annars, uppdatera innehållet med de hittade kursboxarna
                 document.querySelector('#boxes').innerHTML = coursesBox.innerHTML

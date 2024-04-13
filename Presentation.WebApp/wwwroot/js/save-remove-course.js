@@ -125,7 +125,6 @@ async function removeAllCourses() {
 }
 
 
-
 // Admin
 
 function deleteCourseAdmin(courseId) {

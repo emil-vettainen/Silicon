@@ -48,7 +48,7 @@ public class DefaultController : Controller
             catch (Exception)
             {
                 //logger
-                TempData["Erorr"] = "An unexpected error occurred. Please try again!";
+                TempData["Error"] = "An unexpected error occurred. Please try again!";
             }
         }
         else
