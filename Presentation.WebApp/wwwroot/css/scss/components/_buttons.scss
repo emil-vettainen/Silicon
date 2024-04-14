@@ -53,8 +53,20 @@
     color: var(--clr-gray-900);
     font-size: .875rem;
     padding: 11px 28px;
-   
-  
+}
+
+.btn-danger-small {
+    @include button;
+    background-color: var(--clr-danger);
+    font-size: .875rem;
+    padding: 9px 20px;
+}
+
+.btn-success-small {
+    @include button;
+    background-color: var(--clr-success);
+    font-size: .875rem;
+    padding: 9px 20px;
 }
 
 

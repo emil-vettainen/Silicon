@@ -197,9 +197,9 @@ function addHighlight() {
     const index = container.querySelectorAll('.highlight').length;
     const highlightHtml = `
         <div class="input-group highlight">
-            <label>Highlight</label>
+            <label class="pb-2 pt-2" for="Course.Highlights[${index}]">Highlight</label>
             <input type="text" name="Course.Highlights[${index}].Highlight" class="form-control" />
-            <button type="button" onclick="removeHighlight(this)">Remove</button>
+            <button class="btn-danger-small" type="button" onclick="removeHighlight(this)">Remove</button>
         </div>`;
     container.insertAdjacentHTML('beforeend', highlightHtml);
 }
@@ -215,11 +215,11 @@ function addContent() {
     const index = container.querySelectorAll('.content-item').length;
     const contentHtml = `
         <div class="input-group content-item">
-            <label for="Course_Content_${index}__Title">Title</label>
+            <label class="pb-2 pt-2"  for="Course_Content_${index}__Title">Title</label>
             <input type="text" name="Course.Content[${index}].Title" class="form-control" />
-            <label for="Course_Content_${index}__Description">Description</label>
+            <label class="pb-2 pt-2" for="Course_Content_${index}__Description">Description</label>
             <input type="text" name="Course.Content[${index}].Description" class="form-control" />
-            <button class="btn-theme-medium" type="button" onclick="removeContent(this)">Remove</button>
+            <button class="btn-danger-small" type="button" onclick="removeContent(this)">Remove</button>
         </div>`;
     container.insertAdjacentHTML('beforeend', contentHtml);
 }

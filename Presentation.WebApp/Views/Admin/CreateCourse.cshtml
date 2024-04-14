@@ -5,11 +5,27 @@
     ViewData["Title"] = "Create Course";
 }
 
-<section id="courses-admin">
+
+@* <section class="courses-admin">
+    <div class="container">
+        <form method="post" asp-controller="Admin" asp-action="@ViewData["Action"]" novalidate enctype="multipart/form-data">
+            <h1>@ViewData["Title"]</h1>
+            @await Html.PartialAsync("~/Views/Admin/_CreateUpdateCoursePartial.cshtml", Model.Course);
+        </form>
+    </div>
+</section>
+ *@
+
+<section class="courses-admin">
     <div class="container">
         <form method="post" asp-controller="Admin" asp-action="CreateCourse" novalidate enctype="multipart/form-data">
             <h1>Create Course</h1>
             <div class="content">
+
+                <div asp-validation-summary="All" class="validation-summary"></div>
+
+
+
                 <div id="form-title" class="input-group">
                     <label asp-for="Course.CourseTitle"></label>
                     <input asp-for="Course.CourseTitle" class="form-control" />
@@ -22,23 +38,62 @@
                 </div>
                 <div id="form-description" class="input-group">
                     <label asp-for="Course.CourseDescription"></label>
-                    <input asp-for="Course.CourseDescription" class="form-control" />
+                    <textarea asp-for="Course.CourseDescription" class="form-control"></textarea>
                     <span asp-validation-for="Course.CourseDescription" class="invalid-feedback"></span>
                 </div>
-                <div id="form-img" class="input-group">
-                    <label for="courseImg">Course Image</label>
-                    <input type="file" name="courseImg"/>
-                </div>
+
                 <div id="form-category" class="input-group">
                     <label asp-for="Course.CourseCategory"></label>
                     <input asp-for="Course.CourseCategory" class="form-control" />
                     <span asp-validation-for="Course.CourseCategory" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-seller" class="checkbox-group">
+                <div id="form-terms" class="checkbox-group">
                     <input asp-for="Course.IsBestseller" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.IsBestseller)
                 </div>
+                <div id="form-img" class="input-group">
+                    <div>
+                        <label for="courseImg">Course Image</label>
+                        <input type="file" name="courseImg" />
+                    </div>
+                  
+                </div>
+                <hr />
 
+                <h4 class="pb-2">Included: </h4>
+
+                <div id="form-included" class="input-group">
+                    <label asp-for="Course.Included.HoursOfVideo"></label>
+                    <input asp-for="Course.Included.HoursOfVideo" class="form-control" />
+                    <span asp-validation-for="Course.Included.HoursOfVideo" class="invalid-feedback"></span>
+                </div>
+
+                <div id="form-included" class="input-group">
+                    <label asp-for="Course.Included.Articles"></label>
+                    <input asp-for="Course.Included.Articles" class="form-control" />
+                    <span asp-validation-for="Course.Included.Articles" class="invalid-feedback"></span>
+                </div>
+
+                <div id="form-included" class="input-group">
+                    <label asp-for="Course.Included.Resourses"></label>
+                    <input asp-for="Course.Included.Resourses" class="form-control" />
+                    <span asp-validation-for="Course.Included.Resourses" class="invalid-feedback"></span>
+                </div>
+
+
+
+                <div id="form-terms" class="checkbox-group">
+                    <input asp-for="Course.Included.LifetimeAccess" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.LifetimeAccess)
+                </div>
+
+                <div id="form-terms" class="checkbox-group">
+                    <input asp-for="Course.Included.Certificate" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.Certificate)
+                </div>
+
+
+                <hr />
+
+                <h4 class="pb-2">Ratings: </h4>
 
                 <div id="form-rating-numbers" class="input-group">
                     <label asp-for="Course.Rating.InNumbers"></label>
@@ -52,6 +107,9 @@
                     <span asp-validation-for="Course.Rating.InProcent" class="invalid-feedback"></span>
                 </div>
 
+                <hr />
+
+                <h4 class="pb-2">Price: </h4>
 
                 <div id="form-price-original" class="input-group">
                     <label asp-for="Course.Price.OriginalPrice"></label>
@@ -60,45 +118,14 @@
                 </div>
 
                 <div id="form-price-discount" class="input-group">
-                    <label asp-for="Course.Price.DiscountPrice"></label>
+                    <label asp-for="Course.Price.DiscountPrice">DiscountPrice <span>(optinal)</span></label>
                     <input asp-for="Course.Price.DiscountPrice" class="form-control" />
                     <span asp-validation-for="Course.Price.DiscountPrice" class="invalid-feedback"></span>
                 </div>
 
-                <div id="form-included-hours" class="input-group">
-                    <label asp-for="Course.Included.HoursOfVideo"></label>
-                    <input asp-for="Course.Included.HoursOfVideo" class="form-control" />
-                    <span asp-validation-for="Course.Included.HoursOfVideo" class="invalid-feedback"></span>
-                </div>
-
-                <div id="form-included-articles" class="input-group">
-                    <label asp-for="Course.Included.Articles"></label>
-                    <input asp-for="Course.Included.Articles" class="form-control" />
-                    <span asp-validation-for="Course.Included.Articles" class="invalid-feedback"></span>
-                </div>
-
-                <div id="form-included-resourses" class="input-group">
-                    <label asp-for="Course.Included.Resourses"></label>
-                    <input asp-for="Course.Included.Resourses" class="form-control" />
-                    <span asp-validation-for="Course.Included.Resourses" class="invalid-feedback"></span>
-                </div>
-
-             
-
-                <div id="form-lifetime" class="checkbox-group">
-                    <input asp-for="Course.Included.LifetimeAccess" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.LifetimeAccess)
-                </div>
-
-                <div id="form-certificate" class="checkbox-group">
-                    <input asp-for="Course.Included.Certificate" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.Certificate)
-                </div>
 
 
-                <hr id="form-hr-price" />
-
-                <h4 id="form-price" class="pb-2">Price: </h4>
-
-                @* <hr />
+                <hr />
 
                 <h4 class="pb-2">Author: </h4>
 
@@ -117,6 +144,9 @@
                 <div id="form-author-img" class="input-group">
                     <label for="courseImg">Profile Image</label>
                     <input type="file" name="authorImage" />
+
+                   
+                   
                 </div>
 
                 <div id="form-author-social" class="input-group">
@@ -148,18 +178,26 @@
 
                 <hr />
 
+                <h4 class="pb-2">What you will learn: </h4>
+
 
                 <div id="highlights-container">
                     @for (int i = 0; i < Model.Course.Highlights.Count; i++)
                     {
                         <div class="input-group highlight">
-                            <label for="Course_Highlights_${i}__Highlight">Highlight</label>
-                            <input type="text" name="Course.Highlights[@i].Highlight" class="form-control" value="@Model.Course.Highlights[i].Highlight" />
-                            <button type="button" onclick="removeHighlight(this)">Remove</button>
+                            <label class="pb-2 pt-2" asp-for="Course.Highlights[i].Highlight">Highlight</label>
+                            <input asp-for="Course.Highlights[i].Highlight" class="form-control" />
+                            <span asp-validation-for="Course.Highlights[i].Highlight" class="invalid-feedback"></span>
                         </div>
+
+                        @if (i > 0)
+                        {
+                            <button class="btn-danger-small" type="button" onclick="removeHighlight(this)">Remove</button>
+                        }
                     }
+
                 </div>
-                <button type="button" onclick="addHighlight()">Add Highlight</button>
+                <button class="btn-theme-medium" type="button" onclick="addHighlight()">Add Highlight</button>
 
                 <hr />
 
@@ -168,28 +206,28 @@
                     @for (int i = 0; i < Model.Course.Content.Count; i++)
                     {
                         <div class="input-group content-item">
-                            <label asp-for="Course.Content[i].Title">Title</label>
+                            <label class="pb-2 pt-2" asp-for="Course.Content[i].Title">Title</label>
                             <input asp-for="Course.Content[i].Title" class="form-control" />
                             <span asp-validation-for="Course.Content[i].Title" class="invalid-feedback"></span>
 
-                            <label asp-for="Course.Content[i].Description">Description</label>
+                            <label class="pb-2 pt-2" asp-for="Course.Content[i].Description">Description</label>
                             <input asp-for="Course.Content[i].Description" class="form-control" />
                             <span asp-validation-for="Course.Content[i].Description" class="invalid-feedback"></span>
 
                             @if (i > 0)
                             {
-                                <button type="button" onclick="removeContent(this)">Remove</button>
+                                <button class="btn-danger-small" type="button" onclick="removeContent(this)">Remove</button>
                             }
                         </div>
                     }
-                    
+
                 </div>
                 <button class="btn-theme-medium" type="button" onclick="addContent()">Add More Details</button>
 
 
                 <hr />
 
-               
+
 
 
 
@@ -201,8 +239,8 @@
 
 
                 <button id="form-submit" class="btn-theme-large" type="submit">
-                    <span id="button-text">Create Course</span>
-                </button> *@
+                    <span id="button-text">Update Course</span>
+                </button>
             </div>
         </form>
     </div>

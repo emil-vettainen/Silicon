@@ -127,17 +127,47 @@ async function removeAllCourses() {
 
 // Admin
 
-function deleteCourseAdmin(courseId) {
-    fetch(`/admin/DeleteCourse?courseId=${courseId}`, {
-        method: 'DELETE',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-        },
-    })
-        .then(response => {
-            window.location.reload()
-        })
-        .catch(error => {
-            console.log('Error', error)
-        })
+async function deleteCourseAdmin(courseId) {
+    const result = await Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure?',
+        text: "Do you really want to remove this course?",
+        showCancelButton: true,
+        cancelButtonColor: '#EF4444',
+        confirmButtonColor: '#6366F1',
+        confirmButtonText: 'Yes, remove!'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            const response = await fetch(`/admin/DeleteCourse?courseId=${courseId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+            const statusMessages = {
+                404: { icon: "warning", text: "No course to remove" },
+                default: { icon: "error", text: "An unexpected error occurred! Please try again" }
+            };
+            if (response.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    text: "Course has been removed",
+                    didClose: () => {
+                        window.location.reload();
+                    }
+                });
+            } else {
+                const { icon, text } = statusMessages[response.status] || statusMessages.default;
+                Swal.fire({ icon, text });
+            }
+        } catch (error) {
+            console.error('Error', error);
+            Swal.fire({
+                icon: "error",
+                text: "There was a problem reaching the server. Please try again later."
+            });
+        }
+    }
 }

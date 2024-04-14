@@ -67,6 +67,7 @@ namespace Presentation.WebApp.Controllers
         [HttpGet]
         public IActionResult CreateCourse()
         {
+            ViewData["Action"] = "CreateCourse";
             var viewModel = new CreateCourseViewModel();
             return View(viewModel);
         }
@@ -88,7 +89,7 @@ namespace Presentation.WebApp.Controllers
                 var result = await _courseService.CreateCourseApiAsync(_mapper.Map<CreateCourseDto>(viewModel.Course), courseImage, authorImage, accessToken!);
                 switch (result.StatusCode)
                 {
-                    case ResultStatus.CREATED:
+                    case ResultStatus.OK:
                         TempData["Success"] = "Course has been created";
                         return RedirectToAction("Dashboard", "Admin");
 
@@ -176,7 +177,7 @@ namespace Presentation.WebApp.Controllers
                 var response = await _httpClient.DeleteAsync($"{_configuration["ApiUris:Courses"]}/{courseId}?key={_configuration["Api:Key"]}");
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Success"] = "Course has been deleted!";
+                    return Ok();
                     
                 }
 
@@ -184,8 +185,9 @@ namespace Presentation.WebApp.Controllers
             catch (Exception)
             {
                 //logger
+                return StatusCode(500);
             }
-            return Ok();
+            return NotFound();
         }
     }
 }

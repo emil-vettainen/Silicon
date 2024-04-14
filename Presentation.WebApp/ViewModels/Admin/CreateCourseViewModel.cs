@@ -18,7 +18,5 @@ public class CreateCourseViewModel
         [
             new ProgramDetailsModel()
         ];
-        
-      
     }
 }

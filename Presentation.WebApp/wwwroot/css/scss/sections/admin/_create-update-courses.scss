@@ -1,4 +1,4 @@
-#courses-admin {
+.courses-admin {
 
     .container {
         display: grid;
@@ -26,108 +26,48 @@
 
 
             .content {
-                padding-top: 1rem;
-                display: grid;
-                align-items: center;
-                gap: 1rem;
-
-
-                @include md {
-                    grid-template-columns: repeat(6, 1fr);
-                    grid-template-areas: 
-                        "title title title title title title" 
-                        "ingress ingress ingress ingress ingress ingress" 
-                        "desc desc desc desc desc desc"
-                        "category category category category category category" 
-                        "img img img img img img" 
-                        "numbers numbers numbers procent procent procent"
-                        "hours hours articles articles resourses resourses"     
-                        "seller seller lifetime lifetime certificate certificate"
-                        "hr-price hr-price hr-price hr-price hr-price hr-price"
-                        
-                        "title-price title-price title-price title-price title-price title-prce"
-                        "original original original discount discount discount" 
-                        
-                       
-                        
-                    
-                    ;
-                }
-
-
-
-
-
-
-                #form-title {
-                    grid-area: title;
-                }
-
-                #form-ingress {
-                    grid-area: ingress;
-                }
-
-                #form-description {
-                    grid-area: desc;
-                }
+                padding: 2rem 0;
 
                 #form-img {
-                    grid-area: img;
                     display: flex;
-                    flex-direction: column;
-                }
-
-                #form-category {
-                    grid-area: category;
-                }
-
-                #form-seller {
-                    grid-area: seller;
+                    align-items: center;
+                    border: 1px solid red;
                 }
 
 
-                #form-rating-numbers {
-                    grid-area: numbers;
+                #highlights-container {
+
+                    .highlight {
+                        &:first-of-type {
+                            .form-control {
+                                margin-bottom: 1rem;
+                            }
+                        }
+                    }
+
+
+
+
+                    .btn-danger-small {
+                        border-radius: 6px !important;
+                        margin: 12px 0;
+                    }
                 }
 
-                #form-rating-procent {
-                    grid-area: procent;
-                }
+                #content-container {
 
-                #form-price-original {
-                    grid-area: original;
-                }
+                    .content-item {
+                        &:first-of-type {
+                            .form-control {
+                                margin-bottom: .5rem;
+                            }
+                        }
+                    }
 
-                #form-price-discount {
-                    grid-area: discount;
-                }
-
-                #form-included-hours {
-                    grid-area: hours;
-                }
-
-                #form-included-articles {
-                    grid-area: articles;
-                }
-
-                #form-included-resourses {
-                    grid-area: resourses;
-                }
-
-                #form-lifetime {
-                    grid-area: lifetime;
-                }
-
-                #form-certificate {
-                    grid-area: certificate;
-                }
-
-                #form-hr-price{
-                    grid-area: hr-price;
-                }
-
-                #form-price {
-                    grid-area: title-price;
+                    .btn-danger-small {
+                        border-radius: 6px !important;
+                        margin: 12px 0;
+                    }
                 }
             }
         }
