@@ -2,10 +2,21 @@
     padding: 5rem 0;
 
     .container {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+
+        @include md {
+            flex-direction: row;
+        }
 
         .author-img {
-            grid-column: 1 / 6;
+            width: 100%;
+
+            @include md {
+                width: 35%;
+                flex-grow: 1;
+            }
         }
 
         .author-info {
@@ -13,19 +24,35 @@
             background-image: url(/images/courses/single-course/pattern.svg);
             background-repeat: no-repeat;
             background-position: 100% 50%;
-            grid-column: 6 / 13;
+            width: 100%;
+            
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             align-items: center;
 
+
+
+            @include md {
+                width: 35%;
+                flex-grow: 1;
+            }
+
             div {
-                grid-column: 2 / 7;
-                padding: 0 .5rem;
+                grid-column: 1 / 13;
+                padding: .5rem .5rem;
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
 
+
+
+
+                @include xl {
+                    grid-column: 2/7;
+                }
+
                 .author-information {
+                    border: 1px solid red;
 
                     h1 {
                         color: var(--clr-white);
@@ -41,9 +68,15 @@
 
                 .author-followers {
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                     padding-top: 20px;
                     gap: 20px;
+
+                    @include xl {
+                        flex-direction: row;
+                    }
+
+
 
                     .youtube {
                         background-color: var(--clr-danger);

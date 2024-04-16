@@ -1,6 +1,3 @@
-
-
-
 const formErrorHandler = (element, validationResult, customMessage = "") => {
 
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
@@ -79,15 +76,12 @@ const passwordValidator = (element) => {
 
 
     if (element.dataset.valEqualtoOther !== undefined) {
-
-      
-
-        const password = document.getElementsByName(element.dataset.valEqualtoOther.replace('*', 'SignUp'))[0].value
-
-
-
+        const targetName = element.dataset.valEqualtoOther.replace('*.', '') 
+        const targetElement = document.querySelector('input[type="password"][data-val="true"]');
+        const targetPassword = targetElement ? targetElement.value : null;
+ 
         const isEmpty = !element.value
-        const isMatch = element.value === password
+        const isMatch = element.value === targetPassword
 
         if (isEmpty) {
             formErrorHandler(element, false, element.dataset.valRequired)
@@ -99,13 +93,6 @@ const passwordValidator = (element) => {
             formErrorHandler(element, true)
         }
 
-
-        //if (element.value === password) {
-        //    formErrorHandler(element, true)
-        //}
-        //else {
-        //    formErrorHandler(element, false, 'Passwords do not match')
-        //}
     }
     else {
 
@@ -139,24 +126,35 @@ const checkboxValidator = (element) => {
 }
 
 
-//const checkAndAddClass = (input) => {
-//    if (input.classList.contains('input-validation-error'))
-//        input.classList.add('is-invalid'); // Lägg till din anpassade klass
+const checkAndAddClass = (input) => {
+    if (input.classList.contains('input-validation-error'))
+        input.classList.add('is-invalid'); // Lägg till din anpassade klass
 
-//}
-
-
-
-
+}
 
 
 //let forms = document.querySelectorAll('form')
 //let inputs = forms[0].querySelectorAll('input')
+//let textareas = forms[0].querySelectorAll('textarea')
+
+
+
+//textareas.forEach(textarea => {
+//    if (textarea.dataset.val === 'true') {
+//        if (textarea.classList.contains('input-validation-error'))
+//            textarea.classList.add('is-invalid');
+
+//        textarea.addEventListener('keyup', (e) => {
+//            textValidator(e.target)
+//        })
+//    }
+//})
+
+
+
 
 
 //inputs.forEach(input => {
-
-
 
 //    if (input.dataset.val === 'true') {
 
@@ -169,6 +167,15 @@ const checkboxValidator = (element) => {
 //                checkboxValidator(e.target)
 //            })
 //        }
+
+//        //if (input.dataset.current) {
+//        //    input.addEventListener('keyup', (e) => {
+//        //        textValidator(e.target)
+//        //    })
+//        //}
+
+
+
 //        else {
 
 //            input.addEventListener('keyup', (e) => {
@@ -178,6 +185,7 @@ const checkboxValidator = (element) => {
 //                    case 'text':
 //                        textValidator(e.target)
 //                        break;
+
 
 //                    case 'email':
 //                        emailValidator(e.target)
@@ -190,42 +198,67 @@ const checkboxValidator = (element) => {
 //            })
 
 //        }
-
-
-
-
-
 //    }
-
 
 //})
 
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
     initValidation(); // Initiera valideringen när sidan laddas
-    setupMutationObserver(); // Starta MutationObserver
+   /* setupMutationObserver(); // Starta MutationObserver*/
 });
+
+
+//function initValidation() {
+//    let forms = document.querySelectorAll('form')
+//    forms.forEach(form => {
+//        form.addEventListener('input', function (event) {
+//            let input = event.target;
+//            if 
+//        })
+//    })
+//}
+
+
 
 function initValidation() {
     let forms = document.querySelectorAll('form');
     forms.forEach(form => {
         let inputs = form.querySelectorAll('input');
+        let textareas = form.querySelectorAll('textarea')
+
+
         inputs.forEach(input => {
             if (input.dataset.val === 'true') {
                 if (input.classList.contains('input-validation-error')) {
                     input.classList.add('is-invalid');
                 }
-
-                // Binda event baserat på input-typ
-                bindInputEvent(input);
+                validateInput(input);
             }
         });
+
+
+        textareas.forEach(textarea => {
+            if (textarea.dataset.val === 'true') {
+                if (textarea.classList.contains('input-validation-error'))
+                    textarea.classList.add('is-invalid');
+
+                textarea.addEventListener('keyup', (e) => {
+                    textValidator(e.target)
+                })
+            }
+        })
+
     });
 }
 
-function bindInputEvent(input) {
-    if (input.type === 'checkbox') {
+function validateInput(input) {
+
+    if (input.dataset.validation === 'currentPassword') {
+        input.addEventListener('keyup', (e) => textValidator(e.target))
+    } else if (input.type === 'checkbox') {
         input.addEventListener('change', (e) => checkboxValidator(e.target));
     } else {
         input.addEventListener('keyup', (e) => {
@@ -244,21 +277,21 @@ function bindInputEvent(input) {
     }
 }
 
-function setupMutationObserver() {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            mutation.addedNodes.forEach(node => {
-                // Kontrollera om det tillagda noden är relevant för din valideringslogik
-                if (node.nodeType === 1) { // Element nod
-                    // Om noden innehåller formulär eller input-fält, återinitiera valideringslogiken
-                    initValidation();
-                }
-            });
-        });
-    });
+//function setupMutationObserver() {
+//    const observer = new MutationObserver(mutations => {
+//        mutations.forEach(mutation => {
+//            mutation.addedNodes.forEach(node => {
+//                // Kontrollera om det tillagda noden är relevant för din valideringslogik
+//                if (node.nodeType === 1) { // Element nod
+//                    // Om noden innehåller formulär eller input-fält, återinitiera valideringslogiken
+//                    initValidation();
+//                }
+//            });
+//        });
+//    });
 
-    observer.observe(document.body, { childList: true, subtree: true });
-}
+//    observer.observe(document.body, { childList: true, subtree: true });
+//}
 
 
 

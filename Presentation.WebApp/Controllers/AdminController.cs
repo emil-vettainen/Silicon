@@ -91,7 +91,7 @@ namespace Presentation.WebApp.Controllers
                 {
                     case ResultStatus.OK:
                         TempData["Success"] = "Course has been created";
-                        return RedirectToAction("Dashboard", "Admin");
+                        return View(viewModel);
 
                     case ResultStatus.EXISTS:
                         TempData["Warning"] = "Course with given title is already exists!";
@@ -147,9 +147,9 @@ namespace Presentation.WebApp.Controllers
                     var result = await _courseService.UpdateCourseApiAsync(_mapper.Map<UpdateCourseDto>(viewModel.Course), courseImage, authorImage, accessToken!);
                     switch (result.StatusCode)
                     {
-                        case ResultStatus.CREATED:
-                            TempData["Success"] = result.Message;
-                            return RedirectToAction("Dashboard", "Admin");
+                        case ResultStatus.OK:
+                            TempData["Success"] = "Course has been updated!";
+                            return View(viewModel);
 
                         default:
                             TempData["Error"] = result.Message;

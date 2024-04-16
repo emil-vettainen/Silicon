@@ -15,15 +15,9 @@
                 <div class="content">
 
                     <div asp-validation-summary="All" class="validation-summary"></div>
-
-
-
-
                     <input asp-for="Course.Id" hidden />
                     <input asp-for="Course.Created" hidden />
                     <input asp-for="Course.LastUpdated" hidden />
-
-
                     <div id="form-title" class="input-group">
                         <label asp-for="Course.CourseTitle"></label>
                         <input asp-for="Course.CourseTitle" class="form-control" />
@@ -46,54 +40,51 @@
                         <span asp-validation-for="Course.CourseCategory" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-terms" class="checkbox-group">
+                    <div id="form-terms-seller" class="checkbox-group">
                         <input asp-for="Course.IsBestseller" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.IsBestseller)
                     </div>
+
                     <div id="form-img" class="input-group">
                         <div>
-                            <label for="courseImg">Course Image</label>
-                            <input type="file" name="courseImg" />
+                            <label for="courseImage">Course Image</label>
+                            <input type="file" name="courseImage" />
                         </div>
                         <div>
-                            <img src="~/uploads/courses-img/@Model.Course.CourseImageUrl" alt="Course Image" style="width: 200px; height: auto;" />
+                            <img src="~/uploads/courses-img/@(!string.IsNullOrEmpty(Model.Course.CourseImageUrl) ? Model.Course.CourseImageUrl : "course_9.png")" alt="Course Image" style="width: 200px; height: auto;" />
                             <input asp-for="Course.CourseImageUrl" hidden />
                         </div>
                     </div>
-                    <hr />
 
+                    <hr />
                     <h4 class="pb-2">Included: </h4>
 
-                    <div id="form-included" class="input-group">
+                    <div id="form-included-hours" class="input-group">
                         <label asp-for="Course.Included.HoursOfVideo"></label>
                         <input asp-for="Course.Included.HoursOfVideo" class="form-control" />
                         <span asp-validation-for="Course.Included.HoursOfVideo" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-included" class="input-group">
+                    <div id="form-included-articles" class="input-group">
                         <label asp-for="Course.Included.Articles"></label>
                         <input asp-for="Course.Included.Articles" class="form-control" />
                         <span asp-validation-for="Course.Included.Articles" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-included" class="input-group">
+                    <div id="form-included-resourses" class="input-group">
                         <label asp-for="Course.Included.Resourses"></label>
                         <input asp-for="Course.Included.Resourses" class="form-control" />
                         <span asp-validation-for="Course.Included.Resourses" class="invalid-feedback"></span>
                     </div>
 
-
-
-                    <div id="form-terms" class="checkbox-group">
+                    <div id="form-terms-lifetime" class="checkbox-group">
                         <input asp-for="Course.Included.LifetimeAccess" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.LifetimeAccess)
                     </div>
 
-                    <div id="form-terms" class="checkbox-group">
+                    <div id="form-terms-cert" class="checkbox-group">
                         <input asp-for="Course.Included.Certificate" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.Course.Included.Certificate)
                     </div>
 
-
                     <hr />
-
                     <h4 class="pb-2">Ratings: </h4>
 
                     <div id="form-rating-numbers" class="input-group">
@@ -109,7 +100,6 @@
                     </div>
 
                     <hr />
-
                     <h4 class="pb-2">Price: </h4>
 
                     <div id="form-price-original" class="input-group">
@@ -117,69 +107,59 @@
                         <input asp-for="Course.Price.OriginalPrice" class="form-control" />
                         <span asp-validation-for="Course.Price.OriginalPrice" class="invalid-feedback"></span>
                     </div>
-
                     <div id="form-price-discount" class="input-group">
                         <label asp-for="Course.Price.DiscountPrice">DiscountPrice <span>(optinal)</span></label>
                         <input asp-for="Course.Price.DiscountPrice" class="form-control" />
                         <span asp-validation-for="Course.Price.DiscountPrice" class="invalid-feedback"></span>
                     </div>
-
-                   
-
                     <hr />
-
                     <h4 class="pb-2">Author: </h4>
 
-                    <div id="form-author" class="input-group">
+                    <div id="form-author-name" class="input-group">
                         <label asp-for="Course.Author.FullName"></label>
                         <input asp-for="Course.Author.FullName" class="form-control" />
                         <span asp-validation-for="Course.Author.FullName" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-author" class="input-group">
+                    <div id="form-author-bio" class="input-group">
                         <label asp-for="Course.Author.Biography"></label>
                         <input asp-for="Course.Author.Biography" class="form-control" />
                         <span asp-validation-for="Course.Author.Biography" class="invalid-feedback"></span>
                     </div>
 
                     <div id="form-author-img" class="input-group">
-                        <label for="courseImg">Profile Image</label>
+                        <label for="authorImage">Profile Image</label>
                         <input type="file" name="authorImage" />
                         <img src="~/uploads/authors-img/@(!string.IsNullOrEmpty(Model.Course.Author.ProfileImageUrl) ? Model.Course.Author.ProfileImageUrl : "user-profile.png")" alt="Author Image" style="width: 120px; height: auto;" />
                         <input asp-for="Course.Author.ProfileImageUrl" hidden />
                     </div>
 
-                    <div id="form-author-social" class="input-group">
+                    <div id="form-author-social-youtube" class="input-group">
                         <label asp-for="Course.Author.SocialMedia!.YouTubeUrl">Youtube Url<span>(optinal)</span></label>
                         <input asp-for="Course.Author.SocialMedia!.YouTubeUrl" class="form-control" />
                         <span asp-validation-for="Course.Author.SocialMedia!.YouTubeUrl" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-author-social" class="input-group">
+                    <div id="form-author-social-subs" class="input-group">
                         <label asp-for="Course.Author.SocialMedia!.Subscribers">Subscribers<span>(optinal)</span></label>
                         <input asp-for="Course.Author.SocialMedia!.Subscribers" class="form-control" />
                         <span asp-validation-for="Course.Author.SocialMedia!.Subscribers" class="invalid-feedback"></span>
                     </div>
 
-
-
-
-                    <div id="form-author-social" class="input-group">
+                    <div id="form-author-social-facebook" class="input-group">
                         <label asp-for="Course.Author.SocialMedia!.FacebookUrl">Facebook Url<span>(optinal)</span></label>
                         <input asp-for="Course.Author.SocialMedia!.FacebookUrl" class="form-control" />
                         <span asp-validation-for="Course.Author.SocialMedia!.FacebookUrl" class="invalid-feedback"></span>
                     </div>
 
-                    <div id="form-author-social" class="input-group">
+                    <div id="form-author-social-followers" class="input-group">
                         <label asp-for="Course.Author.SocialMedia!.Followers">Followers<span>(optinal)</span></label>
                         <input asp-for="Course.Author.SocialMedia!.Followers" class="form-control" />
                         <span asp-validation-for="Course.Author.SocialMedia!.Followers" class="invalid-feedback"></span>
                     </div>
 
                     <hr />
-
                     <h4 class="pb-2">What you will learn: </h4>
-
 
                     <div id="highlights-container">
                         @for (int i = 0; i < Model.Course.Highlights.Count; i++)
@@ -198,7 +178,6 @@
 
                     </div>
                     <button class="btn-theme-medium" type="button" onclick="addHighlight()">Add Highlight</button>
-
                     <hr />
 
                     <div id="content-container">
@@ -223,21 +202,7 @@
 
                     </div>
                     <button class="btn-theme-medium" type="button" onclick="addContent()">Add More Details</button>
-
-
                     <hr />
-
-
-
-
-
-
-
-
-
-
-
-
                     <button id="form-submit" class="btn-theme-large" type="submit">
                         <span id="button-text">Update Course</span>
                     </button>

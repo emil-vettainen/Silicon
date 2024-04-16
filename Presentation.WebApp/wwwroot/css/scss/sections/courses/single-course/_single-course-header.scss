@@ -24,6 +24,8 @@
 
 
         .breadcrumbs {
+            
+
             li {
                 color: var(--clr-gray-500);
 
@@ -45,7 +47,7 @@
 
         p {
             z-index: 2;
-            color: var(--clr-text-body);
+            color: var(--clr-white);
         }
 
 
@@ -69,7 +71,7 @@
 
             p:nth-child(2) {
                 background-color: var(--clr-white);
-                color: var(--clr-gray-800);
+                color: #0B0F19;
             }
         }
 
@@ -79,6 +81,7 @@
         .course-specs {
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             gap: 10px;
             padding-top: 3rem;
             z-index: 2;
@@ -135,7 +138,5 @@
                 }
             }
         }
-
-       
     }
 }

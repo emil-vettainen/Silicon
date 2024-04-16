@@ -8,10 +8,12 @@ namespace Presentation.WebApp.Controllers;
 public class ContactController : Controller
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public ContactController(HttpClient httpClient)
+    public ContactController(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _configuration = configuration;
     }
 
     [Route("/contact")]
@@ -37,11 +39,12 @@ public class ContactController : Controller
                 viewModel.Service = null;
             }
             var content = new StringContent(JsonConvert.SerializeObject(viewModel), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("https://localhost:7011/api/contactrequests", content);
+            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:Contact"]}?key={_configuration["Api:Key"]}", content);
 
             if (response.IsSuccessStatusCode)
             {
                 TempData["Success"] = "Your request was sent successfully, we will get back to you as soon as possible!";
+                return RedirectToAction("Contact");
             }
             else
             {

@@ -49,7 +49,7 @@
                 <p><i class="fa-regular fa-clock"></i>@Model.Included.HoursOfVideo hours</p>
             </div>
             <div class="course-created">
-                <img src="~/uploads/courses/authors-img/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
+                <img src="~/uploads/authors-img/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile.png")" alt="@Model.Author.FullName">
                 <div>
                     <h6>Created by</h6>
                     <p class="text-m">@Model.Author.FullName</p>

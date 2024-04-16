@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels.Default;
+using System.Diagnostics;
 using System.Text;
 
 namespace Presentation.WebApp.Controllers;
@@ -8,10 +9,12 @@ namespace Presentation.WebApp.Controllers;
 public class DefaultController : Controller
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public DefaultController(HttpClient httpClient)
+    public DefaultController(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _configuration = configuration;
     }
 
     [Route("/")]
@@ -21,41 +24,41 @@ public class DefaultController : Controller
         return View(viewModel);
     }
 
-    [Route("/")]
+    
     [HttpPost]
     public async Task<IActionResult> Subscribe(HomeViewModel viewModel)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            try
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(viewModel.SubscribeModel), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("https://localhost:7011/api/subscribers", content);
+            return BadRequest();
+        }
+        try
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(viewModel.SubscribeModel), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{_configuration["ApiUris:Subscribers"]}?key={_configuration["Api:Key"]}", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Success"] = "You have been subscribed";
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    TempData["Warning"] = "You are already a subscriber";
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                {
-                    TempData["Error"] = "Something went wrong, Please contact web admin.";
-                }
-            }
-            catch (Exception)
+            if (response.IsSuccessStatusCode)
             {
-                //logger
-                TempData["Error"] = "An unexpected error occurred. Please try again!";
+                return Ok();
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                return Conflict();
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized();
             }
         }
-        else
+        catch (Exception ex)
         {
-            TempData["Warning"] = "Invalid email address! The Email must match xx@xx.xx";
+            Debug.WriteLine(ex.Message);
+           
         }
-        return View("Home", viewModel);
+        return StatusCode(500);
+
+
+
     }
 
 

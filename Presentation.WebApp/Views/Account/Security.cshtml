@@ -40,7 +40,7 @@
                         <div class="content">
                             <div id="form-current-password" class="input-group">
                                 <label asp-for="ChangePassword.CurrentPassword"></label>
-                                <input asp-for="ChangePassword.CurrentPassword" class="form-control" />
+                                <input asp-for="ChangePassword.CurrentPassword" class="form-control" data-validation="currentPassword" />
                                 <span asp-validation-for="ChangePassword.CurrentPassword" class="invalid-feedback"></span>
                             </div>
                             <div id="form-new-password" class="input-group">

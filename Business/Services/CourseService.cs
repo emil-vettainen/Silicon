@@ -135,7 +135,7 @@ public class CourseService
 
             switch (response.StatusCode)
             {
-                case System.Net.HttpStatusCode.Created:
+                case System.Net.HttpStatusCode.OK:
                     return ResponseFactory.Ok();
 
                 case System.Net.HttpStatusCode.Conflict:
