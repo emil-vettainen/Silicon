@@ -1,19 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntities;
-using Infrastructure.Repositories.SqlRepositories;
 using Microsoft.EntityFrameworkCore;
-using Shared.Utilis;
+using System.Diagnostics;
 
 namespace Infrastructure.Repositories
 {
-    public class SavedCourseRepository : SqlBaseRepository<SavedCourseEntity, AccountDbContext>
+    public class SavedCourseRepository(AccountDbContext context) : BaseRepository<SavedCourseEntity, AccountDbContext>(context)
     {
-        private readonly AccountDbContext _context;
-        public SavedCourseRepository(AccountDbContext context, ErrorLogger errorLogger) : base(context, errorLogger)
-        {
-            _context = context;
-        }
-
+        private readonly AccountDbContext _context = context;
 
         public async Task<IEnumerable<string>> GetSavedCoursesAsync(string userId)
         {
@@ -22,12 +16,13 @@ namespace Infrastructure.Repositories
                 return await _context.SavedCourses.Where(x => x.UserId == userId).Select(x => x.CourseId).ToListAsync();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.Message);
                 return [];
             }
         }
+
 
         public async Task<bool> DeleteAllSavedcoursesAsync(string userId)
         {
@@ -43,12 +38,11 @@ namespace Infrastructure.Repositories
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //logger
+                Debug.WriteLine(ex.Message);
                 return false;
             }
         }
-
     }
 }

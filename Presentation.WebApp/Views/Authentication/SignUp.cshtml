@@ -1,5 +1,4 @@
-﻿@using Presentation.WebApp.ViewModels.Authentication
-@model SignUpViewModel
+﻿@model SignUpViewModel
 
 @{
     ViewData["Title"] = "Register";
@@ -43,11 +42,10 @@
                 </div>
                 <button id="form-submit" class="btn-theme-large" type="submit">
                     <span id="button-text">Sign Up</span>
-                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                 </button>      
             </div>
         </form>
     </div>
 </section>
 
-<script src="~/js/sign-up-validation.js" defer></script>
+@await Html.PartialAsync("~/Views/Shared/Partials/_ValidationPartial.cshtml")

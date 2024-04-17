@@ -4,26 +4,18 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Shared.Factories;
 using Shared.Responses;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 
 
-
 namespace Business.Services;
 
-public class CourseService
+public class CourseService(HttpClient httpClient, IConfiguration configuration, UploadService uploadService)
 {
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
-    private readonly UploadService _uploadService;
-
-
-    public CourseService(HttpClient httpClient, IConfiguration configuration, UploadService uploadService)
-    {
-        _httpClient = httpClient;
-        _configuration = configuration;
-        _uploadService = uploadService;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly UploadService _uploadService = uploadService;
 
 
     public async Task<CourseResultDto> GetCoursesAsync(string? category, string? searchQuery, int pageNumber, int pageSize)
@@ -41,9 +33,9 @@ public class CourseService
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
         }
         return null!;
     }
@@ -57,17 +49,15 @@ public class CourseService
             if (response.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<IEnumerable<string>>(await response.Content.ReadAsStringAsync());
-                return result;
+                return result ?? [];
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            
+            Debug.WriteLine(ex.Message);
         }
         return null!;
     }
-
 
 
     public async Task<ResponseResult> CreateCourseApiAsync(CreateCourseDto dto, IFormFile? courseImage, IFormFile? authorImage, string accessToken)
@@ -106,13 +96,12 @@ public class CourseService
                     return ResponseFactory.Unavailable();
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
             return ResponseFactory.Unavailable();
         }
     }
-
 
 
     public async Task<ResponseResult> UpdateCourseApiAsync(UpdateCourseDto dto, IFormFile? courseImage, IFormFile? authorImage, string accessToken)
@@ -151,16 +140,12 @@ public class CourseService
                     return ResponseFactory.Unavailable();
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
             return ResponseFactory.Unavailable();
         }
     }
-
-
-
-
 
 
     public async Task<string> SaveFileAsync(IFormFile file)
@@ -179,17 +164,12 @@ public class CourseService
             }
             return fileName;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //Logger
+            Debug.WriteLine(ex.Message);
             return string.Empty;
         }
     }
 
 
-
-  
-
-
- 
 }

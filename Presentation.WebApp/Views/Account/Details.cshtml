@@ -8,14 +8,7 @@
 <section class="account-details">
     <div class="container">
         <div class="d-flex flex-column gap-4">
-            
-
-
-
             <h2>Account Details</h2>
-
-        
-
             <div class="basic-info">
                 <h5>Basic Info</h5>
                 <form method="post" asp-controller="Account" asp-action="Details" novalidate>
@@ -24,8 +17,8 @@
                             <label asp-for="BasicInfo.FirstName"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.FirstName" class="form-control non-clickable" disabled />
-                                <input asp-for="BasicInfo.FirstName" class="form-control" hidden />
+                                <input asp-for="BasicInfo.FirstName" class="form-control non-clickable" readonly />
+                               @*  <input asp-for="BasicInfo.FirstName" class="form-control" hidden /> *@
                             }
                             else
                             {
@@ -37,8 +30,8 @@
                             <label asp-for="BasicInfo.LastName"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.LastName" class="form-control non-clickable" disabled />
-                                <input asp-for="BasicInfo.LastName" class="form-control" hidden />
+                                <input asp-for="BasicInfo.LastName" class="form-control non-clickable" readonly />
+                              @*   <input asp-for="BasicInfo.LastName" class="form-control" hidden /> *@
                             }
                             else
                             {
@@ -50,8 +43,8 @@
                             <label asp-for="BasicInfo.Email"></label>
                             @if (Model.IsExternalAccount)
                             {
-                                <input asp-for="BasicInfo.Email" class="form-control non-clickable" disabled />
-                                <input asp-for="BasicInfo.Email" class="form-control" hidden />
+                                <input asp-for="BasicInfo.Email" class="form-control non-clickable" readonly />
+                              @*   <input asp-for="BasicInfo.Email" class="form-control" hidden /> *@
                             }
                             else
                             {
@@ -78,7 +71,6 @@
             </div>
             <hr />
 
-           
             <div class="address-info">
                 <h5>Address</h5>
                 <form method="post" asp-controller="Account" asp-action="Details" novalidate>
@@ -114,4 +106,4 @@
     </div>
 </section>
 
-<script src="~/js/sign-up-validation.js" defer></script>
+@await Html.PartialAsync("~/Views/Shared/Partials/_ValidationPartial.cshtml")

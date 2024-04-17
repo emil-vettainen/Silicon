@@ -1,21 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntites;
 using Microsoft.EntityFrameworkCore;
-using Shared.Utilis;
+using System.Diagnostics;
 
-namespace Infrastructure.Repositories.SqlRepositories;
+namespace Infrastructure.Repositories;
 
-public class UserAddressRepository : SqlBaseRepository<UserAddressEntity, AccountDbContext>
+public class UserAddressRepository(AccountDbContext context) : BaseRepository<UserAddressEntity, AccountDbContext>(context)
 {
-    private readonly AccountDbContext _context;
-    private readonly ErrorLogger _errorLogger;
-
-    public UserAddressRepository(AccountDbContext context, ErrorLogger errorLogger) : base(context, errorLogger)
-    {
-        _context = context;
-        _errorLogger = errorLogger;
-    }
-
+    private readonly AccountDbContext _context = context;
 
     public async Task<UserAddressEntity> GetUserAddressAsync(string userId, int addressId)
     {
@@ -26,17 +18,13 @@ public class UserAddressRepository : SqlBaseRepository<UserAddressEntity, Accoun
             {
                 return entity;
             }
-
-
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-
+            Debug.WriteLine(ex.Message);
         }
         return null!;
     }
-
 
 
     public async Task<UserAddressEntity> GetAllAddressesAsync(string userId)
@@ -54,7 +42,10 @@ public class UserAddressRepository : SqlBaseRepository<UserAddressEntity, Accoun
             }
             return null!;
         }
-        catch (Exception) { return null!; }
-
+        catch (Exception ex) 
+        { 
+            Debug.WriteLine(ex.Message); 
+            return null!; 
+        }
     }
 }

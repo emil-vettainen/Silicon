@@ -17,6 +17,7 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
     private readonly UserService _userService = userService;
     private readonly HttpClient _httpClient = httpClient;
 
+
     #region SignUp
     [Route("/register")]
     public IActionResult SignUp()
@@ -57,10 +58,8 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
             TempData["Error"] = "An unexpected error occurred, Please try again!";
             return View(viewModel);
         }
-        
     }
     #endregion
-
 
 
     #region SignIn
@@ -114,7 +113,6 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
     #endregion
 
 
-
     #region SignOut
     public new async Task<IActionResult> SignOut()
     {
@@ -123,7 +121,6 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
         return RedirectToAction("Home", "Default");
     }
     #endregion
-
 
 
     #region External Authentication

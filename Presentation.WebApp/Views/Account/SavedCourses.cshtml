@@ -1,27 +1,17 @@
-﻿@using Presentation.WebApp.ViewModels.Account
-
-
-
-@model SavedCoursesViewModel
+﻿@model SavedCoursesViewModel
 
 @{
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewData["Title"] = "Saved Courses";
 }
 
-
-
 <section class="account-saved-courses">
     <div class="container">
-        
-
         <div class="d-flex flex-column">
-
             <div class="saved-items">
                 <h2>Saved Items</h2>
                 <button onclick="removeAllCourses()" href="" class="btn-danger-medium delete-all"><i class="fa-regular fa-trash"></i>Delete all</button>
             </div>
-           
             @if (Model.IsSuccces)
             {
                 @if (Model.Courses!.Any())
@@ -33,7 +23,6 @@
                 {
                     <div><h5 class="pt-4">No saved courses</h5></div>
                 }
-
             }
             else
             {
@@ -41,112 +30,6 @@
                     <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
                 </div>
             }
-
-           
-           
-            
-            
-               @*  <article class="course-card">
-
-                    <a href="/detials">
-
-                    
-                        <img class="course-img"  src="~/images/courses/course-1.svg" alt="">
-                    
-                       
-                       
-
-                        <div class="card-text">
-                            <h5>Fullstack Web Developer Course from Scratch</h5>
-                            <p class="text-s">By Robert Fox</p>
-                            <p class="text-lg">$12.50</p>
-                            <span class="border border-1"></span>
-
-                            <div class="card-info">
-                                <i class="fa-regular fa-clock">
-                                    <p class="text-s">220 hours</p>
-                                </i>
-                                <i class="fa-regular fa-thumbs-up">
-                                    <p class="text-s">94% (4.2K)</p>
-                                </i>
-                            </div>
-
-                        </div>
-                    </a>
-
-                <button class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-                </article>
-
-            <article class="course-card">
-
-                <a href="/detials">
-                    <img class="course-img" src="~/images/courses/course-2.svg" alt="">
-
-
-                    <div class="card-text">
-                        <h5>Fullstack Web Developer Course from Scratch</h5>
-                        <p class="text-s">By Robert Fox</p>
-                        <p class="text-lg">$12.50</p>
-                        <span class="border border-1"></span>
-
-                        <div class="card-info">
-                            <i class="fa-regular fa-clock">
-                                <p class="text-s">220 hours</p>
-                            </i>
-                            <i class="fa-regular fa-thumbs-up">
-                                <p class="text-s">94% (4.2K)</p>
-                            </i>
-                        </div>
-
-                    </div>
-                </a>
-
-                <button class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-            </article>
-
-            <article class="course-card">
-
-                <a href="/detials">
-                    <img class="course-img" src="~/images/courses/course-3.svg" alt="">
-
-
-                    <div class="card-text">
-                        <h5>Fullstack Web Developer Course from Scratch</h5>
-                        <p class="text-s">By Robert Fox</p>
-                        <p class="text-lg">$12.50</p>
-                        <span class="border border-1"></span>
-
-                        <div class="card-info">
-                            <i class="fa-regular fa-clock">
-                                <p class="text-s">220 hours</p>
-                            </i>
-                            <i class="fa-regular fa-thumbs-up">
-                                <p class="text-s">94% (4.2K)</p>
-                            </i>
-                        </div>
-
-                    </div>
-                </a>
-
-                <button class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-            </article>
- *@
-
-           
-
-               
-
-           
-            
-
         </div>
-
-       
-
     </div>
-
-
 </section>
-
-
-

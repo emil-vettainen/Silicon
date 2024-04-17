@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<CourseModel>
+﻿@model IEnumerable<CourseModel>
 
 
 <div class="courses-grid">
@@ -16,9 +15,6 @@
                         <div class="testar">
                             <h5>@course.CourseTitle</h5>
                             <p class="text-s">By @course.Author.FullName</p>
-
-
-
                             @if (course.Price.DiscountPrice > 0)
                             {
                                 <div class="course-price">
@@ -30,13 +26,7 @@
                             {
                                 <p class="text-lg">$@course.Price.OriginalPrice.ToString("F2")</p>
                             }
-
-
-
                             <span class="border border-1"></span>
-
-
-
                         </div>
 
                         <div class="card-info">
@@ -52,65 +42,12 @@
                 </a>
                 @if (ViewContext.RouteData.Values["Controller"]!.ToString() == "Courses")
                 {
-
-                    @*   <form method="post" asp-action="Favorite" asp-controller="Courses">
-        <input type="hidden" name="id" value="@course.Id"></input>
-        <button type="submit" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-        </form> *@
-
                     <button onclick="saveCourse('@course.Id')" class="favorite" data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Favorite" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
-
-                   @*  <script>
-
-                        function saveCourse(courseId) {
-                            fetch(`/Courses/Favorite?id=${courseId}`, {
-                                method: 'POST',
-                                headers: {
-                                    'X-Requested-With': 'XMLHttpRequest'
-                                },
-
-
-                            })
-                                .then(response => {
-                                    if (response.ok) {
-                                        showAlert('Success', 'Sparad')
-                                    } else {
-                                        alert("något fick fel");
-                                    }
-
-                                })
-                        }
-
-
-                        function showAlert(type, message) {
-                            var modal = document.getElementById('alertModal');
-                            var modalBody = modal.querySelector('.modal-body');
-                            var modalHeader = modal.querySelector('.modal-header');
-
-                            modalHeader.classList = `modal-header alert alert-${type}`;
-                            modalBody.textContent = message;
-
-                            var alertModal = new bootstrap.Modal(modal);
-                            alertModal.show();
-
-                        }
-
-                    </script> *@
-
-
                 }
                 else
                 {
                     <button onclick="removeCourse('@course.Id')" class="favorite" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove" data-bs-custom-class="custom-tooltip"><i class="fa-solid fa-bookmark"></i></button>
                 }
-
             </article>
         }
-    
-
-
-   
-
 </div>
-
-

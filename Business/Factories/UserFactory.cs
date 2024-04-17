@@ -1,6 +1,6 @@
-﻿using Business.Dtos;
-using Business.Dtos.User;
+﻿using Business.Dtos.User;
 using Infrastructure.Entities.AccountEntites;
+using System.Diagnostics;
 
 namespace Business.Factories;
 
@@ -19,10 +19,10 @@ public class UserFactory
 
             };
         }
-		catch (Exception)
+		catch (Exception ex)
 		{
-
-			throw;
+            Debug.WriteLine(ex.Message);
+            return null!;
 		}
     }
 
@@ -39,10 +39,10 @@ public class UserFactory
                 IsExternalAccount = isExternal
             };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Debug.WriteLine(ex.Message);
+            return null!;
         }
     }
 
@@ -62,9 +62,9 @@ public class UserFactory
                 
             };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            Debug.WriteLine(ex.Message);
             return null!;
         }
     }
@@ -86,30 +86,33 @@ public class UserFactory
 
             };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Debug.WriteLine(ex.Message);
+            return null!;
         }
     }
 
 
     public static UpdateUserDto UpdateUserDto(string firstName, string lastName, string email, string phoneNumber, string biography, bool isExternalAccount)
     {
-        return new UpdateUserDto
+        try
         {
-            UserName = email,
-            FirstName = firstName,
-            LastName = lastName,
-            Email = email,
-            PhoneNumber = phoneNumber,
-            Biography = biography,
-            IsExternalAccount = isExternalAccount,
-            
-
-        };
+            return new UpdateUserDto
+            {
+                UserName = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                Biography = biography,
+                IsExternalAccount = isExternalAccount,
+            };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return null!;
+        }
     }
-
-
-
 }

@@ -6,5 +6,4 @@ public static class ApplicationBuilderExtensions
     {
         return builder.UseMiddleware<UserSessionValidationMiddleware>();
     }
-
 }

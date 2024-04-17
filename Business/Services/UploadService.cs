@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 using System.Security.Claims;
+
 
 namespace Business.Services;
 
@@ -10,6 +12,7 @@ public class UploadService(UserManager<UserEntity> userManager, IConfiguration c
 {
     private readonly UserManager<UserEntity> _userManager = userManager;
     private readonly IConfiguration _configuration = configuration;
+
 
     public async Task<bool> UploadProfileImageAsync(ClaimsPrincipal user, IFormFile file)
     {
@@ -25,13 +28,12 @@ public class UploadService(UserManager<UserEntity> userManager, IConfiguration c
             var result = await _userManager.UpdateAsync(userEntity);
             return result.Succeeded;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
             return false;
         }
     }
-
 
 
     public async Task<string> SaveFileAsync(IFormFile file, string folder)
@@ -53,13 +55,12 @@ public class UploadService(UserManager<UserEntity> userManager, IConfiguration c
                 return fileName;
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
         }
         return string.Empty;
     }
-    
 
-    
+
 }

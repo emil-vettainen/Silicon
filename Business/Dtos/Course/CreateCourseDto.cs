@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-
-namespace Business.Dtos.Course;
+﻿namespace Business.Dtos.Course;
 
 public class CreateCourseDto
 {

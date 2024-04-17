@@ -1,26 +1,19 @@
 ﻿using Business.Dtos.Address;
 using Business.Factories;
-using Infrastructure.Repositories.SqlRepositories;
+using Infrastructure.Repositories;
 using Shared.Factories;
 using Shared.Responses;
+using System.Diagnostics;
+
 
 namespace Business.Services;
 
-public class AddressService
+public class AddressService(AddressRepository addressRepository, UserAddressRepository userAddressRepository, OptionalAddressRepository optionalAddressRepository)
 {
 
-	private readonly AddressRepository _addressRepository;
-    private readonly UserAddressRepository _userAddressRepository;
-    private readonly OptionalAddressRepository _optionalAddressRepository;
-
-
-    public AddressService(AddressRepository addressRepository, UserAddressRepository userAddressRepository, OptionalAddressRepository optionalAddressRepository)
-    {
-        _addressRepository = addressRepository;
-        _userAddressRepository = userAddressRepository;
-        _optionalAddressRepository = optionalAddressRepository;
-    }
-
+	private readonly AddressRepository _addressRepository = addressRepository;
+    private readonly UserAddressRepository _userAddressRepository = userAddressRepository;
+    private readonly OptionalAddressRepository _optionalAddressRepository = optionalAddressRepository;
 
 
     public async Task<AddressDto?> GetAddressInfoAsync(string userId)
@@ -30,25 +23,16 @@ public class AddressService
             var result = await _userAddressRepository.GetAllAddressesAsync(userId);
             if (result != null && result.Address != null)
             {
-              
-
-
-
                 var dto = AddressFactory.GetAddressDto(result.Address.StreetName, result.OptionalAddress?.OptionalAddress, result.Address.PostalCode, result.Address.City);
                 return dto;
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
+            Debug.WriteLine(ex.Message);
         }
         return null;
     }
-
-
-
-
-
 
 
     public async Task<ResponseResult> CreateOrUpdateAddressInfoAsync(AddressDto dto, string userId)
@@ -76,14 +60,12 @@ public class AddressService
                 return result != null ? ResponseFactory.Ok() : ResponseFactory.Error();
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Debug.WriteLine(ex.Message);
             return ResponseFactory.Error("Something went wrong, please try again!");
         }
     }
-
-
-
 
 
     public async Task<int> GetOrCreateAddressAsync(string streetName, string postalCode, string city)
@@ -104,15 +86,12 @@ public class AddressService
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-           
+            Debug.WriteLine(ex.Message);
         }
         return 0;
     }
-
-
 
 
     public async Task<int?> HandleOptionalAddressAsync(string? optionalAddress)
@@ -121,9 +100,9 @@ public class AddressService
         {
             return optionalAddress != null ? await GetOrCreateOptionalAddressAsync(optionalAddress) : null;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            Debug.WriteLine(ex.Message);
             return null;
         }
     }
@@ -144,18 +123,13 @@ public class AddressService
                 var createdOptional = await _optionalAddressRepository.CreateAsync(AddressFactory.CreateOptionalEntity(optionalAddress));
                 return createdOptional.Id;
             }
-
-       
-
-           
-
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            Debug.WriteLine(ex.Message);
             return null;
         }
-
     }
+
 
 }

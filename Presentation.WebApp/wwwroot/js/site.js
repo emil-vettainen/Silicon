@@ -248,7 +248,7 @@ async function subscriberForm(event) {
         401: { icon: "error", text: "Unauthorized, Please contact support!"},
         409: { icon: "warning", text: "You are already subscribed." },
         default: { icon: "error", text: "An unexpected error occurred! Please try again." }
-    };
+    }
 
     if (response.status === 200) {
         Swal.fire({
@@ -265,6 +265,4 @@ async function subscriberForm(event) {
             text
         })
     }
-
-    
-} 
+}

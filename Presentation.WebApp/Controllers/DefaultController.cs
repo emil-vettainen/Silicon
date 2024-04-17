@@ -6,16 +6,10 @@ using System.Text;
 
 namespace Presentation.WebApp.Controllers;
 
-public class DefaultController : Controller
+public class DefaultController(HttpClient httpClient, IConfiguration configuration) : Controller
 {
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
-
-    public DefaultController(HttpClient httpClient, IConfiguration configuration)
-    {
-        _httpClient = httpClient;
-        _configuration = configuration;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
 
     [Route("/")]
     public IActionResult Home()
@@ -24,7 +18,6 @@ public class DefaultController : Controller
         return View(viewModel);
     }
 
-    
     [HttpPost]
     public async Task<IActionResult> Subscribe(HomeViewModel viewModel)
     {
@@ -53,18 +46,18 @@ public class DefaultController : Controller
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-           
         }
         return StatusCode(500);
-
-
-
     }
-
-
 
     [Route("/error")]
     public IActionResult Error404(int statusCode)
+    {
+        return View();
+    }
+
+    [Route("/denied")]
+    public IActionResult Error401()
     {
         return View();
     }

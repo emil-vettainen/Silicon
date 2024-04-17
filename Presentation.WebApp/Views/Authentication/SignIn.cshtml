@@ -1,5 +1,4 @@
-﻿@using Presentation.WebApp.ViewModels.Authentication
-@model SignInViewModel
+﻿@model SignInViewModel
 @{
     ViewData["Title"] = "Sign in";
 }
@@ -17,7 +16,7 @@
                 </div>
                 <div id="form-password" class="input-group">
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <input asp-for="Password" class="form-control" data-validation="password" />
                     <span asp-validation-for="Password" class="invalid-feedback"></span>
                 </div>
                 <div id="form-remember" class="checkbox-group">
@@ -37,4 +36,4 @@
     </div>
 </section>
 
-<script defer src="~/js/signin-validation.js"></script>
+@await Html.PartialAsync("~/Views/Shared/Partials/_ValidationPartial.cshtml")

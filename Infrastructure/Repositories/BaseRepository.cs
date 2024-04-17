@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared.Factories;
-using Shared.Responses;
-using Shared.Utilis;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
-namespace Infrastructure.Repositories.SqlRepositories;
+namespace Infrastructure.Repositories;
 
-public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger errorLogger) where TEntity : class where TContext : DbContext
+public class BaseRepository<TEntity, TContext>(TContext context) where TEntity : class where TContext : DbContext
 {
     private readonly TContext _context = context;
-    private readonly ErrorLogger _errorLogger = errorLogger;
+
 
     public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
@@ -18,7 +16,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
             var entity = await _context.Set<TEntity>().AnyAsync(predicate);
             return entity;
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - ExistsAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return false;
     }
 
@@ -32,7 +30,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
         }
         catch (Exception ex)
         {
-            _errorLogger.ErrorLog(ex.Message, "BaseRepo - CreateAsync");
+            Debug.WriteLine(ex.Message);
             return null!;
         }
     }
@@ -47,7 +45,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
                 return entity;
             }
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - GetOneAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
 
@@ -58,7 +56,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
             var entities = await _context.Set<TEntity>().ToListAsync();
             return entities;
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - GetAllAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
 
@@ -74,7 +72,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
                 return entity;
             }
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - UpdateAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return null!;
     }
 
@@ -90,7 +88,7 @@ public class SqlBaseRepository<TEntity, TContext>(TContext context, ErrorLogger 
                 return true;
             }
         }
-        catch (Exception ex) { _errorLogger.ErrorLog(ex.Message, "BaseRepo - DeleteAsync"); }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
         return false;
     }
 }

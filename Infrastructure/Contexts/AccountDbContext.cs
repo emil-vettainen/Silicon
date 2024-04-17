@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Entities.AccountEntites;
 using Infrastructure.Entities.AccountEntities;
-using Infrastructure.Entities.SubscribeEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +10,6 @@ public class AccountDbContext(DbContextOptions<AccountDbContext> options) : Iden
     public DbSet<AddressEntity> Addresses { get; set; }
     public DbSet<OptionalAddressEntity> OptionalAddresses { get; set; }
     public DbSet<UserAddressEntity> UserAddresses { get; set; }
-    public DbSet<SubscribeEntity> Subscribers { get; set; }
     public DbSet<SavedCourseEntity> SavedCourses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Presentation.WebApp.Helpers;
 
@@ -12,7 +11,6 @@ public class UserSessionValidationMiddleware
     {
         _next = next;
     }
-
 
     public async Task InvokeAsync(HttpContext context, UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager)
     {

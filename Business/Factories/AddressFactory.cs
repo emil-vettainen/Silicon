@@ -1,5 +1,6 @@
 ﻿using Business.Dtos.Address;
 using Infrastructure.Entities.AccountEntites;
+using System.Diagnostics;
 
 namespace Business.Factories;
 
@@ -14,13 +15,12 @@ public class AddressFactory
 				OptionalAddress = optionalAddress,
 			};
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-
-			return null!;
+            Debug.WriteLine(ex.Message);
+            return null!;
 		}
     }
-
 
 	public static AddressDto GetAddressDto (string streetName, string? optionalAddress, string postalCode, string city)
 	{
@@ -34,10 +34,10 @@ public class AddressFactory
 				City = city ?? ""
 			};
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-
-			return null!;
+            Debug.WriteLine(ex.Message);
+            return null!;
 		}
 	}
 
@@ -53,9 +53,9 @@ public class AddressFactory
                 City = city
             };
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            Debug.WriteLine(ex.Message);
             return null!;
         }
     }
@@ -72,10 +72,10 @@ public class AddressFactory
 				City = city
 			};
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-
-			return null!;
+            Debug.WriteLine(ex.Message);
+            return null!;
 		}
 	}
 
@@ -91,10 +91,10 @@ public class AddressFactory
 				OptionalAddressId = optionalAddressId
 			};
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-
-			return null!;
+            Debug.WriteLine(ex.Message);
+            return null!;
 		}
 	}
 }

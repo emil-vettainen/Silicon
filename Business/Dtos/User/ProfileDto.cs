@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Business.Dtos;
+namespace Business.Dtos.User;
 
 public class ProfileDto
 {

@@ -256,7 +256,7 @@ function initValidation() {
 
 function validateInput(input) {
 
-    if (input.dataset.validation === 'currentPassword') {
+    if (input.dataset.validation === 'password') {
         input.addEventListener('keyup', (e) => textValidator(e.target))
     } else if (input.type === 'checkbox') {
         input.addEventListener('change', (e) => checkboxValidator(e.target));

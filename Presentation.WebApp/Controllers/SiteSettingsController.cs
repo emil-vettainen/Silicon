@@ -10,11 +10,9 @@ namespace Presentation.WebApp.Controllers
             {
                 Expires = DateTime.Now.AddDays(60),
             };
-
             Response.Cookies.Append("ThemeMode", theme, option);
             return Ok();
         }
-
 
         [HttpPost]
         public IActionResult CookieConsent()
@@ -24,7 +22,6 @@ namespace Presentation.WebApp.Controllers
                 Expires = DateTime.Now.AddYears(1),
                 HttpOnly = true,
                 Secure = true,
-
             };
             Response.Cookies.Append("CookieConsent", "true", option);
             return Ok();

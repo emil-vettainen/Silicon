@@ -1,29 +1,18 @@
-﻿using AutoMapper;
-using Business.Dtos.Course;
-using Business.Services;
+﻿using Business.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.Models.Courses;
 using Presentation.WebApp.ViewModels.Courses;
-
+using System.Diagnostics;
 
 
 namespace Presentation.WebApp.Controllers;
 
-public class CoursesController : Controller
+public class CoursesController(HttpClient httpClient, IConfiguration configuration, CourseService courseService) : Controller
 {
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
-    private readonly CourseService _courseService;
-    private readonly IMapper _mapper;
-
-    public CoursesController(HttpClient httpClient, IConfiguration configuration, CourseService courseService, IMapper mapper)
-    {
-        _httpClient = httpClient;
-        _configuration = configuration;
-        _courseService = courseService;
-        _mapper = mapper;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly CourseService _courseService = courseService;
 
     [Route("/courses")]
     [HttpGet]
@@ -54,9 +43,6 @@ public class CoursesController : Controller
             {
                 var result = JsonConvert.DeserializeObject<CourseResultModel>(await response.Content.ReadAsStringAsync());
 
-
-
-
                 var viewModel = new CourseViewModel
                 {
                     IsSuccess = true,
@@ -72,18 +58,14 @@ public class CoursesController : Controller
 
                     Categories = await _courseService.GetCategoriesAsync()
                 };
-
                 return View(viewModel);
-
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
+            Debug.WriteLine(ex.Message);
         }
-
         return View(new CourseViewModel());
-       
     }
 
     [HttpGet]
@@ -98,49 +80,39 @@ public class CoursesController : Controller
                 var json = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<CourseModel>(json);
 
-
-
-
                 viewModel.Course = result ?? new CourseModel();
-
 
                 return View(viewModel);
             }
-
-
-            
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
-
-            
+            Debug.WriteLine(ex.Message);
         }
         return View(new CourseDetailsViewModel());
-
     }
 
  
-    [HttpGet]
-    public async Task<IActionResult> UpdateCoursesByFilter(string? category, string? searchQuery)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?category={category}&searchQuery={searchQuery}");
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
-                return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml", data);
-            }
+    //[HttpGet]
+    //public async Task<IActionResult> UpdateCoursesByFilter(string? category, string? searchQuery)
+    //{
+    //    try
+    //    {
+    //        var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?category={category}&searchQuery={searchQuery}");
+    //        if (response.IsSuccessStatusCode)
+    //        {
+    //            var json = await response.Content.ReadAsStringAsync();
+    //            var data = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(json);
+    //            return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml", data);
+    //        }
             
-        }
-        catch (Exception)
-        {
-            //logger
-        }
-        return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml");
-    }
+    //    }
+    //    catch (Exception)
+    //    {
+    //        //logger
+    //    }
+    //    return PartialView("~/Views/Courses/_CourseBoxesPartial.cshtml");
+    //}
 
 
 

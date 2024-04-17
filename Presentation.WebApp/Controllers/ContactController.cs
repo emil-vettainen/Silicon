@@ -1,20 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.ViewModels.Contact;
+using System.Diagnostics;
 using System.Text;
 
 namespace Presentation.WebApp.Controllers;
 
-public class ContactController : Controller
+public class ContactController(HttpClient httpClient, IConfiguration configuration) : Controller
 {
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
-
-    public ContactController(HttpClient httpClient, IConfiguration configuration)
-    {
-        _httpClient = httpClient;
-        _configuration = configuration;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
 
     [Route("/contact")]
     [HttpGet]
@@ -51,9 +46,9 @@ public class ContactController : Controller
                 TempData["Error"] = "Something went wrong. Please try again!";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //logger
+            Debug.WriteLine(ex.Message);
             TempData["Error"] = "An unexpected error occurred, Please contact support!";
         }
         return View();

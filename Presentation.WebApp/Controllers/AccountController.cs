@@ -17,27 +17,16 @@ using System.Text.RegularExpressions;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class AccountController : Controller
+public class AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper, UploadService uploadService) : Controller
 {
-    private readonly UserService _userService;
-    private readonly AddressService _addressService;
-    private readonly UserManager<UserEntity> _userManager;
-    private readonly HttpClient _httpClient;
-    private readonly IConfiguration _configuration;
-    private readonly IMapper _mapper;
-    private readonly UploadService _uploadService;
+    private readonly UserService _userService = userService;
+    private readonly AddressService _addressService = addressService;
+    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly IMapper _mapper = mapper;
+    private readonly UploadService _uploadService = uploadService;
 
-
-    public AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper, UploadService uploadService)
-    {
-        _userManager = userManager;
-        _userService = userService;
-        _addressService = addressService;
-        _httpClient = httpClient;
-        _configuration = configuration;
-        _mapper = mapper;
-        _uploadService = uploadService;
-    }
 
     #region Details
     public async Task<IActionResult> Details()
@@ -54,10 +43,8 @@ public class AccountController : Controller
         };
         return View(viewModel);
     }
-    #endregion
 
 
-    #region Details [HttpPost] 
     [HttpPost]
     public async Task<IActionResult> Details(AccountDetailsViewModel viewModel, string action)
     {
@@ -123,10 +110,8 @@ public class AccountController : Controller
 
         return View(viewModel);
     }
-    #endregion
+   
 
-
-    #region Security [HttpPost] 
     [HttpPost]
     public async Task<IActionResult> Security(SecurityViewModel viewModel, string action)
     {
@@ -168,9 +153,7 @@ public class AccountController : Controller
     #endregion
 
 
-
-
-
+    #region ProfileImage
     [HttpPost]
     public async Task<IActionResult> UploadProfileImage(IFormFile file)
     {
@@ -180,8 +163,8 @@ public class AccountController : Controller
             TempData["Success"] = "Profile image have been updated!";
         }
         return RedirectToAction("Details", "Account");
-
     }
+    #endregion
 
 
 
