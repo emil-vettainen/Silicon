@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.Factories;
+﻿using Business.Factories;
 using Business.Services;
 using Infrastructure.Entities.AccountEntites;
 using Microsoft.AspNetCore.Authorization;
@@ -17,14 +16,13 @@ using System.Text.RegularExpressions;
 namespace Presentation.WebApp.Controllers;
 
 [Authorize]
-public class AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, IMapper mapper, UploadService uploadService) : Controller
+public class AccountController(UserManager<UserEntity> userManager, UserService userService, AddressService addressService, HttpClient httpClient, IConfiguration configuration, UploadService uploadService) : Controller
 {
     private readonly UserService _userService = userService;
     private readonly AddressService _addressService = addressService;
     private readonly UserManager<UserEntity> _userManager = userManager;
     private readonly HttpClient _httpClient = httpClient;
     private readonly IConfiguration _configuration = configuration;
-    private readonly IMapper _mapper = mapper;
     private readonly UploadService _uploadService = uploadService;
 
 
@@ -107,7 +105,6 @@ public class AccountController(UserManager<UserEntity> userManager, UserService 
         {
             IsExternalAccount = user!.IsExternalAccount
         };
-
         return View(viewModel);
     }
    
@@ -127,10 +124,10 @@ public class AccountController(UserManager<UserEntity> userManager, UserService 
                     var result = await _userManager.ChangePasswordAsync(user!, viewModel.ChangePassword.CurrentPassword, viewModel.ChangePassword.NewPassword);
                     if (!result.Succeeded)
                     {
-                        ViewBag.Error = "An unexpected error occurred.";
+                        TempData["Error"] = "An unexpected error occurred. Please try again!";
                         return View(viewModel);
                     }
-                    ViewBag.Success = "Your password was changed successfully";
+                    TempData["Success"] = "Your password was changed successfully";
                 }
                 break;
 
@@ -140,7 +137,7 @@ public class AccountController(UserManager<UserEntity> userManager, UserService 
                     var result = await _userManager.DeleteAsync(user!);
                     if (!result.Succeeded)
                     {
-                        ViewBag.Error = "An unexpected error occurred.";
+                        TempData["Error"] = "An unexpected error occurred. Please try again!";
                         return View(viewModel);
                     }
                     return RedirectToAction("SignIn", "Authentication");
@@ -165,32 +162,6 @@ public class AccountController(UserManager<UserEntity> userManager, UserService 
         return RedirectToAction("Details", "Account");
     }
     #endregion
-
-
-
-    //#region ProfileImage [HttpPost]
-    //[HttpPost]
-    //public async Task <IActionResult> UpdateProfileImage(AccountPanelViewModel viewModel)
-    //{
-    //    var userId = _userManager.GetUserId(User);
-
-    //    if (viewModel.ProfileImage != null)
-    //    {
-
-    //        var result = await _userService.UploadProfileImageAsync(userId!, viewModel.ProfileImage);
-
-    //        return RedirectToAction("Details");
-
-
-    //    }
-
-    //    ViewBag.Error = "Valideringsfel";
-    //    return RedirectToAction("Details");
-    //}
-    //#endregion
-
-
-
 
 
     #region Saved Courses

@@ -5,7 +5,6 @@
     handleProfileImageUpload()
 
     let sw = document.querySelector('#theme-toggle')
-
     sw.addEventListener('change', function () {
         let theme = this.checked ? "dark" : "light"
 
@@ -16,11 +15,12 @@
                 else {
                     console.log("...")
                 }
-                    
             })
-
-
     })
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 })
 
 
@@ -66,54 +66,6 @@ function searchQuery() {
     }
 }
 
-//function filterCourses() {
-//    const categoryElement = document.querySelector('.selected');
-//    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
-
-//    const searchQuery = document.getElementById('searchQuery').value
-
-
-
-//    fetch(`/Courses/UpdateCoursesByFilter?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`)
-
-//        .then(response => {
-//            if (!response.ok) {
-//                throw new Error('Network response was not ok');
-//            }
-//            return response.text(); // Servern svarar med HTML
-//        })
-//        .then(data => {
-//            document.getElementById('boxes').innerHTML = data; // Infoga HTML i elementet
-//        })
-//        .catch(error => {
-//            console.error('Fetch error:', error);
-//        });
-//}
-
-
-
-
-
-//function updateCoursesByFilter() {
-//    const categoryElement = document.querySelector('.selected');
-//    const category = categoryElement ? categoryElement.getAttribute('data-value') : "";
-
-//    const searchQuery = document.getElementById('searchQuery').value
-
-//    const url = `/courses?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`
-
-
-//    fetch(url)
-//        .then(res => res.text())
-//        .then(data => {
-//            const parser = new DOMParser()
-//            const dom = parser.parseFromString(data, 'text/html')
-//            document.querySelector('#boxes').innerHTML = dom.querySelector('#boxes').innerHTML
-
-//            const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
-//            /*document.querySelector('.pagination').innerHTML = pagination*/
-//        })
-//}
 
 function updateCoursesByFilter() {
     const categoryElement = document.querySelector('.selected')
@@ -161,8 +113,6 @@ function onAjaxComplete() {
 
 
 
-
-
 function handleProfileImageUpload() {
     try {
 
@@ -177,55 +127,6 @@ function handleProfileImageUpload() {
     {
         console.log(e)
     }
-}
-
-
-
-function submitForm() {
-    document.getElementById('uploadForm').submit();
-}
-
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-
-
-
-
-function addHighlight() {
-    const container = document.getElementById('highlights-container');
-    const index = container.querySelectorAll('.highlight').length;
-    const highlightHtml = `
-        <div class="input-group highlight">
-            <label class="pb-2 pt-2" for="Course.Highlights[${index}]">Highlight</label>
-            <input type="text" name="Course.Highlights[${index}].Highlight" class="form-control" />
-            <button class="btn-danger-small" type="button" onclick="removeHighlight(this)">Remove</button>
-        </div>`;
-    container.insertAdjacentHTML('beforeend', highlightHtml);
-}
-
-function removeHighlight(button) {
-    button.parentNode.remove();
-}
-
-
-
-function addContent() {
-    const container = document.getElementById('content-container');
-    const index = container.querySelectorAll('.content-item').length;
-    const contentHtml = `
-        <div class="input-group content-item">
-            <label class="pb-2 pt-2"  for="Course_Content_${index}__Title">Title</label>
-            <input type="text" name="Course.Content[${index}].Title" class="form-control" />
-            <label class="pb-2 pt-2" for="Course_Content_${index}__Description">Description</label>
-            <input type="text" name="Course.Content[${index}].Description" class="form-control" />
-            <button class="btn-danger-small" type="button" onclick="removeContent(this)">Remove</button>
-        </div>`;
-    container.insertAdjacentHTML('beforeend', contentHtml);
-}
-
-function removeContent(button) {
-    button.closest('.content-item').remove();
 }
 
 

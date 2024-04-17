@@ -11,13 +11,17 @@ public class DefaultController(HttpClient httpClient, IConfiguration configurati
     private readonly HttpClient _httpClient = httpClient;
     private readonly IConfiguration _configuration = configuration;
 
+    #region /Home
     [Route("/")]
     public IActionResult Home()
     {
         var viewModel = new HomeViewModel();
         return View(viewModel);
     }
+    #endregion
 
+
+    #region Subscribe
     [HttpPost]
     public async Task<IActionResult> Subscribe(HomeViewModel viewModel)
     {
@@ -49,16 +53,25 @@ public class DefaultController(HttpClient httpClient, IConfiguration configurati
         }
         return StatusCode(500);
     }
+    #endregion
 
+
+    #region Not Found
     [Route("/error")]
     public IActionResult Error404(int statusCode)
     {
         return View();
     }
+    #endregion
 
+
+    #region Denied
     [Route("/denied")]
     public IActionResult Error401()
     {
         return View();
     }
+    #endregion
+
+
 }

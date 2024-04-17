@@ -46,11 +46,11 @@ namespace Presentation.WebApp.Controllers
                     var result = JsonConvert.DeserializeObject<CourseViewModel>(await response.Content.ReadAsStringAsync());
                     var viewModel = new CourseViewModel
                     {
+                        IsSuccess = true,
                         Courses = result?.Courses ?? []
                     };
                     return View(viewModel);
                 }
-
             }
             catch (Exception)
             {

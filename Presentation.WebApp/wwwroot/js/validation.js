@@ -2,7 +2,7 @@ const formErrorHandler = (element, validationResult, customMessage = "") => {
 
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
-   
+
 
 
     if (validationResult) {
@@ -76,10 +76,19 @@ const passwordValidator = (element) => {
 
 
     if (element.dataset.valEqualtoOther !== undefined) {
-        const targetName = element.dataset.valEqualtoOther.replace('*.', '') 
-        const targetElement = document.querySelector('input[type="password"][data-val="true"]');
+
+        console.log("Original value in data attribute: ", element.dataset.valEqualtoOther);
+        const targetName = element.dataset.valEqualtoOther.replace('*.', '')
+
+        console.log("Parsed target name: ", targetName);
+        const targetElement = document.querySelector(`input[name$="${targetName}"]`);
+
+        console.log("Target element: ", targetElement);
+
         const targetPassword = targetElement ? targetElement.value : null;
- 
+
+        console.log("Target password: ", targetPassword);
+
         const isEmpty = !element.value
         const isMatch = element.value === targetPassword
 
@@ -128,7 +137,7 @@ const checkboxValidator = (element) => {
 
 const checkAndAddClass = (input) => {
     if (input.classList.contains('input-validation-error'))
-        input.classList.add('is-invalid'); // Lägg till din anpassade klass
+        input.classList.add('is-invalid');
 
 }
 
@@ -206,21 +215,8 @@ const checkAndAddClass = (input) => {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    initValidation(); // Initiera valideringen när sidan laddas
-   /* setupMutationObserver(); // Starta MutationObserver*/
+    initValidation();
 });
-
-
-//function initValidation() {
-//    let forms = document.querySelectorAll('form')
-//    forms.forEach(form => {
-//        form.addEventListener('input', function (event) {
-//            let input = event.target;
-//            if 
-//        })
-//    })
-//}
-
 
 
 function initValidation() {
@@ -276,25 +272,3 @@ function validateInput(input) {
         });
     }
 }
-
-//function setupMutationObserver() {
-//    const observer = new MutationObserver(mutations => {
-//        mutations.forEach(mutation => {
-//            mutation.addedNodes.forEach(node => {
-//                // Kontrollera om det tillagda noden är relevant för din valideringslogik
-//                if (node.nodeType === 1) { // Element nod
-//                    // Om noden innehåller formulär eller input-fält, återinitiera valideringslogiken
-//                    initValidation();
-//                }
-//            });
-//        });
-//    });
-
-//    observer.observe(document.body, { childList: true, subtree: true });
-//}
-
-
-
-
-
-

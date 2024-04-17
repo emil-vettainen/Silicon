@@ -11,6 +11,8 @@ public class ContactController(HttpClient httpClient, IConfiguration configurati
     private readonly HttpClient _httpClient = httpClient;
     private readonly IConfiguration _configuration = configuration;
 
+
+    #region Contact Request
     [Route("/contact")]
     [HttpGet]
     public IActionResult Contact()
@@ -53,4 +55,7 @@ public class ContactController(HttpClient httpClient, IConfiguration configurati
         }
         return View();
     }
+    #endregion
+
+
 }
