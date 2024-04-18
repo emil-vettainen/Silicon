@@ -67,6 +67,7 @@
             grid-column: 1 / 13;
             padding: 4rem 1rem 2rem 1rem;
             margin-top: 2rem;
+            border-radius: 8px;
             z-index: 99;
 
             @include shadow-s;

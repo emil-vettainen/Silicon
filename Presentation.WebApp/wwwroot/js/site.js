@@ -53,11 +53,11 @@ function select() {
 
 function searchQuery() {
     try {
-        document.getElementById('searchQuery').addEventListener('change', function (event) {
-            //if (event.key === "Enter") {
-            //    event.preventDefault()
-            //    return
-            //}
+        document.getElementById('searchQuery').addEventListener('keyup', function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                return
+            }
             updateCoursesByFilter()
         })
 
@@ -70,7 +70,6 @@ function searchQuery() {
 function updateCoursesByFilter() {
     const categoryElement = document.querySelector('.selected')
     const category = categoryElement ? categoryElement.getAttribute('data-value') : ""
-
     const searchQuery = document.getElementById('searchQuery').value
 
     const url = `/courses?category=${encodeURIComponent(category || "")}&searchQuery=${encodeURIComponent(searchQuery)}`
@@ -82,16 +81,11 @@ function updateCoursesByFilter() {
             const dom = parser.parseFromString(data, 'text/html')
             const coursesBox = dom.querySelector('#boxes')
 
-            // Kontrollera om svaret innehåller några kursboxar
             if (!coursesBox || !coursesBox.innerHTML.trim()) {
-                // Om inga kursboxar finns, visa "Not Found!"
-                document.querySelector('#boxes').innerHTML = '<div><h6 class="pt-5 text-center">No courses found.</h6></div>'
+                document.querySelector('#boxes').innerHTML = '<div><h6 class="pt-5 text-center">Unfortunately, we found no courses matching your search.</h6></div>'
             } else {
-                // Annars, uppdatera innehållet med de hittade kursboxarna
                 document.querySelector('#boxes').innerHTML = coursesBox.innerHTML
             }
-
-            // Hantera paginering om sådan finns
             const paginationElement = document.querySelector('.pagination');
             const pagination = dom.querySelector('.pagination') ? dom.querySelector('.pagination').innerHTML : ''
             if (paginationElement) {
@@ -99,7 +93,7 @@ function updateCoursesByFilter() {
             }
         })
         .finally(() => {
-            onAjaxComplete(); // Initialisera tooltips igen efter AJAX-anropet
+            onAjaxComplete();
         })
 }
 

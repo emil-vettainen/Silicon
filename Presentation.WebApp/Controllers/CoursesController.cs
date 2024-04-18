@@ -1,4 +1,5 @@
 ﻿using Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Presentation.WebApp.Models.Courses;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 
 namespace Presentation.WebApp.Controllers;
 
+[Authorize]
 public class CoursesController(HttpClient httpClient, IConfiguration configuration, CourseService courseService) : Controller
 {
     private readonly HttpClient _httpClient = httpClient;
@@ -23,7 +25,7 @@ public class CoursesController(HttpClient httpClient, IConfiguration configurati
         try
         {
             var response = await _httpClient.GetAsync($"{_configuration["ApiUris:Courses"]}?key={_configuration["Api:Key"]}&category={category}&searchQuery={searchQuery}&pageNumber={pageNumber}&pageSize={pageSize}");
-            if (response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var result = JsonConvert.DeserializeObject<CourseResultModel>(await response.Content.ReadAsStringAsync());
 
@@ -43,6 +45,13 @@ public class CoursesController(HttpClient httpClient, IConfiguration configurati
                     Categories = await _courseService.GetCategoriesAsync()
                 };
                 return View(viewModel);
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound) {
+                return View(new CourseViewModel
+                {
+                    IsSuccess = true,
+                    NotFound = true,
+                });
             }
         }
         catch (Exception ex)

@@ -26,7 +26,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item">
-                            <a class="menu-link" asp-controller="Default" asp-action="Home">Overview</a>
+                            <a class="menu-link" asp-controller="Default" asp-action="Home" asp-fragment="showcase">Overview</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
@@ -47,7 +47,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="menu-link" asp-controller="Default" asp-action="Home">Features</a>
+                                <a class="menu-link" asp-controller="Default" asp-action="Home" asp-fragment="features">Features</a>
                             </li>
                             <li class="nav-item">
                                 <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
@@ -67,7 +67,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="navbar-profileimg">
-                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? $"profiles-img/{user.ProfileImageUrl}" : "user-profile.png")" alt="Profile Image"></a>
+                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/profiles-img/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image"></a>
                             </div>
                         }
                         else

@@ -2,18 +2,13 @@ using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntites;
 using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Presentation.WebApp.Configuration.AutoMapper;
 using Presentation.WebApp.Helpers;
-using Presentation.WebApp.ViewModels;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

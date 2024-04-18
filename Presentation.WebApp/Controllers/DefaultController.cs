@@ -15,6 +15,7 @@ public class DefaultController(HttpClient httpClient, IConfiguration configurati
     [Route("/")]
     public IActionResult Home()
     {
+        ViewData["Title"] = "Home";
         var viewModel = new HomeViewModel();
         return View(viewModel);
     }

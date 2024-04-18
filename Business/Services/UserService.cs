@@ -14,7 +14,6 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 
-
 namespace Business.Services;
 
 public class UserService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager, UserAddressRepository userAddressRepository, IConfiguration config, SavedCourseRepository savedCourseRepository, HttpClient httpClient, IHttpContextAccessor contextAccessor)
@@ -97,35 +96,45 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
 
     public async Task<ResponseResult> CreateAsync(CreateUserDto dto)
     {
+        
         try
         {
+            var isFirstUser = !await _userManager.Users.AnyAsync();
+
             var userExists = await _userManager.Users.AnyAsync(x => x.Email == dto.Email);
             if (userExists)
             {
                 return ResponseFactory.Exists();
             }
 
-            var createUser = await _userManager.CreateAsync(new UserEntity
+            var userEntity = new UserEntity
             {
                 UserName = dto.Email,
                 Email = dto.Email,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
+                Created = DateTime.Now,
+            };
 
-            }, dto.Password);
+            var createUser = await _userManager.CreateAsync(userEntity, dto.Password);
 
             if (!createUser.Succeeded)
             {
                 return ResponseFactory.Error();
             }
 
-            return ResponseFactory.Ok();
+            var standardRole = isFirstUser ? "Admin" : "User";
+            var roleResult = await _userManager.AddToRoleAsync(userEntity, standardRole);
+            if (roleResult.Succeeded)
+            {
+                return ResponseFactory.Ok();
+            }
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return ResponseFactory.Error();
         }
+        return ResponseFactory.Error();
     }
    
 
@@ -164,6 +173,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
             user.PhoneNumber = dto.PhoneNumber;
             user.Biography = dto.Biography;
             user.IsExternalAccount = dto.IsExternalAccount;
+            user.Modified = DateTime.Now;
 
             var result = await _userManager.UpdateAsync(user);
             if(!result.Succeeded)
@@ -215,24 +225,20 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         try
         {
             var pattern = @"^(([^<>()\]\\.,;:\s@\""]+(\.[^<>()\]\\.,;:\s@\""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
-
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return ResponseFactory.NotFound();
             }
-
             if (!Regex.IsMatch(newPassword, pattern))
             {
                 return ResponseFactory.Error("Invalid password");
             }
-
             var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
             if (!result.Succeeded)
             {
                 return ResponseFactory.Error("An unexpected error occurred.");
             }
-
             return ResponseFactory.Ok();
         }
         catch (Exception ex)

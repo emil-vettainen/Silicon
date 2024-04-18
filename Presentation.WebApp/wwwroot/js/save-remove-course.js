@@ -8,7 +8,7 @@ async function saveCourse(courseId) {
         })
         const statusMessages = {
             200: { icon: "success", text: "Course has been saved to your favorites" },
-            400: { Icon: "error", text: "Invalid request" },
+            400: { icon: "error", text: "Invalid request" },
             409: { icon: "warning", text: "Already saved" },
             default: { icon: "error", text: "An unexpected error occurred! Please try again" }
         }
@@ -95,7 +95,7 @@ async function removeAllCourses() {
                 },
             })
             const statusMessages = {
-                404: { icon: "warning", text: "No saved courses to remove" },
+                409: { icon: "warning", text: "No saved courses to remove" },
                 default: { icon: "error", text: "An unexpected error occurred! Please try again" }
             }
             if (response.status === 200) {

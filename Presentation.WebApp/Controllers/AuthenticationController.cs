@@ -45,6 +45,7 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
                     return View(viewModel);
 
                 case ResultStatus.OK:
+                    TempData["Success"] = "Your account was created!";
                     return RedirectToAction(nameof(SignIn));
 
                 default:

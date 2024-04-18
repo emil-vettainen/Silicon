@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Business.Dtos.Course;
 using Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Newtonsoft.Json;
 using Presentation.WebApp.Models.Courses;
 using Presentation.WebApp.ViewModels.Admin;
 using Presentation.WebApp.ViewModels.Courses;
-using Shared.Factories;
 using Shared.Responses.Enums;
-using System.Net.Http;
+using System.Diagnostics;
 using System.Net.Http.Headers;
-using System.Text;
 
 namespace Presentation.WebApp.Controllers
 {
@@ -91,7 +89,7 @@ namespace Presentation.WebApp.Controllers
                 {
                     case ResultStatus.OK:
                         TempData["Success"] = "Course has been created";
-                        return View(viewModel);
+                        return RedirectToAction("Dashboard", "Admin");
 
                     case ResultStatus.EXISTS:
                         TempData["Warning"] = "Course with given title is already exists!";
@@ -141,29 +139,36 @@ namespace Presentation.WebApp.Controllers
                 ModelState.Remove("courseImage");
                 ModelState.Remove("authorImage");
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    var accessToken = HttpContext.Request.Cookies["AccessToken"];
-                    var result = await _courseService.UpdateCourseApiAsync(_mapper.Map<UpdateCourseDto>(viewModel.Course), courseImage, authorImage, accessToken!);
-                    switch (result.StatusCode)
-                    {
-                        case ResultStatus.OK:
-                            TempData["Success"] = "Course has been updated!";
-                            return View(viewModel);
-
-                        default:
-                            TempData["Error"] = result.Message;
-                            return View(viewModel);
-
-                    }
+                    return View(viewModel);
                 }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                var accessToken = HttpContext.Request.Cookies["AccessToken"];
+                var result = await _courseService.UpdateCourseApiAsync(_mapper.Map<UpdateCourseDto>(viewModel.Course), courseImage, authorImage, accessToken!);
+                switch (result.StatusCode)
+                {
+                    case ResultStatus.OK:
+                        TempData["Success"] = "Course has been updated!";
+                        return RedirectToAction("Dashboard", "Admin");
+
+                    case ResultStatus.EXISTS:
+                        TempData["Warning"] = "Course with given title is already exists!";
+                        return View(viewModel);
+
+                    default:
+                        TempData["Error"] = "Something went wrong, please try again!";
+                        return View(viewModel);
+
+                }
+                
             }
-            return View(viewModel); 
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                TempData["Error"] = "The server encountered an unexpected condition!";
+                return View(viewModel);
+            }
         }
 
 
