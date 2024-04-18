@@ -1,7 +1,6 @@
 .courses {
     padding: 1rem 0;
 
-
     .container {
 
         .courses-options {
@@ -9,11 +8,9 @@
             flex-direction: column;
             padding-top: 2rem;
 
-
             h1 {
                 flex-grow: 1;
             }
-
 
             .filters {
                 display: flex;
@@ -26,8 +23,6 @@
             @include md {
                 flex-direction: row;
                 align-items: center;
-
-
 
                 .filters {
                     flex-direction: row;

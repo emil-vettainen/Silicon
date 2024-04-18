@@ -25,12 +25,9 @@
             background-repeat: no-repeat;
             background-position: 100% 50%;
             width: 100%;
-            
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             align-items: center;
-
-
 
             @include md {
                 width: 35%;
@@ -43,9 +40,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-
-
-
 
                 @include xl {
                     grid-column: 2/7;
@@ -75,8 +69,6 @@
                     @include xl {
                         flex-direction: row;
                     }
-
-
 
                     .youtube {
                         background-color: var(--clr-danger);

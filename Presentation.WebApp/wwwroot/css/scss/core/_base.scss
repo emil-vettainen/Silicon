@@ -4,7 +4,6 @@ html, body {
     background-color: var(--clr-bg-section);
 }
 
-
 img, svg {
     max-width: 100%;
     height: auto;
@@ -100,17 +99,14 @@ h6, .h6 {
     margin: 0;
     padding: 0 0;
 
-
     li {
         padding: 6px 0;
-        //text-indent: -11px;
         position: relative;
         padding-left: 30px;
     }
 
     i {
         color: var(--clr-theme);
-        //margin-right: 7px;
         position: absolute;
         left: 0;
         top: 50%;
@@ -120,26 +116,20 @@ h6, .h6 {
 
 .error-message {
     @include text-m;
-    
-    
     background-color: var(--clr-danger);
     color: var(--clr-white);
-    
     border-radius: 6px;
     margin-bottom: .6rem;
     font-weight: 400;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: .5rem 0;
 
-   
     ul {
         margin: 0;
     }
 }
-
 
 
 .alert-success {
@@ -192,7 +182,6 @@ h6, .h6 {
 }
 
 
-/* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus
@@ -233,6 +222,5 @@ select:-webkit-autofill:focus {
 
 
 .validation-summary {
- 
     color: var(--clr-danger);
 }

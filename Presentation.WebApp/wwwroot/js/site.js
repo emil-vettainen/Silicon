@@ -18,8 +18,7 @@
             })
     })
 
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 
 })
 
@@ -62,7 +61,7 @@ function searchQuery() {
         })
 
     } catch (e) {
-
+        console.log(e)
     }
 }
 
@@ -107,18 +106,22 @@ function onAjaxComplete() {
 
 
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+
+
 function handleProfileImageUpload() {
     try {
 
         let uploader = document.getElementById('uploadFile')
         if (uploader != undefined) {
-            uploader.addEventListener('change', function() {
+            uploader.addEventListener('change', function () {
                 if (this.files.length > 0)
                     this.form.submit()
             })
         }
-    } catch (e)
-    {
+    } catch (e) {
         console.log(e)
     }
 }

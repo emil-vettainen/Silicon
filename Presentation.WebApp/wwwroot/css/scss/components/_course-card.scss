@@ -11,21 +11,13 @@
     }
 }
 
-
 .course-card {
     grid-column: span 12;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     z-index: 1;
     position: relative;
-
-
-
     @include shadow-s;
-
-
-
-
 
     a {
         text-decoration: none;
@@ -50,8 +42,6 @@
             padding: 1px 8px;
         }
 
-
-
         .card-text {
             display: flex;
             flex-direction: column;
@@ -59,24 +49,16 @@
             padding: 1.5rem 1.0rem;
             flex-grow: 1;
 
-
-
             .testar {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
                 flex-grow: 1;
 
-
-
-
-
                 h5 {
                     transition: all .2s ease-in-out;
                     flex-grow: 1;
                 }
-
-
 
                 .text-lg {
                     font-weight: 700;
@@ -86,7 +68,6 @@
                 .border {
                     border-color: var(--clr-gray-300);
                 }
-
 
                 .course-price {
                     display: flex;
@@ -102,14 +83,9 @@
                     }
                 }
             }
-
-
-
-
             .card-info {
                 display: flex;
                 gap: 20px;
-
 
                 i {
                     display: flex;
@@ -120,8 +96,6 @@
                 }
             }
         }
-
-
         &:hover {
 
             h5 {
@@ -134,18 +108,9 @@
         grid-column: span 6;
     }
 
-
-
     @include xl {
         grid-column: span 4;
     }
-
-
-
-
-
-
-
 
     .favorite {
         position: absolute;

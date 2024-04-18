@@ -7,7 +7,6 @@
         align-items: center;
         padding-bottom: .5rem;
 
-
         .btn-danger-medium {
             background-color: transparent;
             border-color: var(--clr-danger);
@@ -24,25 +23,15 @@
         border-bottom-right-radius: 6px;
         z-index: 1;
         position: relative;
-
         @include shadow-s;
-
-
-
-
-
 
         a {
             text-decoration: none;
-
-
 
             .course-img {
                 border-top-left-radius: 6px;
                 border-top-right-radius: 6px;
             }
-
-
 
             .card-text {
                 display: flex;
@@ -50,12 +39,9 @@
                 gap: 10px;
                 padding: 1.5rem 1.0rem;
 
-
                 h5 {
                     transition: all .2s ease-in-out;
                 }
-
-
 
                 .text-lg {
                     font-weight: 700;
@@ -70,7 +56,6 @@
                     display: flex;
                     gap: 20px;
 
-
                     i {
                         display: flex;
                         align-items: center;
@@ -80,8 +65,6 @@
                     }
                 }
             }
-
-
             &:hover {
 
                 h5 {
@@ -94,19 +77,8 @@
             grid-column: span 6;
         }
 
-
-
         @include xl {
             grid-column: span 6;
         }
-
-
-
-
-
-
-
-
-      
     }
 }

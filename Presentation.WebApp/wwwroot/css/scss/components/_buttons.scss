@@ -13,7 +13,6 @@
     transition: all .2s ease-in-out;
     text-decoration: none;
 
-
     &:hover {
         background: var(--clr-gray-700);
         color: var(--clr-white);
@@ -69,7 +68,6 @@
     padding: 9px 20px;
 }
 
-
 .btn-danger-medium {
     @include button;
     padding: 9px 20px;
@@ -82,7 +80,6 @@
         border-color: var(--clr-danger);
     }
 }
-
 
 .btn-switch {
     display: flex;

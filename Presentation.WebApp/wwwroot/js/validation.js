@@ -2,20 +2,15 @@ const formErrorHandler = (element, validationResult, customMessage = "") => {
 
     let spanElement = document.querySelector(`[data-valmsg-for="${element.name}"]`)
 
-
-
-
     if (validationResult) {
         element.classList.remove('input-validation-error')
 
         element.classList.remove('is-invalid')
         element.classList.add('is-valid')
 
-
         spanElement.classList.remove('field-validation-error')
         spanElement.classList.add('field-validation-valid')
         spanElement.innerHTML = ''
-
 
     }
     else {
@@ -27,8 +22,6 @@ const formErrorHandler = (element, validationResult, customMessage = "") => {
         spanElement.classList.remove('field-validation-valid')
         spanElement.innerHTML = customMessage || element.dataset.valRequired;
     }
-
-
 }
 
 
@@ -42,14 +35,10 @@ const textValidator = (element, minLength = 1) => {
     else {
         formErrorHandler(element, false)
     }
-
 }
 
 
-
-
 const emailValidator = (element) => {
-
     const isEmpty = !element.value;
     const isValidEmail = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(element.value)
 
@@ -62,33 +51,17 @@ const emailValidator = (element) => {
     else {
         formErrorHandler(element, true)
     }
-
-
-    //const regEx = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    //formErrorHandler(element, regEx.test(element.value))
 }
 
 
 
 
 const passwordValidator = (element) => {
-
-
-
     if (element.dataset.valEqualtoOther !== undefined) {
 
-        console.log("Original value in data attribute: ", element.dataset.valEqualtoOther);
         const targetName = element.dataset.valEqualtoOther.replace('*.', '')
-
-        console.log("Parsed target name: ", targetName);
         const targetElement = document.querySelector(`input[name$="${targetName}"]`);
-
-        console.log("Target element: ", targetElement);
-
         const targetPassword = targetElement ? targetElement.value : null;
-
-        console.log("Target password: ", targetPassword);
-
         const isEmpty = !element.value
         const isMatch = element.value === targetPassword
 
@@ -101,7 +74,6 @@ const passwordValidator = (element) => {
         else {
             formErrorHandler(element, true)
         }
-
     }
     else {
 
@@ -117,10 +89,6 @@ const passwordValidator = (element) => {
         else {
             formErrorHandler(element, true)
         }
-
-
-        //const regEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-        //formErrorHandler(element, regEx.test(element.value))
     }
 }
 
@@ -135,11 +103,11 @@ const checkboxValidator = (element) => {
 }
 
 
-const checkAndAddClass = (input) => {
-    if (input.classList.contains('input-validation-error'))
-        input.classList.add('is-invalid');
+//const checkAndAddClass = (input) => {
+//    if (input.classList.contains('input-validation-error'))
+//        input.classList.add('is-invalid')
 
-}
+//}
 
 
 //let forms = document.querySelectorAll('form')
@@ -216,13 +184,13 @@ const checkAndAddClass = (input) => {
 
 document.addEventListener('DOMContentLoaded', function () {
     initValidation();
-});
+})
 
 
 function initValidation() {
-    let forms = document.querySelectorAll('form');
+    let forms = document.querySelectorAll('form')
     forms.forEach(form => {
-        let inputs = form.querySelectorAll('input');
+        let inputs = form.querySelectorAll('input')
         let textareas = form.querySelectorAll('textarea')
 
 
@@ -233,7 +201,7 @@ function initValidation() {
                 }
                 validateInput(input);
             }
-        });
+        })
 
 
         textareas.forEach(textarea => {
@@ -247,7 +215,7 @@ function initValidation() {
             }
         })
 
-    });
+    })
 }
 
 function validateInput(input) {
@@ -255,7 +223,7 @@ function validateInput(input) {
     if (input.dataset.validation === 'password') {
         input.addEventListener('keyup', (e) => textValidator(e.target))
     } else if (input.type === 'checkbox') {
-        input.addEventListener('change', (e) => checkboxValidator(e.target));
+        input.addEventListener('change', (e) => checkboxValidator(e.target))
     } else {
         input.addEventListener('keyup', (e) => {
             switch (e.target.type) {
@@ -269,6 +237,6 @@ function validateInput(input) {
                     passwordValidator(e.target);
                     break;
             }
-        });
+        })
     }
 }

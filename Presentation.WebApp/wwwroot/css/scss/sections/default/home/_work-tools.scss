@@ -60,8 +60,6 @@
 
             @include lg {
                 .box {
-                    // align-items: flex-start;
-                    // justify-content: flex-start;
                     grid-column: span 4;
                 }
             }

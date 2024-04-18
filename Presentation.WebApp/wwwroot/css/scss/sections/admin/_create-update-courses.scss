@@ -9,8 +9,6 @@
         form {
             grid-column: 1/13;
 
-
-
             @include lg {
                 grid-column: 3/11;
             }
@@ -24,7 +22,6 @@
             }
 
 
-
             .content {
                 padding: 2rem 0;
 
@@ -32,7 +29,6 @@
                     display: flex;
                     align-items: center;
                 }
-
 
                 #highlights-container {
 
@@ -43,9 +39,6 @@
                             }
                         }
                     }
-
-
-
 
                     .btn-danger-small {
                         border-radius: 6px !important;

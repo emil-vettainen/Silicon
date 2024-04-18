@@ -1,6 +1,5 @@
 .account-details {
 
-
     .basic-info {
 
         h5 {
@@ -21,8 +20,6 @@
                     column-gap: 1.5rem;
                     grid-template-areas: "firstname lastname" "email phone" "bio bio" "button button";
                 }
-
-
 
                 #form-firstname {
                     grid-area: firstname;
@@ -88,8 +85,6 @@
                     grid-template-areas: "address_1 address_1" "address_2 address_2" "postalcode city" "button button";
                 }
 
-
-
                 #form-address-1 {
                     grid-area: address_1;
                 }
@@ -114,8 +109,6 @@
                 #form-city {
                     grid-area: city;
                 }
-
-
 
                 #form-buttons {
                     grid-area: button;

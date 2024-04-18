@@ -1,25 +1,26 @@
-using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Entities.AccountEntites;
-using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Presentation.WebApp.Configuration.AutoMapper;
+using Presentation.WebApp.Configurations;
 using Presentation.WebApp.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(r => r.LowercaseUrls = true);
-
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperSettings));
 
-builder.Services.AddDbContext<AccountDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Test")));
+builder.Services.RegisterDbContext(builder.Configuration);
+builder.Services.RegisterRepositories();
+builder.Services.RegisterServices();
+
+
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 8;
@@ -27,8 +28,7 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
     options.SignIn.RequireConfirmedEmail = false;
 
 
-})
-    .AddEntityFrameworkStores<AccountDbContext>().AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<AccountDbContext>().AddDefaultTokenProviders();
 
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -58,29 +58,8 @@ builder.Services.AddAuthentication()
     });
 
 
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<AddressService>();
-
-builder.Services.AddScoped<CourseService>();
-
-builder.Services.AddScoped<UserAddressRepository>();
-builder.Services.AddScoped<OptionalAddressRepository>();
-builder.Services.AddScoped<AddressRepository>();
-builder.Services.AddScoped<SavedCourseRepository>();
-
-builder.Services.AddScoped<UploadService>();
-
-
-
-
-
-
 
 var app = builder.Build();
-
-
 
 app.UseHsts();
 app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
@@ -91,8 +70,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UserSessionValidation();
 app.UseAuthorization();
-
-
 
 using (var scope = app.Services.CreateScope())
 {
@@ -106,8 +83,6 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
-
-
 
 app.MapControllerRoute(
     name: "default",

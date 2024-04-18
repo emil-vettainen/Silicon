@@ -7,11 +7,7 @@
         gap: 1rem;
 
         h1 {
-
-            
             padding-bottom: .5rem;
-
-           
         }
 
         form {
@@ -28,7 +24,6 @@
             @include xxl {
                 padding: 0 3rem;
             }
-
 
             .content {
                 display: grid;

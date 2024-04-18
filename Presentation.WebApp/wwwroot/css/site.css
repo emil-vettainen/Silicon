@@ -52,34 +52,6 @@
   --clr-favorite: #33354D;
 }
 
-.dark-theme {
-  --background-color: #0B0F19;
-  --clr-transparent: transparent;
-  --clr-white: #FFFFFF;
-  --clr-gray-100: #151822;
-  --clr-gray-200: #565973;
-  --clr-gray-300: #E2E5F1;
-  --clr-gray-400: #D4D7E5;
-  --clr-gray-500: #B4B7C9;
-  --clr-gray-600: #9397AD;
-  --clr-gray-700: #8A8B90;
-  --clr-gray-800: #FFFFFF;
-  --clr-gray-900: #FFFFFF;
-  --clr-theme: #6366F1;
-  --clr-theme-secondary: #8B5CF6;
-  --clr-theme-opacity: #6365f114;
-  --clr-theme-gradient: (90deg, #6366F1 0%, #8B5CF6 50%, #D946EF 100%);
-  --clr-theme-gradient-background: (-1deg, rgba(99, 101, 241, 0.10) 0%, rgba(216, 70, 239, 0.05) 45%, rgba(241, 244, 253, 0.07) 75%);
-  --clr-danger: #EF4444;
-  --clr-success: #22C55E;
-  --clr-warning: #FFBA08;
-  --clr-info: #4C82F7;
-  --clr-label-dt: #B5B7BA;
-  --clr-toolbox: #1E212B;
-  --clr-sociallinks: #171B25;
-  --clr-input: #1A1D26;
-}
-
 html, body {
   line-height: 160%;
   font-weight: 400;
@@ -374,7 +346,6 @@ h6, .h6 {
   right: 0;
 }
 
-/* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus input:-webkit-autofill,

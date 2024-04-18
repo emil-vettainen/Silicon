@@ -4,7 +4,6 @@
 
     .container {
 
-
         .course-content {
             grid-column: 1 / 13;
             margin-bottom: 2rem;
@@ -16,9 +15,6 @@
             @include xl {
                 grid-column: 1/8;
             }
-
-
-
 
             .course-description {
                 display: flex;
@@ -88,7 +84,6 @@
             background-color: var(--clr-gray-100);
             border: 1px solid var(--clr-gray-100);
             border-radius: 6px;
-
             @include shadow-s;
 
 

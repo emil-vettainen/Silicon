@@ -17,8 +17,6 @@ form {
                 display: flex;
             }
 
-
-
             .form-control {
                 padding: 1rem;
                 width: 100%;
@@ -26,19 +24,13 @@ form {
                 background-color: var(--clr-input);
                 color: var(--clr-text-body);
 
-
-
-
-
                 &:focus {
                     color: var(--clr-text-body);
                 }
 
-
                 &::placeholder {
                     color: var(--clr-text-body);
                 }
-
 
                 &.is-invalid {
                     border-color: var(--clr-danger);
@@ -55,7 +47,6 @@ form {
                 font-weight: 700;
             }
         }
-
 
         .checkbox-group {
             display: flex;
@@ -138,7 +129,6 @@ form {
 
     .input-search-group {
         position: relative;
-
 
         input {
             border: 1px solid;

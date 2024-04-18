@@ -4,7 +4,6 @@
 
     .container {
 
-
         .contact-details {
             grid-column: 1 / 13;
             display: flex;
@@ -16,7 +15,6 @@
                 width: 100%;
             }
 
-
             @include lg {
                 grid-column: 1/6;
                 flex-direction: column;
@@ -26,17 +24,10 @@
                 grid-column: 1/5;
             }
 
-
-
-
-
             .contact-content {
                 display: flex;
                 align-items: flex-start;
                 gap: 20px;
-
-
-
 
                 .icon {
                     font-size: 1.75rem;
@@ -69,14 +60,11 @@
             margin-top: 2rem;
             border-radius: 8px;
             z-index: 99;
-
             @include shadow-s;
-
 
             @include sm {
                 padding: 4rem 5rem 4rem 5rem;
             }
-
 
             @include lg {
                 grid-column: 6/13;
@@ -125,11 +113,7 @@
 }
 
 .map {
-
-
-
     @include lg {
         margin-top: -20rem;
     }
 }
-
