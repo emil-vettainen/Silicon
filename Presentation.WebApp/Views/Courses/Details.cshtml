@@ -1,0 +1,15 @@
+﻿@model CourseDetailsViewModel
+
+@if (Model.Course != null)
+{
+    @await Html.PartialAsync("~/Views/Courses/_CourseDetailsHeaderPartial.cshtml", Model.Course)
+
+    @await Html.PartialAsync("~/Views/Courses/_CourseDetailsContentPartial.cshtml", Model.Course)
+
+    @await Html.PartialAsync("~/Views/Courses/_CourseDetailsAuthorPartial.cshtml", Model.Course)
+
+}
+else
+{
+    <div class="container">Not Found</div>
+}

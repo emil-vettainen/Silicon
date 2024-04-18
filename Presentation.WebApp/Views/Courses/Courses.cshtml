@@ -1,0 +1,89 @@
+﻿@model CourseViewModel
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<section class="courses">
+    <div class="container">
+        
+
+        @if (Model.IsSuccess)
+        {
+            <div class="courses-options">
+                <h1 class="pb-3">Courses</h1>
+                <form class="filters">
+                    <div class="select">
+                        <div class="selected">All categories</div>
+                        <div class="select-options">
+                            <div class="option" data-value="all">All categories</div>
+                            @if (Model.Categories != null)
+                            {
+                                foreach (var category in Model.Categories)
+                                {
+                                    <div class="option" data-value="@category">@category</div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="input-search-group">
+                        <input id="searchQuery" name="searchQuery" placeholder="Search courses" />
+                        <i class="fa-regular fa-search"></i>
+                    </div>
+                </form>
+            </div>
+            if (Model.Courses != null && Model.Courses.Any())
+            {
+                <div id="boxes">
+
+                    @await Html.PartialAsync("~/Views/Shared/Partials/_CourseBoxesPartial.cshtml", Model.Courses)
+
+                    @if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
+                    {
+                        <div class="pagination">
+                            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                            {
+                                if (i == Model.Pagination.CurrentPage)
+                                {
+                                    <span class="btn-theme-small active-pag">@i</span>
+                                }
+                                else
+                                {
+                                    <a class="btn-theme-small next-pag" href="@Url.Action("Courses", new { pageNumber = i, pageSize = Model.Pagination.PageSize})">@i</a>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            }
+            else if (Model.NotFound)
+            {
+                <div>
+                    <h6 class="pt-5 text-center">Unfortunately, we found no courses matching your search.</h6>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <h6 class="pt-5 text-center">Currently there are no courses.</h6>
+                </div>
+            }
+        } 
+        else
+        {
+            <div>
+                <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
+            </div>
+        }
+    </div>
+</section>
+<section class="work-with-us">
+    <div class="container grid-12">
+        <div class="content">
+            <p class="text-l">Ready to get started?</p>
+            <h1>Take Your <span class="skills">Skills</span> to the Next Level</h1>
+            <a class="btn-theme-small" href="#">Work with us</a>
+        </div>
+        <img src="~/images/courses/illustration.svg" alt="Work with us">
+    </div>
+</section>

@@ -1,0 +1,53 @@
+﻿@model CourseViewModel
+
+@if (Model.IsSuccess)
+{
+    <section class="dashboard">
+        <div class="container">
+            <div>
+                <h2>List of Courses</h2>
+                <a class="btn-success-small asp-controller="Admin" asp-action="CreateCourse">New Course</a>
+            </div>
+            @if (Model.Courses != null)
+            {
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in Model.Courses)
+                        {
+                            <tr>
+                                <th> <a asp-action="Details" asp-controller="Courses" asp-route-id="@course.Id">@course.CourseTitle</a> </th>
+                                <th>@course.Author.FullName</th>
+                                <th>@course.CourseCategory</th>
+                                <th class="action">
+
+                                    <a class="btn-theme-small" asp-controller="Admin" asp-action="UpdateCourse" asp-route-id="@course.Id">Edit</a>
+                                    <button class="btn-danger-small" type="button" onclick="deleteCourseAdmin('@course.Id')">Delete</button>
+
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="container">No courses created</div>
+            }
+        </div>
+    </section>
+}
+else
+{
+    <div class="container">
+        <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
+    </div>
+}
+<script defer src="~/js/admin.js"></script>

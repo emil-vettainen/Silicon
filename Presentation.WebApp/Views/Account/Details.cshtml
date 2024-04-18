@@ -1,0 +1,104 @@
+﻿@model AccountDetailsViewModel
+
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Details";
+}
+
+<section class="account-details">
+    <div class="container">
+        <div class="d-flex flex-column gap-4">
+            <h2>Account Details</h2>
+            <div class="basic-info">
+                <h5>Basic Info</h5>
+                <form method="post" asp-controller="Account" asp-action="Details" novalidate>
+                    <div class="content">
+                        <div id="form-firstname" class="input-group">
+                            <label asp-for="BasicInfo.FirstName"></label>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.FirstName" class="form-control non-clickable" readonly />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.FirstName" class="form-control" />
+                                <span asp-validation-for="BasicInfo.FirstName" class="invalid-feedback"></span>
+                            }
+                        </div>
+                        <div id="form-lastname" class="input-group">
+                            <label asp-for="BasicInfo.LastName"></label>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.LastName" class="form-control non-clickable" readonly />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.LastName" class="form-control" />
+                                <span asp-validation-for="BasicInfo.LastName" class="invalid-feedback"></span>
+                            }
+                        </div>
+                        <div id="form-email" class="input-group">
+                            <label asp-for="BasicInfo.Email"></label>
+                            @if (Model.IsExternalAccount)
+                            {
+                                <input asp-for="BasicInfo.Email" class="form-control non-clickable" readonly />
+                            }
+                            else
+                            {
+                                <input asp-for="BasicInfo.Email" class="form-control" />
+                                <span asp-validation-for="BasicInfo.Email" class="invalid-feedback"></span>
+                            }
+                        </div>
+                        <div id="form-phone" class="input-group">
+                            <label asp-for="BasicInfo.Phone">Phone <span>(optional)</span></label>
+                            <input asp-for="BasicInfo.Phone" class="form-control" />
+                            <span asp-validation-for="BasicInfo.Phone" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-bio" class="input-group">
+                            <label asp-for="BasicInfo.Biography">Bio <span>(optional)</span></label>
+                            <textarea asp-for="BasicInfo.Biography" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="BasicInfo.Biography" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-buttons">
+                            <button class="btn-gray-small" type="reset"> Cancel</button>
+                            <button class="btn-theme-small" type="submit" name="action" value="basicinfo">Save changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr />
+
+            <div class="address-info">
+                <h5>Address</h5>
+                <form method="post" asp-controller="Account" asp-action="Details" novalidate>
+                    <div class="content">
+                        <div id="form-address-1" class="input-group">
+                            <label asp-for="AddressInfo!.Addressline_1"></label>
+                            <input asp-for="AddressInfo!.Addressline_1" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.Addressline_1" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-address-2" class="input-group">
+                            <label asp-for="AddressInfo!.Addressline_2">Address line 2 <span>(optional)</span></label>
+                            <input asp-for="AddressInfo!.Addressline_2" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.Addressline_2" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-postalcode" class="input-group">
+                            <label asp-for="AddressInfo!.PostalCode"></label>
+                            <input asp-for="AddressInfo!.PostalCode" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.PostalCode" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-city" class="input-group">
+                            <label asp-for="AddressInfo!.City"></label>
+                            <input asp-for="AddressInfo!.City" class="form-control" />
+                            <span asp-validation-for="AddressInfo!.City" class="invalid-feedback"></span>
+                        </div>
+                        <div id="form-buttons">
+                            <button class="btn-gray-small" type="reset"> Cancel</button>
+                            <button class="btn-theme-small" type="submit" name="action" value="addressinfo">Save changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

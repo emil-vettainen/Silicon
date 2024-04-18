@@ -1,0 +1,39 @@
+.dashboard {
+    background-color: var(--clr-gray-100);
+    padding: 2rem 0;
+
+    .container {
+
+        div {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 1rem;
+            gap: 1rem;
+
+            a {
+                align-self: flex-start;
+                text-decoration: none;
+       
+            }
+        }
+
+        .table {
+            --bs-table-color: var(--clr-text-header);
+            --bs-table-bg: var(--clr-gray-100);
+        }
+
+        .action {
+
+            a {
+                text-decoration: none;
+                width: 100%;
+                margin-bottom: .5rem;
+            }
+
+            button {
+                width: 100%;
+                    
+            }
+        }
+    }
+}

@@ -1,0 +1,85 @@
+﻿@using Infrastructure.Entities.AccountEntites
+@using Microsoft.AspNetCore.Identity
+
+
+@{
+    var themeMode = Context.Request.Cookies["ThemeMode"] ?? "light";
+    var isDark = (themeMode == "dark") ? true : false;
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<header>
+    <nav class="navbar navbar-expand-xl container hamburger-menu">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Default" asp-action="Home"><img id="logo-img" src="~/images/logo/@(isDark ? "logo-dark.svg" : "logo-light.svg")" alt="SiliconDesign"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <i class="fa-sharp fa-regular fa-bars"></i>
+            </button>
+            <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header ">
+                    <button type="button" class="navbar-toggler" data-bs-dismiss="offcanvas" aria-label="Close">
+                        <i class="fa-sharp fa-light fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav gap-3">
+                        <li class="nav-item">
+                            <a class="menu-link" asp-controller="Default" asp-action="Home" asp-fragment="showcase">Overview</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="menu-link" asp-controller="Courses" asp-action="Courses">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-controller="Admin" asp-action="Dashboard">Admin</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="menu-link" asp-controller="Default" asp-action="Home" asp-fragment="features">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu-link" asp-controller="Contact" asp-action="Contact">Contact</a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="offcanvas-btn">
+                        <div class="btn-switch">
+                            <label>Light</label>
+                            <label class="switch" for="theme-toggle">
+                                <input type="checkbox" id="theme-toggle" checked="@isDark">
+                                <span class="slider round"></span>
+                            </label>
+                            <label>Dark</label>
+                        </div>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="navbar-profileimg">
+                                <a asp-action="Details" asp-controller="Account"><img src="~/uploads/profiles-img/@(!string.IsNullOrEmpty(user!.ProfileImageUrl) ? user.ProfileImageUrl : "user-profile.png")" alt="Profile Image"></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <a asp-action="SignIn" asp-controller="Authentication" class="btn-gray-small"><i class="fa-regular fa-arrow-right-to-bracket"></i>Sign in</a>
+                                <a asp-action="SignUp" asp-controller="Authentication" class="btn-theme-small"><i class="fa-regular fa-user"></i>Sign Up</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

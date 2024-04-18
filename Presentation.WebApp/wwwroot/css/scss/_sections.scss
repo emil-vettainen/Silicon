@@ -1,0 +1,44 @@
+@import './sections/_header.scss';
+@import './sections/_footer.scss';
+
+// Default - Home
+@import './sections/default/home/_showcase.scss';
+@import './sections/default/home/_our-tools.scss';
+@import './sections/default/home/_switch-between.scss';
+@import './sections/default/home/_manage-your-work.scss';
+@import './sections/default/home/_our-app.scss';
+@import './sections/default/home/_work-tools.scss';
+@import './sections/default/home/_newsletter.scss';
+
+
+// Default - 404
+@import './sections/default/_not-found.scss';
+
+
+//Authentication
+@import './sections/authentication/_signup.scss';
+@import './sections/authentication/_signin.scss';
+
+
+//Account
+@import './sections/account/_account.scss';
+@import './sections/account/details/_account-details.scss';
+@import './sections/account/security/_account-security.scss';
+@import './sections/account/saved-courses/_account-saved-courses.scss';
+
+
+//Courses
+@import './sections/courses/_all-courses.scss';
+@import './sections/courses/_work-with-us.scss';
+@import './sections/courses/single-course/_single-course-header.scss';
+@import './sections/courses/single-course/_single-course-description.scss';
+@import './sections/courses/single-course/_single-course-author.scss';
+
+
+//Contact
+@import './sections/contact/_contact.scss';
+
+
+//Admin
+@import './sections/admin/_create-update-courses.scss';
+@import './sections/admin/_dashboard.scss';

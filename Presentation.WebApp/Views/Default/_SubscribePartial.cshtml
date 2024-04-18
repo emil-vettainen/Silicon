@@ -1,0 +1,38 @@
+﻿@model HomeViewModel
+
+<section id="subscribe" class="newsletter">
+    <div class="container grid-12">
+        <div class="content">
+            <h1>Don't Want to Miss Anything?</h1>
+            <img src="/images/newsletter/arrows.svg" alt="Arrows">
+            <form id="newsletterForm" method="post" onsubmit="subscriberForm(event)" novalidate>
+                <h5>Sign up for Newsletters</h5>
+                <div class="checkboxes">
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.DailyNewsletter" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.DailyNewsletter)
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.AdvertisingUpdates" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.AdvertisingUpdates)
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.WeenInReview" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.WeenInReview)
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.EventUpdates" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.EventUpdates)
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.StartupsWeekly" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.StartupsWeekly)
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SubscribeModel.Podcasts" class="form-check-input" type="checkbox" /> @Html.DisplayNameFor(x => x.SubscribeModel.Podcasts)
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input asp-for="SubscribeModel.Email" type="email" class="form-control ps-5" placeholder="Your email"><i class="fa-regular fa-envelope"></i>
+                    <button type="submit" class="btn-theme-medium">Subscribe *</button>
+                    <label> * Yes, I agree to the <a href="#">terms</a> and <a href="#">privacy policy</a>.</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

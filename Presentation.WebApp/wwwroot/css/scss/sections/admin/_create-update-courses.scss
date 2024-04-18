@@ -1,0 +1,73 @@
+.courses-admin {
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1rem;
+        padding-top: 2rem;
+
+        form {
+            grid-column: 1/13;
+
+            @include lg {
+                grid-column: 3/11;
+            }
+
+            @include xl {
+                grid-column: 4/10;
+            }
+
+            @include xxl {
+                padding: 0 3rem;
+            }
+
+
+            .content {
+                padding: 2rem 0;
+
+                #form-img {
+                    display: flex;
+                    align-items: center;
+                }
+
+                #highlights-container {
+
+                    .highlight {
+                        &:first-of-type {
+                            .form-control {
+                                margin-bottom: 1rem;
+                            }
+                        }
+                    }
+
+                    .btn-danger-small {
+                        border-radius: 6px !important;
+                        margin: 12px 0;
+                    }
+                }
+
+                #content-container {
+
+                    .content-item {
+                        &:first-of-type {
+                            .form-control {
+                                margin-bottom: .5rem;
+                            }
+                        }
+                    }
+
+                    .btn-danger-small {
+                        border-radius: 6px !important;
+                        margin: 12px 0;
+                    }
+                }
+
+                #form-author-img {
+                    display: flex;
+                    flex-direction: column;
+                    
+                }
+            }
+        }
+    }
+}

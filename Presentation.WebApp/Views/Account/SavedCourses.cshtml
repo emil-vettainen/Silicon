@@ -1,0 +1,36 @@
+﻿@model SavedCoursesViewModel
+
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Saved Courses";
+}
+
+<section class="account-saved-courses">
+    <div class="container">
+        <div class="d-flex flex-column">
+            
+            @if (Model.IsSuccces)
+            {
+                <div class="saved-items">
+                    <h2>Saved Items</h2>
+                    <button onclick="removeAllCourses()" href="" class="btn-danger-medium delete-all"><i class="fa-regular fa-trash"></i>Delete all</button>
+                </div>
+                @if (Model.Courses!.Any())
+                {
+                    
+                    @await Html.PartialAsync("~/Views/Shared/Partials/_CourseBoxesPartial.cshtml", Model.Courses)
+                }
+                else
+                {
+                    <div><h5 class="pt-4">No saved courses</h5></div>
+                }
+            }
+            else
+            {
+                <div>
+                    <h6 class="pt-5 text-center">We were unable to fetch the courses at this moment due to a technical error. Please try again later. If the problem persists, contact our support at support@example.com.</h6>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,32 @@
+﻿@model CourseModel
+
+@if (Model != null)
+{
+    <section class="single-course-author">
+        <div class="container">
+            <img class="author-img" src="~/uploads/authors-img/@(!string.IsNullOrEmpty(Model.Author.ProfileImageUrl) ? Model.Author.ProfileImageUrl : "user-profile-default.png")" alt="@Model.Author.FullName">
+            <div class="author-info">
+                <div>
+                    <div class="author-information">
+                        <p>Learn form the best</p>
+                        <h1>@Model.Author.FullName</h1>
+                        <p>@Model.Author.Biography</p>
+                    </div>
+                    @if (Model.Author.SocialMedia != null && !string.IsNullOrEmpty(Model.Author.SocialMedia.YouTubeUrl) && !string.IsNullOrEmpty(Model.Author.SocialMedia.FacebookUrl))
+                    {
+                        <div class="author-followers">
+                            <a class="youtube btn-theme-m" href="@Model.Author.SocialMedia.YouTubeUrl">
+                                <i class="fa-brands fa-youtube"></i>
+                                @Model.Author.SocialMedia.Subscribers k subscribers
+                            </a>
+                            <a class="facebook btn-theme-m" href="@Model.Author.SocialMedia.FacebookUrl">
+                                <i class="fa-brands fa-square-facebook"></i>
+                                @Model.Author.SocialMedia.Followers k followes
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}

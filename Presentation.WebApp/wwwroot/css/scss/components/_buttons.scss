@@ -11,11 +11,12 @@
     align-items: center;
     gap: 12px;
     transition: all .2s ease-in-out;
+    text-decoration: none;
 
     &:hover {
-        text-decoration: none;
         background: var(--clr-gray-700);
         color: var(--clr-white);
+        text-decoration: none;
     }
 }
 
@@ -45,6 +46,41 @@
     padding: 9px 20px;
 }
 
+.btn-gray-medium {
+    @include button;
+    background-color: var(--clr-gray-200);
+    color: var(--clr-gray-900);
+    font-size: .875rem;
+    padding: 11px 28px;
+}
+
+.btn-danger-small {
+    @include button;
+    background-color: var(--clr-danger);
+    font-size: .875rem;
+    padding: 9px 20px;
+}
+
+.btn-success-small {
+    @include button;
+    background-color: var(--clr-success);
+    font-size: .875rem;
+    padding: 9px 20px;
+}
+
+.btn-danger-medium {
+    @include button;
+    padding: 9px 20px;
+    border: 1px solid #FABEBE;
+    background-color: var(--clr-white);
+    color: var(--clr-danger);
+
+    &:hover {
+        background-color: var(--clr-danger);
+        border-color: var(--clr-danger);
+    }
+}
+
 .btn-switch {
     display: flex;
     align-items: center;
@@ -52,7 +88,7 @@
 
     label {
         @include text-nav;
-        color: var(--clr-label-dt);
+        color: var(--clr-text-header);
     }
 
     .switch {
@@ -120,7 +156,7 @@
     border-radius: 8px;
     width: 44px;
     height: 44px;
-    background-color: var(--clr-gray-200);
+    background-color: var(--clr-sociallinks);
     color: var(--clr-gray-800);
 
     &:hover {

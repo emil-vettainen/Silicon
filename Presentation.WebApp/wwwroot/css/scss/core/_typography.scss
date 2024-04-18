@@ -4,7 +4,7 @@ $font-manrope: 'Manrope', sans-serif;
 @mixin standard-text {
     line-height: 160%;
     font-weight: 400;
-    color: var(--clr-gray-700);
+    color: var(--clr-text-body);
     font-family: $font-manrope;
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@ $font-manrope: 'Manrope', sans-serif;
 @mixin standard-heading {
     line-height: 130%;
     font-weight: 800;
-    color: var(--clr-gray-900);
+    color: var(--clr-text-header);
     font-family: $font-manrope;
     margin: 0;
     padding: 0;
