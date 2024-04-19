@@ -117,7 +117,10 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
     #region SignOut
     public new async Task<IActionResult> SignOut()
     {
-        Response.Cookies.Delete("AccessToken");
+        if (HttpContext.Request.Cookies.ContainsKey("AccessToken"))
+        {
+            HttpContext.Response.Cookies.Delete("AccessToken");
+        }
         await _signInManager.SignOutAsync();
         return RedirectToAction("Home", "Default");
     }

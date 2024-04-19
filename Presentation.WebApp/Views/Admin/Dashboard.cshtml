@@ -28,8 +28,8 @@
                                 <th>@course.CourseCategory</th>
                                 <th class="action">
 
-                                    <a class="btn-theme-small" asp-controller="Admin" asp-action="UpdateCourse" asp-route-id="@course.Id">Edit</a>
-                                    <button class="btn-danger-small" type="button" onclick="deleteCourseAdmin('@course.Id')">Delete</button>
+                                    <a class="btn-theme-small" asp-controller="Admin" asp-action="UpdateCourse" asp-route-id="@course.Id"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <button class="btn-danger-small" type="button" onclick="deleteCourseAdmin('@course.Id')"><i class="fa-regular fa-trash"></i></button>
 
                                 </th>
                             </tr>

@@ -101,7 +101,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
         
         try
         {
-            var isFirstUser = !await _userManager.Users.AnyAsync();
+            var isFirstUser = !await _userManager.Users.AnyAsync(x => !x.IsExternalAccount);
 
             var userExists = await _userManager.Users.AnyAsync(x => x.Email == dto.Email);
             if (userExists)

@@ -140,6 +140,10 @@ public class AccountController(UserManager<UserEntity> userManager, UserService 
                         TempData["Error"] = "An unexpected error occurred. Please try again!";
                         return View(viewModel);
                     }
+                    if (HttpContext.Request.Cookies.ContainsKey("AccessToken"))
+                    {
+                        HttpContext.Response.Cookies.Delete("AccessToken");
+                    }
                     return RedirectToAction("SignIn", "Authentication");
                 }
                 break;
