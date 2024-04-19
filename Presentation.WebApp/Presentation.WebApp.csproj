@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\js\queryfilters.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\queryfilters.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +26,7 @@
     <None Include="wwwroot\images\tools\presentation.svg" />
     <None Include="wwwroot\images\tools\shield.svg" />
     <None Include="wwwroot\images\tools\subtasks.svg" />
+    <None Include="wwwroot\js\queryfilters.js" />
   </ItemGroup>
 
   <ItemGroup>
