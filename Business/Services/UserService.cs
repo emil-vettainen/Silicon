@@ -67,6 +67,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                 }
                 else
                 {
+                    await _userManager.AddToRoleAsync(userEntity, "User");
                     user = await _userManager.FindByEmailAsync(userEntity.Email!);
                     await _signInManager.SignInAsync(user!, isPersistent: false);
                     return ResponseFactory.Ok();
@@ -79,6 +80,7 @@ public class UserService(UserManager<UserEntity> userManager, SignInManager<User
                     user.FirstName = userEntity.FirstName;
                     user.LastName = userEntity.LastName;
                     user.Email = userEntity.Email;
+                    user.Modified = DateTime.Now;
                   
                     await _userManager.UpdateAsync(user);
                 }

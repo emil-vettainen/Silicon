@@ -142,7 +142,7 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
         var result = await _userService.HandleExternalLoginAsync();
         switch (result.StatusCode)
         {
-            case ResultStatus.OK: 
+            case ResultStatus.OK:
                 if (HttpContext.User != null)
                 {
                     return RedirectToAction("Home", "Default");
@@ -152,6 +152,18 @@ public class AuthenticationController(UserManager<UserEntity> userManager, SignI
                     TempData["Error"] = "Authentication failed.Please try again.";
                     return RedirectToAction("SignIn", "Authentication");
                 }
+
+            case ResultStatus.UNAVAILABLE:
+            if (HttpContext.User != null)
+            {
+                TempData["Warning"] = "Acces token failed!";
+                return RedirectToAction("Home", "Default");
+            }
+            else
+            {
+                TempData["Error"] = "Authentication failed.Please try again.";
+                return RedirectToAction("SignIn", "Authentication");
+            }
             default:
                 TempData["Error"] = "An unexpected error occurred, Please try again!";
                 break;

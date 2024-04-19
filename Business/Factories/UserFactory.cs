@@ -36,7 +36,8 @@ public class UserFactory
                 LastName = lastName,
                 Email = email,
                 UserName = email,
-                IsExternalAccount = isExternal
+                IsExternalAccount = isExternal,
+                Created = DateTime.Now,
             };
         }
         catch (Exception ex)
