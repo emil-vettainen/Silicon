@@ -66,24 +66,10 @@ app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 app.UseAuthentication();
 app.UserSessionValidation();
 app.UseAuthorization();
-
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roles = ["Admin", "User"];
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-}
-
+await RolesConfiguration.RegisterRoles(app.Services);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Default}/{action=Home}/{id?}");
